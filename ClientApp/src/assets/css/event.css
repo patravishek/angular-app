@@ -1,0 +1,438 @@
+ul.events-dates {
+  list-style: none;
+  margin: auto;
+  margin-left: 0px;
+  text-align: center;
+}
+
+ul.events-dates li {
+  display: inline;
+  padding: 10px;
+}
+
+ul.events-dates li:hover{
+  text-decoration: underline;
+}
+span.fa.fa-envelope :hover{
+  color:rgb(255, 255, 255);
+}
+
+.single-event .event-img {
+  height: 200px;
+  width: 100%;
+  background-image: url('../images/fireworks.jpg');
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center;
+}
+
+#new-event-btn {
+  margin-bottom: 20px;
+}
+
+#shared-event-button {
+  margin-top: 0px;
+}
+
+#share-event-email i {
+  margin-right: 10px;
+  color: #f14b15;
+}
+
+#share-event-email .modal-body {
+  padding-bottom: 50px;
+}
+
+#share-event-email textarea.profile-edit, #share-event-email input.profile-edit {
+  width: 100% !important;
+}
+
+/*New Event page*/
+.new-event{
+ width: 200px;
+ height: 200px;
+ margin: auto;
+ background-size: contain;
+ background-color: rgba(0,0,0,0.03);
+ background-position: center;
+ background-repeat: no-repeat;
+}
+
+.event-list {
+  list-style: none;
+  font-family: "Open Sans", sans-serif;
+  margin: 0px;
+  padding-top: 20px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+.event-list > li > time {
+  display: inline-block;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  background-color: #f14b15;   
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.event-list > li:nth-child(even) > time {
+  background-color: #f14b15;   
+}
+.event-list > li > time > span {
+  display: none;
+}
+.event-list > li > time > .day {
+  display: block;
+  font-size: 4em;
+  font-weight: 100;
+  line-height: 1;
+  padding-top: 10px;
+}
+.event-list > li time > .month {
+  display: block;
+  font-size: 24pt;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.event-list > li > .info {
+  padding-top: 15px;
+  text-align: center;
+}
+.event-list > li > .info > .title {
+  font-size: 17pt;
+  font-weight: 700;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+.event-list > li > .info > .desc {
+  margin: 0px;
+}
+.event-list > li > .info > ul,
+.event-list > li > .social > ul {
+  display: table;
+  list-style: none;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  width: 100%;
+  text-align: center;
+}
+.event-list > li > .social > ul {
+  margin: 0px;
+}
+.event-list > li > .info > ul > li,
+.event-list > li > .social > ul > li {
+  display: table-cell;
+  cursor: pointer;
+  color: rgb(30, 30, 30);
+  font-size: 11pt;
+  font-weight: 300;
+  padding: 3px 0px;
+  width: 33%;
+}
+.event-list > li > .info > ul > li > a {
+  display: block;
+  width: 100%;
+  color: rgb(30, 30, 30);
+  text-decoration: none;
+} 
+.event-list > li > .social > ul > li {    
+  padding: 0px;
+}
+.event-list > li > .social > ul > li > a {
+  padding: 3px 0px;
+} 
+.event-list > li > .info > ul > li:hover,
+.event-list > li > .social > ul > li:hover {
+
+}
+
+.event-list .social ul li {
+  height: 41px;
+}
+.facebook a,
+.twitter a,
+.email a {
+  display: block;
+  width: 100%;
+}
+
+.facebook a {
+  color: rgb(75, 110, 168) !important;
+}
+
+.already-shared a {
+  color: white !important;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.already-shared a:hover {
+  color: white !important;
+  background-color: rgba(0,0,0,0.1) !important;
+}
+
+.email a{
+  color: #f14b15; 
+}
+
+.twitter a {
+  color: rgb(79, 213, 248);
+}
+
+.facebook:hover a{
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(75, 110, 168);
+}
+.twitter:hover a {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(79, 213, 248);
+}
+.email:hover a{
+  color: rgb(255, 255, 255) !important;
+  background-color: #f14b15; 
+}
+
+.single-event .facebook a:hover{
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(75, 110, 168);
+}
+.twitter:hover a {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(79, 213, 248);
+}
+.email:hover a{
+  color: rgb(255, 255, 255) !important;
+  background-color: #f14b15; 
+}
+button#post-profile-photo-update mt-5{
+  margin-top: 5px !important;
+}
+.event-photo {
+  width: 800px;
+  height: 300px;
+  max-width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url('../images/livestockcity-logo-square.png');
+  margin: 0px;
+  padding: 0px;
+}
+
+
+
+@media (max-width:767px){
+  .social ul li {
+  height: 20px !important;
+}
+}
+
+.social ul li a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+@media (min-width: 768px) {
+
+
+
+  .event-list > li {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0px;
+  }
+  .event-list > li > time,
+  .event-list > li > img  {
+    display: inline-block;
+  }
+  .event-list > li > time,
+  .event-photo{
+    width: 120px;
+    height: 120px;
+    float: left;
+  }
+  .event-list > li > .info {
+
+    overflow: hidden;
+  }
+  .event-list > li > time
+  {
+    width: 120px;
+    height: 120px;
+    padding: 0px;
+    margin: 0px;
+  }
+  .event-list > li > .info {
+    position: relative;
+    height: 120px;
+    text-align: left;
+    padding-right: 40px;
+  }   
+  .event-list > li > .info > .title, 
+  .event-list > li > .info > .desc,
+  .event-list > li > .info > .time-and-location{
+    padding: 0px 20px;
+  }
+
+    .event-list > li > .info > .time-and-location{
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 10px;
+  }
+
+  .event-list > li > .info > ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
+  .event-list > li > .social {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    width: 40px;
+  }
+  .event-list > li > .social > ul {
+    border-left: 1px solid rgb(230, 230, 230);
+  }
+  .event-list > li > .social > ul > li {          
+    display: block;
+    padding: 0px;
+  }
+  .event-list > li > .social > ul > li > a {
+    display: block;
+    width: 40px;
+    padding: 10px 0px 9px;
+  }
+
+}
+
+@media (max-width: 1199px){
+  .single-event h3.title {
+  margin-top: 20px;
+}
+
+}
+
+
+.event-box {
+  margin-bottom: 20px;
+}
+
+.event-suggestion-date, .event-suggestion-location{
+  font-size:.9em;
+}
+
+.event-description {
+  margin-top: 20px;
+}
+
+.feed-panel-box.single-event {
+  padding: 40px;
+}
+
+@media (min-width: 506px){
+  .social.single-event {
+    display:inline;
+  }
+}
+
+.social.single-event {
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+}
+
+
+
+
+
+
+
+.single-event .info {
+  margin-bottom: 10px;
+}
+
+.social.single-event ul {
+  list-style: none;
+  padding-left: 0px;
+  display: inline;
+}
+
+
+.social.single-event ul li {
+    width: 40px;
+    text-align: center;
+    display: inline;
+    margin: 2px;
+}
+
+.single-event .facebook a,
+.single-event .twitter a,
+.single-event .email a {
+  display: inline-block;
+  width: 50px;
+}
+
+.single-event .desc {
+  font-style: italic;
+}
+
+.single-event .time-and-location {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.single-event .month, .single-event .day, .single-event .year {
+  color: #f14b15;
+  font-size: 1.2em;
+}
+
+.rsvp {
+  color: rgba(0,0,0,0.5);
+}
+
+#rsvp-received {
+  display: none;
+  background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15;
+}
+
+@media (min-width:1200px){
+  .single-event h3.title {
+  margin-top: 10px;
+}
+
+}
+
+textarea.event-description {
+  resize: vertical;
+  height: 200px;
+}
+
+.checkbox {
+  margin-left: 0px;
+}
+
+input[type=radio] {
+  margin-right: 5px;
+  }
+
+  .event-suggestion-divider {
+  font-size: .3em;
+  vertical-align: middle;
+}
+
+.events {
+  margin-top: 0px;
+}
+
+image-cropper div img {
+  width: 250px !important;
+  height: 180px !important;
+}

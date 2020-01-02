@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('~bootstrap/dist/css/bootstrap.min.css');
+@import url('assets/css/global.css');
+@import url('assets/css/contact.css');
+@import url('assets/css/directory.css');
+@import url('assets/css/edit.css');
+@import url('assets/css/event.css');
+@import url('assets/css/feed.css');
+@import url('assets/css/following.css');
+@import url('assets/css/footer.css');
+@import url('assets/css/home.css');
+@import url('assets/css/inbox.css');
+@import url('assets/css/lightbox.css');
+@import url('assets/css/livestockcity.css');
+@import url('assets/css/modal.css');
+@import url('assets/css/navbar.css');
+@import url('assets/css/profile.css');
+@import url('assets/css/signup.css');
+@import url('assets/css/herd.css');
+@import url('assets/css/animal.css');
+@import url('assets/css/shop.css');
+@import url('assets/css/sell.css');
+@import url('assets/css/auction.css');
+@import url('assets/css/croppr.css');
+@import url('assets/css/dashboard.css');
+@import url('assets/css/offers.css');
+@import url('assets/css/print.css');

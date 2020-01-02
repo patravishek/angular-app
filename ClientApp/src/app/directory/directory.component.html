@@ -1,0 +1,73 @@
+<!-- Page Content -->
+<!-- Search Tool Content -->
+<div id="page-content-wrapper">
+
+  <div class="container">
+
+    <div class="row">
+      <!-- Search  State  Content -->
+      <h1>Directories/Cattle</h1>
+      <form name="searchForm" #searchForm="ngForm" novalidate>
+        <div class="col-md-12">
+          <div class="form-group col-xs-4 col-md-4">
+            <label for="state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="searchModel.state">
+              <option *ngFor="let state of states" [ngValue]="state.id">{{state.name}} </option>
+            </select>
+          </div>
+          <div class="form-group col-xs-2 col-md-2">
+            <label for="animalType">Animal Type</label>
+            <select class="form-control" name="animalType" [(ngModel)]="searchModel.animalType" (change)="getBreeds(searchModel.animalType)">
+              <option *ngFor="let animalType of animalTypes" [ngValue]="animalType.id">{{animalType.name}} </option>
+            </select>
+          </div>
+          <div class="form-group col-xs-2 col-md-2">
+            <label for="breed">Breed</label>
+            <select class="form-control" name="breed" [(ngModel)]="searchModel.breed">
+              <option *ngFor="let breed of breeds" [ngValue]="breed.id">{{breed.name}} </option>
+            </select>
+          </div>
+          <div class="form-group m-t-20">
+            <button id="searchButton" type="button" (click)="search()" class="btn">Search</button>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div id="custom-search-input" style="margin-top:20px">
+            <div class="input-group">
+              <input type="text" class="search-query form-control" [(ngModel)]="searchModel.farmName" name="farmName"
+                placeholder="Or search by farm name" />
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" (click)="search()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- End Search Tool Content -->
+
+  <!-- Begin Directory Image Grid -->
+
+  <div class="container directory-grid">
+    <!--CATTLE-->
+    <div class="row">
+      <div class="col-md-3" *ngFor="let item of directories; let i = index">
+        <a style="cursor: pointer;" (click)="viewDirectoryDetails(item);">
+          <div class="panel panel-default feed-panel-box">
+            <div class="panel-body">
+              <div class="directory-box">
+                <img class="directory-photo" [src]="item.profilePic">
+              </div>
+            </div>
+            <div class="panel-footer">{{item.name}}</div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

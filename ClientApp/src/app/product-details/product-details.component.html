@@ -1,0 +1,68 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-12">
+          <i class="fa fa-print pull-right edit-records" aria-hidden="true"></i>
+          <i class="fa fa-envelope pull-right edit-records" data-toggle="modal" data-target="#shareRecord"
+            aria-hidden="true"></i>
+          <div class="breadcrumb">
+            <a class="breadcrumb-item" href="#">Farm Stores </a>
+            <span class="breadcrumb-item active">{{productModel.storeName}} </span>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-5">
+            <img src="{{productModel.primaryImageUrl}}" id="product-photo-primary" />
+            <div class="secondary-img">
+              <span *ngFor="let item of productModel.productPhotos">
+                <a href="{{productModel.bigImageUrl}}" data-lightbox="post-photo">
+                  <img src="{{item.imageUrl}}" class="product-photo-secondary" />
+                </a>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-offset-1 col-md-5 col-sm-12">
+            <div class="row">
+              <div class="product-actions col-md-12 col-sm-4">
+                <h4 class="d-inline">{{productModel.name}}</h4>
+                <ul class="product-info">
+                  <li id="product-price">${{productModel.price}}</li>
+                  <li>
+                    <span>{{productModel.category}}</span></li>
+                  <li>{{productModel.stockNumber}}</li>
+                  <li>{{productModel.measuringUnit}}</li>
+                  <div class="form-group">
+                    <label for="exampleSelect1">Select Quantity</label>
+                    <select class="form-control" id="exampleSelect1" name="prodQty" [(ngModel)]="qty">
+                      <option *ngFor="let item of qtyList" value="item">{{item}}</option>
+                    </select>
+                  </div>
+                </ul>
+                <div>
+                  <button id="product-buy-btn" class="btn buy-product" (click)="addToCart()">Add To Cart</button>
+                </div>
+                <hr>
+              </div>
+              <div class="product-desc-area col-sm-8 col-md-12 col-xs-8">
+                <span>Description</span><br>
+                <span id="product-description">{{productModel.description}}</span>
+                  <div class="spacer"></div>
+                  <hr>
+                  <li><span>Seller Information</span></li>
+                  <span class="seller-name"><a [routerLink]="['/farmstore']">{{productModel.farmStoreName}}</a>
+                  </span>
+                  <span class="seller-location">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    {{productModel.location}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+  <!-- /.container -->
+</div>

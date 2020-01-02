@@ -1,0 +1,180 @@
+#food-seller, #nonfood-seller, #list-classifieds, #list-auctions {
+  width: 200px;
+  height: 200px;
+  border-radius: 5%;
+  margin: 10px;
+  font-family: "Open Sans";
+}
+
+/* #add-classified, #add-auction {
+  display: none;
+} */
+
+.fa-cutlery, .fa-shopping-bag, .fa-newspaper-o, .fa-gavel  {
+  font-size: 3em;
+  color: #f14b15;   
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+#add-nonfood {
+  display: none;
+}
+
+/* #add-food, #add-classified {
+  display: none;
+} */
+
+
+
+#application-received {
+  display: none;
+}
+
+#food-seller-info {
+  font-size: 1.1em;
+  line-height: 1.5;
+  padding: 40px;
+}
+
+ul#photo-tips li {
+  color: gray;
+  font-size: .75em;
+}
+
+.add-product-section, .add-product-section {
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.uploaded-product-photo {
+  display: inline;
+  margin: 5px;
+}
+
+
+.store-edit {
+  width: 100%;
+  height: 30px;
+  border: none;
+  background: rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+input.seller-edit, textarea.seller-edit, select.seller-edit{
+  height: 30px;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.015);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.03);
+}
+
+textarea.seller-edit {
+  resize: vertical;
+}
+
+input.seller-edit:focus,  textarea.seller-edit:focus {
+  border: 1px solid #f14b15;   
+  box-shadow: none;
+}
+
+.shipping-cost {
+  display: none;
+}
+
+
+#food-seller, #nonfood-seller, #list-classifieds, #list-auctions {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 200px;
+  height: 200px;
+  border-radius: 5%;
+  margin: 10px;
+  font-family: "Open Sans";
+  background-color: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.8);
+
+}
+/* 
+#add-classified, #add-auction {
+  display: none;
+} */
+
+.fa-cutlery, .fa-shopping-bag, .fa-newspaper-o, .fa-gavel  {
+  font-size: 3em;
+  color: #f14b15;   
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+#add-nonfood {
+  display: none;
+}
+
+/* #add-food, #add-classified {
+  display: none;
+} */
+
+
+
+#application-received {
+  display: none;
+}
+
+#food-seller-info {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.product-list .list-group-item {
+  height: 75px;
+}
+
+.product-stock, .product-price {
+  font-size: .9em;
+  width: 45%;
+}
+
+.product-stock {
+  clear: left;
+}
+
+.product-name {
+  display: inline;
+  float: left;
+}
+
+.product-photo-secondary {
+  display: inline;
+  margin-top: 5px;
+}
+
+.product-info {
+  margin-top: 10px;
+}
+
+#product-price {
+  font-size: 1.5em;
+  color: #f14b15;   
+}
+
+ul.product-info li {
+  font-size: .9em;
+  text-transform: uppercase;
+  color: gray;
+  display: block;
+  margin-bottom: 10px;
+  font-family: "Open Sans";
+
+}
+
+.buy-product {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+#product-description {
+  margin-bottom: 25px;
+
+}

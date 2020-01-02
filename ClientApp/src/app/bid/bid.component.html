@@ -1,0 +1,496 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-8 feed-panel-box">
+          <div class="profile-box">
+            <h4>Seller Info</h4>
+            <div class="col-lg-6">
+              <img class="seller-photo pull-left" src="{{sellerModel.sellerImageUrl}}" />
+              <span class="post-author"><a href="#">{{sellerModel.sellerName}}</a></span>
+              <span class="post-author-farm"><a href="#">{{sellerModel.farmName}}</a></span>
+            </div>
+            <div class="col-lg-6">
+              <button class="btn btn-sm pull-right contact-seller" data-toggle="modal" data-target="#compose">Contact
+                Seller</button>
+              <span class="seller-location">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{sellerModel.location}}</span>
+            </div>
+
+            <h4>{{sellerModel.auctionGroup}}</h4>
+            <div class="col-lg-6">
+              <span class="auction-detail"><strong>{{sellerModel.auctionDetail}}</strong></span><br>
+              <span>Group auction</span>
+            </div>
+            <div class="col-lg-6">
+              <span class="auction-price-label">Bid</span>
+              <span class="auction-price">${{sellerModel.bid}}</span>
+              <span class="auction-price-label">Buy</span>
+              <span class="auction-price">${{sellerModel.buy}}</span>
+              <p class="card-text auction-info">
+                <span>{{sellerModel.auctionInfo}}</span>
+            </div>
+
+          </div>
+
+        </div>
+        <!--Check out box-->
+        <div class="col-lg-4 hidden-md hidden-sm hidden-xs">
+          <div class="affix col-lg-3">
+            <!--Suggested farms box-->
+            <div class="col-lg-12 feed-panel-box">
+              <div class="suggestion-box">
+                <div class="suggestion-box-header">
+                  <h6>Group Bid and Buy</h6>
+                </div>
+                <div class="checkout-box">
+                  <span class="checkout-heading">How you're paying</span>
+                  <span class="checkout-detail">{{groupBidBuyModel.paymentMethod}}
+                    {{groupBidBuyModel.cardNumber}}</span>
+
+                  <span class="checkout-heading">Start Price</span>
+                  <span class="checkout-detail">${{groupBidBuyModel.startPrice}}</span>
+                  <span class="checkout-heading">Shipping:</span>
+                  <span class="checkout-detail">{{groupBidBuyModel.shipping}}</span>
+                  <span class="checkout-heading total"><strong>Make Offer:</strong></span>
+                  <input type="number" class="checkout-detail bid-amount" placeholder="$"
+                    [(ngModel)]="groupBidBuyModel.bidAmount">
+                  <button class="btn place-bid-btn" [routerLink]="['/bidOffer']">Make Offer</button>
+                </div>
+                <div class="buy-now">
+                  <span class="checkout-heading total">Buy Now Price</span>
+                  <span class="checkout-detail total">${{groupBidBuyModel.buyNowPrice}}</span>
+                  <button class="btn buy-now-btn" [routerLink]="['/cartCheckout']">Proceed To Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-lg-8 feed-panel-box" *ngFor="let bid of bids;let i=index;">
+              <div class="profile-box">
+                <h4 class="d-inline">{{bid.name}}</h4>
+                <i class="fa fa-print pull-right edit-records" aria-hidden="true"></i>
+                <i class="fa fa-envelope pull-right edit-records" data-toggle="modal" data-target="#shareRecord"
+                  aria-hidden="true"></i>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <!-- Overview info - doesn't toggle -->
+                    <div class="record-profile-photo">
+                      <a href="{{bid.bigImageUrl}}" data-lightbox="profile-photo">
+                        <img src="{{bid.imageUrl}}" id="record-photo" class="profile-photo" />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <ul class="animal-info">
+                      <li>My favorite goat on planet Earth.</li>
+                      <li><strong>Type: </strong>{{bid.type}}</li>
+                      <li><strong>Breed: </strong>{{bid.brred}}</li>
+                      <li><strong>Gender: </strong>{{bid.gender}}</li>
+                      <li><strong>DOB: </strong>{{bid.dob | date :'MM-dd-yyyy'}}</li>
+                      <li><strong>Age: </strong>{{bid.age}} year old</li>
+                      <li><strong>Height: </strong>{{bid.height}}</li>
+                    </ul>
+    
+                  </div>
+                </div>
+                <div class="spacer"></div>
+    
+                <ul class="nav nav-pills">
+                  <li class="active">
+                    <a href="#id-details_{{i}}" data-toggle="tab">ID Details</a>
+                  </li>
+                  <li><a href="#health-issues_{{i}}" data-toggle="tab">Health Issues</a>
+                  </li>
+                  <li><a href="#health-records_{{i}}" data-toggle="tab">Health Records</a>
+                  </li>
+                  <li><a href="#show-records_{{i}}" data-toggle="tab">Show Records</a>
+                  </li>
+                  <li><a href="#breed-records_{{i}}" data-toggle="tab">Breed Records</a>
+                  </li>
+                  <li><a class="tabAll">All</a></li>
+                </ul>
+                <hr class="pill-nav">
+                <div class="spacer"></div>
+                <!-- Tabbed profile info -->
+                <div class="tab-content clearfix">
+                  <div class="tab-pane active" id="id-details_{{i}}">
+                    <div class="col-lg-6">
+                      <h5 class="d-inline">Identification Details
+                      </h5>
+                      <ul class="animal-info" id="id-info">
+                          <li><strong>ID: </strong>
+                            <span class="record-detail">
+                              {{bid.idDetailsModel.idNumber}}
+                            </span>
+                          </li>
+                          <li><strong>Color: </strong>
+                            <span class="record-detail">
+                                {{bid.idDetailsModel.color}}
+                            </span>
+                          </li>
+                          <li><strong>Microchip: </strong>
+                            <span class="record-detail">
+                                {{bid.idDetailsModel.microchipName}}
+                            </span>
+                          </li>
+                          <li><strong>Tattoo: </strong>
+                            <span class="record-detail">
+                                {{bid.idDetailsModel.tattoSymbol}}
+                            </span>
+                          </li>
+                          <li><strong>Registration Certificate: </strong>
+                          </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <a *ngFor="let item of bid.idDetailsModel.recordPhotos"  href="{{item.bigImageUrl}}" data-lightbox="animal-photo">
+                          <img src="{{item.imageUrl}}" id="record-photo" class="animal-photo">
+                        </a>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="health-issues_{{i}}">
+                      <div class="col-lg-12">
+                        <h5 class="d-inline">Health Issues</h5>
+                        <table class="table table-hover">
+                          <tbody>
+                            <tr *ngFor="let item of bid.healthIssueModel">
+                              <td>{{item.healthDate | date:'MM/dd/yy'}}</td>
+                              <td>{{item.healthDescription}}</td>
+                              <td>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="health-records_{{i}}">
+                      <div class="col-lg-12">
+                        <h5 class="d-inline">Health Records</h5>
+                        <table class="table table-hover">
+      
+                          <tbody *ngFor="let item of bid.healthRecordModel">
+                            <tr>
+                              <td>{{item.recordDate | date:"MM/dd/yy"}}</td>
+                              <td>{{item.type}}</td>
+                              <td>{{item.healthRecordDescription}}</td>
+                              <td>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="show-records_{{i}}">
+                      <div class="col-lg-12">
+                        <h5 class="d-inline">Show Records</h5>
+                        <table class="table table-hover">
+      
+                          <tbody>
+                            <tr *ngFor="let item of bid.healthShowRecordModel">
+                              <td>{{item.showRecordDate | date:'MM/dd/yy'}}</td>
+                              <td>{{item.event}}</td>
+                              <td>{{item.healthShowRecordachievement}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="breed-records_{{i}}">
+                      <div class="col-lg-12">
+                        <h5 class="d-inline">Breed Records</h5>
+                        <table class="table table-hover">
+      
+                          <tbody>
+                            <tr *ngFor="let item of bid.breedRecordModel">
+                                <td>{{item.startDate | date:'MM/dd/yy'}}</td>
+                                <td>{{item.dueDate | date:'MM/dd/yy'}}</td>
+                              <td>{{item.breadDescription}}</td>
+                              <td>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+     
+
+        <div class="col-lg-12 feed-panel-box hidden-lg">
+          <div class="suggestion-box">
+            <div class="suggestion-box-header">
+              <h6>Group Bid and Buy</h6>
+            </div>
+            <div class="profile-box">
+              <div class="checkout-box">
+                <span class="checkout-heading">How you're paying</span>
+                <span class="checkout-detail">{{groupBidBuyModel.paymentMethod}}
+                  {{groupBidBuyModel.cardNumber}}</span>
+
+                <span class="checkout-heading">Start Price</span>
+                <span class="checkout-detail">${{groupBidBuyModel.startPrice}}</span>
+                <span class="checkout-heading">Shipping:</span>
+                <span class="checkout-detail">{{groupBidBuyModel.shipping}}</span>
+                <span class="checkout-heading total"><strong>Make Offer:</strong></span>
+                <input type="number" class="checkout-detail bid-amount" placeholder="$"
+                  [(ngModel)]="groupBidBuyModel.bidAmount">
+                <button class="btn place-bid-btn" [routerLink]="['/bidOffer']">Make Offer</button>
+              </div>
+              <div class="buy-now">
+                <span class="checkout-heading total">Buy Now Price</span>
+                <span class="checkout-detail total">${{groupBidBuyModel.buyNowPrice}}</span>
+                <a class="btn buy-now-btn">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+
+<div id="healthIssues" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health issue</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+            <textarea class="record-add profile-edit" name="health-issue" placeholder="Description"></textarea>
+            <label class="pull-left">Date:</label>
+            <br>
+            <input type="date" class="record-edit livestock-info-select">
+          </div>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="healthRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health records</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+
+            <label class="pull-left">Type:</label>
+            <select class="pull-left livestock-info-select" name="type" id="todo-type">
+              <option></option>
+              <option value="weight">Weight</option>
+              <option value="clipping">Toenail/hoof clipping</option>
+              <option value="shearing">Shearing</option>
+              <option value="injection" id="injection-selected">Injection</option>
+              <option value="other">Other</option>
+            </select>
+            <br>
+            <label class="pull-left">Date:</label>
+            <br>
+            <input type="date" class="record-edit livestock-info-select">
+
+            <div id="medication">
+              <label class="pull-left">Medication Type:</label>
+              <select class="pull-left livestock-info-select" name="medication-type">
+                <option></option>
+                <option value="dectomax-injection">Dectomax injection</option>
+                <option value="dectomax-pouron">Dectomax pour on</option>
+                <option value="ivomec-injectable">Ivomec injectable</option>
+                <option value="ivomec-pouron">Ivomec pour on</option>
+                <option value="safeguard-paste">Safeguard paste</option>
+              </select>
+            </div>
+            <div class="spacer"></div>
+
+            <textarea class="record-add profile-edit" name="health-records" placeholder="Description"></textarea>
+            <br>
+            <label>Add reminder</label>
+            <label class="switch">
+              <input type="checkbox" id="reminder-checked">
+              <span class="slider round"></span>
+            </label>
+            <div id="reminder">
+              <label>Due:</label>
+              <input type="radio" id="once-selected" name="repeat" value="once"> Once
+              <input type="radio" id="repeat-selected" name="repeat" value="repeat"> Repeated<br><br>
+
+              <div id="once">
+                <label>Due On:</label><input type="date" class="record-edit"><br>
+              </div>
+
+              <div id="repeated">
+                <label>Due every:</label>
+                <input type="number" id="todo-times" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select>
+                <label>for</label>
+                <input type="number" id="todo-frequency" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select><br><br>
+                <label>Start date:</label>
+                <input type="date" class="record-edit">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="showRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add show records</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+            <label class="pull-left">Event:</label>
+            <input type="text" class="record-edit profile-edit">
+
+            <textarea class="record-add profile-edit" name="health-records" placeholder="Achievement"></textarea>
+            <label class="pull-left">Date</label>
+            <input type="date" class="record-edit">
+          </div>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="breedRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add breeding records</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+            <label class="pull-left">Date:</label>
+            <input type="date" class="record-edit">
+
+            <textarea class="record-add profile-edit" name="health-records" placeholder="Description"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="shareRecord" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Share Animal Record</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+            <label class="pull-left">Share record with this email:</label>
+            <input type="email" class="record-edit">
+            <textarea class="record-add profile-edit" name="health-issue"
+              placeholder="Add an optional message"></textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Compose message modal -->
+<div id="compose" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="cto">Compose Message</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form #composeMessageForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="pull-left">To:</label>
+            <input type="text" class="form-control" placeholder="Seller Name" disabled name="to"
+              [(ngModel)]="sellerModel.sellerName"><br><br>
+            <label class="pull-left">Message:</label>
+            <textarea id="sender-msg" name="senderMessage" [(ngModel)]="sellerModel.message" #senderMessage="ngModel"
+              required></textarea>
+            <p class="invalid-feedback"
+              *ngIf="senderMessage.errors?.required && (senderMessage.touched || isMessageSubmitted)">
+              Message is required</p>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="msg-btns">
+            <button class="btn btn-sm pull-right" id="send-btn" type="submit"
+              (click)="sendMessage(composeMessageForm)">Send</button>
+            <input type="file" class="photoUpdate" (change)="uploadFile($event)" />
+            <a class="btn btn-sm pull-right post-photo-update"><i class="fa fa-image"></i></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

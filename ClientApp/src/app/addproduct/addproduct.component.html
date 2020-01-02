@@ -1,0 +1,272 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <!-- Page Content -->
+        <div class="container top">
+            <div class="row">
+                <div class="col-lg-12">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> <a [routerLink]="['/product']">Back to my listings</a>
+                    <h2>Add new farm store listing</h2>
+                    <div class="row">
+
+                        <div id="food-seller" class="text-center d-inline-block feed-panel-box"><i class="fa fa-cutlery"
+                                aria-hidden="true"></i>
+                            <a (click)="FoodTypeDet('sellFood')" class="cm-cursor" id="sell-food">I want to sell food
+                                products</a></div>
+
+
+                        <div id="nonfood-seller" class="text-center d-inline-block feed-panel-box"><i
+                                class="fa fa-shopping-bag" aria-hidden="true"></i>
+                            <a (click)="FoodTypeDet('NonsellFood')" class="cm-cursor" id="sell-nonfood">I want
+                                to sell non-food products</a></div>
+
+                    </div>
+
+                    <div id="application-received" *ngIf="IsSuccess">
+                        <h3>Thank you for your application!</h3>
+                        We have received your application to be a animal product vendor on LivestockCity. Our team will
+                        review it and send you a status update ASAP. Happy selling!
+                    </div>
+
+
+                    <!--start Add  food goods -->
+                    <div id="add-food" class="feed-panel-box" *ngIf="FoodType=='sellFood'">
+                        <div id="food-seller-info">
+                            <h3><i class="fa fa-info-circle" aria-hidden="true"></i> USDA Form Info</h3>
+                            LivestockCity is pleased to offer a way for farmers to advertise and sell their meats
+                            (organically raised or non-organically raised) and food products to the general public.
+                            Although many farmers have their own websites to sell their food products, LivestockCity
+                            provides an additional way to enhance those sales. <strong>If you are interested in selling
+                                your meat and food products through the LivestockCity platform, please complete the form
+                                below.</strong> This is a seller to buyer transaction - LivestockCity does not purchase
+                            or sell meat products from any farms. LivestockCity charges a 5% commission on all
+                            sales.<br><br>
+
+                            Please fill out the following form with the information requested. In addition, your
+                            personal and farm profiles must be completed prior to approval to sell. Not all of the
+                            following questions determine your approval, but we want to know about extra certifications
+                            you have in order to list those certifications on your profile. Please refer to the
+                            following link that provides information on all the agencies that can organically certify a
+                            farm: <a href="http://www.ams.usda.gov/resources/organic-certifying-agents"
+                                target="_blank">http://www.ams.usda.gov/resources/organic-certifying-agents</a> If you
+                            are not yet certified organic but would like to be, please refer to the following
+                            information: <a
+                                href="http://www.ams.usda.gov/services/organic-certification/faqbecoming- certified"
+                                target="_blank">http://www.ams.usda.gov/services/organic-certification/faqbecoming-
+                                certified</a> Organic certification is not required to sell meat products at
+                            LivestockCity.<br><br>
+
+                            It is important to note that as per our User Agreement, you are ultimately responsible for
+                            making sure you are familiar and complying with all state and federal laws concerning the
+                            selling of animal products, and by submitting this form, you agree that LivestockCity cannot
+                            be held liable for any of your actions, intentional or unintentional, or unawareness of
+                            rules/ regulations. Please make sure you completely understand all local and federal rules
+                            and regulations concerning the sales of meat products.
+                        </div>
+
+                        <div class="add-product-section">
+                            <form #productForm="ngForm">
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input type="text" class="form-control seller-edit" placeholder="" disabled name="Name"  [(ngModel)]="productModel.Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Farm Name</label>
+                                    <input type="text" class="form-control seller-edit" placeholder="" disabled
+                                        name="farmName" [(ngModel)]="productModel.farmName">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>What kind of animal products are you interested in selling?</label> <span
+                                        class="text-danger"> *</span><br>
+                                    <div *ngFor="let item of animalProductTypeList">
+                                        <input type="checkbox" name="{{item.id}}" [(ngModel)]="item.isSelected">
+                                        {{item.name}}<br>
+                                    </div>
+                                    <div *ngIf="!isAnyAnimalProductTypeSelected && isSubmitted" class="text-danger">
+                                        Please select at least one animal product.</div>
+                                </div>
+                                Please upload copy of valid organic certificate for your farm if you are certified
+                                organic
+                                (Optional).<br>
+                                <span class="btn btn-sm btn-file post-photo-update"
+                                    (click)="openOrganicCertificateFileDialogue($event)">Upload
+                                    Organic
+                                    certificate</span><span>{{fileName}}</span><br><br>
+                                <input id="photoOrganicCerty" type="file" name="fileData" size="1" class="hidden"
+                                    (change)="onSelectedOrganicCertificateFileName($event)" />
+                                <p>
+                                    Are you an Animal Welfare Approved (AWA) farm? If so, please upload valid
+                                    certificate.
+                                    (Optional)<br>
+                                </p>
+                                <span class="btn btn-sm btn-file post-photo-update"
+                                    (click)="openAWAFileDialogue($event)">Upload AWA
+                                    certificate</span>
+                                <input id="photoAWA" type="file" name="fileDataAwa" size="1" class="hidden"
+                                    (change)="onSelectedAWAFileName($event)" />
+                                <span>{{awafileName}}</span>
+                                <br><br>
+
+                                <div class="form-group">
+                                    <label>Select all that apply to your animal products:</label><span
+                                        class="text-danger"> *</span><br>
+                                    <div *ngFor="let item of animalProductList">
+                                        <input type="checkbox" [checked]="item.isSelected" [(ngModel)]="item.isSelected"
+                                            name="{{item.id}}">{{item.name}}<br>
+                                    </div>
+                                    <div *ngIf="!isAnyAnimalProductSelected && isSubmitted" class="text-danger">Please
+                                        select at least one animal product.</div>
+                                </div>
+                                <br>
+                                <strong>Is your farm using non-GMO products?</strong><br>
+                                <input type="radio" name="non-GMO" value="true"  [(ngModel)]="productModel.IsNonGMO"> Yes<br>
+                                <input type="radio" name="non-GMO" value="false" [(ngModel)]="productModel.IsNonGMO"> No<br><br>
+
+                                <strong>Are you using any grain/corn in raising animals for meat
+                                    consumption?</strong><br>
+                                <input type="radio" name="grain" value="true" [(ngModel)]="productModel.IsGrainCorn"> Yes<br>
+                                <input type="radio" name="grain" value="false" [(ngModel)]="productModel.IsGrainCorn"> No<br><br>
+
+                                <strong>Do you use herbicides/pesticides in your pastures?</strong><br>
+                                <input type="radio" name="herbicides" value="true" [(ngModel)]="productModel.Isherbicides"> Yes<br>
+                                <input type="radio" name="herbicides" value="false" [(ngModel)]="productModel.Isherbicides"> No<br><br>
+
+                                <div>
+                                    <input type="checkbox" value="federal-rules" name="FederalRulesSelected" [(ngModel)]="productModel.IsUSDAPolicy">I know and understand all federal rules
+                                    (USDA)
+                                    and regulations concerning the sale of meat products.<br>
+                                    <input type="checkbox" value="state-rules" name="localRules" [(ngModel)]="productModel.IsStatePolicy">I know and understand all my state and local
+                                    rules and regulations concerning the sales of meat products.<br><br>
+                                    <div *ngIf="!isAnyRuleSelected && isSubmitted" class="text-danger">Please select
+                                        rules.</div>
+                                </div>
+
+                                <a href="javascript:;" id="submit-app" class="btn"
+                                    (click)="saveProduct(productForm)">Submit Application</a>
+                                <div class="spacer"></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--end  Add  food goods -->
+
+                    <!-- Add non food goods -->
+                    <div id="add-nonfood" class="feed-panel-box" *ngIf="FoodType=='NonsellFood'">
+                        <form #productDetForm="ngForm" novalidate>
+                            <div class="add-product-section">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h5>Photos</h5>
+                                        <ul id="photo-tips">
+                                            <div class="form-group">
+                                                <label class="custom-file">
+                                                    <input type="file" id="file" class="custom-file-input" multiple
+                                                        (change)="UploadImages($event)">
+                                                    <span class="custom-file-control"></span>
+                                                </label>
+                                            </div>
+                                            <li>Max file size</li>
+                                            <li>Reccommended: Upload multiple photos to showcase your product</li>
+                                            <li>Natural light without flash tends to look best</li>
+                                            <li>Choose simple, clean backgrounds</li>
+                                            <li>Depending on the product, it might be helpful to include close ups</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <!-- <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" />
+                                                    <img class="uploaded-product-photo" src="http://via.placeholder.com/125x125" /> -->
+                                                    
+                                        <img *ngFor="let url of urls;let i = index" [src]="url"
+                                            class="uploaded-product-photo" width="125" height="125"
+                                            style="cursor: pointer" (click)="RemoveImage(i)">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="add-product-section">
+                                <hr>
+                                <h5>Product Details</h5>
+                                <div class="form-group">
+                                    <label for="product-category">Product Category:</label><span class="text-danger">
+                                        *</span>
+                                    <select class="form-control seller-edit" id="product-category" name="productCate"
+                                        [(ngModel)]="productDetModel.prodCatId" #productCate="ngModel" required>
+                                        <option value="">Select</option>
+                                        <option *ngFor="let item of productCategoryList" [value]="item.id">{{item.categoryName}}
+                                        </option>
+                                    </select>
+                                    <p class="invalid-feedback"
+                                        *ngIf="productCate.errors?.required && (productCate.touched || isProductDetSubmitted)">
+                                        Product category is required</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Product Name</label><span class="text-danger"> *</span>
+                                    <input type="text" class="form-control seller-edit" placeholder="" name="prodName"
+                                        [(ngModel)]="productDetModel.productName" #prodName="ngModel" required>
+                                    <p class="invalid-feedback"
+                                        *ngIf="prodName.errors?.required && (prodName.touched || isProductDetSubmitted)">
+                                        Product name is required</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity in stock</label>
+                                    <input type="number" class="form-control seller-edit" name="qty"
+                                        [(ngModel)]="productDetModel.pqty   ">
+                                </div>
+                                <div class="form-group">
+                                    <label>Unit of measure</label>
+                                    <input type="text" class="form-control seller-edit" name="unit"
+                                        [(ngModel)]="productDetModel.unitofmessure">
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input type="text" class="form-control seller-edit" name="price"
+                                        [(ngModel)]="productDetModel.price">
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="product-description" class="seller-edit form-control" name="description"
+                                        [(ngModel)]="productDetModel.description"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="add-product-section">
+                                <hr>
+                                <h5>Shipping Information</h5>
+                                <div class="form-group">
+                                    <label for="shipping-product">Shipping:</label>
+                                    <select class="form-control seller-edit shipping-product" name="shipping"
+                                        [(ngModel)]="productDetModel.shipingTypeId">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let item of shippingList" [value]="item.id">{{item.type}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group shipping-cost">
+                                    <label>Shipping Cost</label>
+                                    <input type="text" class="form-control seller-edit" name="shippingCost"
+                                        [(ngModel)]="productDetModel.productShippingCost">
+                                </div>
+                                <a class="btn btn-dark" (click)="saveProductDet(productDetForm)">Save Draft</a>
+                                <a class="btn" [routerLink]="['/product']">List Product</a>
+                                <div class="spacer"></div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!-- End Add non food goods -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>

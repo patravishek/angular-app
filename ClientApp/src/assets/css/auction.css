@@ -1,0 +1,71 @@
+/* Auction Styles */
+.auction-price {
+  font-size: 1.8em;
+  font-family: "Open Sans";
+  color: #f14b15;   
+  margin-left: 5px;
+}
+
+.buy-now {
+  color: gray;
+  float: right;
+}
+
+/* .seller-location {
+  float: right;
+} */
+
+.auction-time {
+  text-align: center;
+  background: rgba(0,0,0,0.05);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.auction-price-label {
+  vertical-align: top;
+}
+
+.card{
+  padding-bottom: 0;
+  margin-top: 0;
+}
+
+.auction-info {
+  margin-top: 10px;
+}
+
+.auction-detail {
+  display: block;
+}
+
+.farm-name {
+  float: left;
+}
+
+.farm-name:hover {
+  text-decoration: underline;
+}
+
+.user-location {
+  font-size: .8em;
+}
+
+.btn-shop{
+  width: 48%;
+}
+
+.records {
+    background-color: white;
+  color: #f14b15 !important; 
+  border: 1px solid #f14b15 !important;
+}
+
+.ui-widget-header {
+  background: #f14b15;
+}
+
+#slider-range {
+  margin-bottom: 10px;
+}

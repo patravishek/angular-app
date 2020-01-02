@@ -1,0 +1,99 @@
+/******************* Begin Directory Page ********************/
+
+  .directory-box{
+    width: 100% !important;
+    background-size: contain;
+    height: 150px;
+    background-image: url('../images/livestockcity-logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (max-width:991px) {
+    .directory-box{
+    height: 400px;
+  }
+  }
+
+  .directory-grid .panel-footer {
+   height: 50px;
+  }
+
+
+  .user-location {
+    float: right;
+  }
+
+
+  #directory-cattle {
+    background-image: url('../images/cattle.jpg');
+    background-size: cover;
+  }
+
+#directory-horses {
+  background-image: url('../images/horse.jpg');
+  background-size: cover;
+}
+
+#directory-sheep {
+  background-image: url('../images/sheep.jpg');
+  background-size: cover;
+}
+
+#directory-swine {
+  background-image: url('../images/pig.jpg');
+  background-size: cover;
+}
+
+#directory-alpacas {
+  background-image: url('../images/alpaca.jpg');
+  background-size: cover;
+}
+
+#directory-llamas {
+  background-image: url('../images/llama.png');
+  background-size: cover;
+}
+
+#directory-goats {
+  background-image: url('../images/goat.jpg');
+  background-size: cover;
+}
+
+#directory-avian {
+  background-image: url('../images/rooster.jpg');
+  background-size: cover;
+}
+
+  #exampleSelect2 {
+
+
+    padding-right: 25px;
+
+    display: inline-block;
+
+  }
+
+  #searchButton {
+
+   display: inline-block;
+   margin-top: 0px; 
+   border: none; 
+ }
+
+ .panel-footer {
+  font-weight: bold;
+  text-align: center;
+}
+
+.farm-name {
+  float: left;
+}
+
+.farm-name:hover {
+  text-decoration: underline;
+}
+
+.user-location {
+  font-size: .8em;
+}

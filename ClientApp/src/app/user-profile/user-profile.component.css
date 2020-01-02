@@ -1,0 +1,19 @@
+.m-r-5{
+    margin-right: 5px;
+}
+
+.img-dimension{
+    height: 80px;
+    width: 80px;
+}
+
+.post-author-photo-dimension{
+    height: 50px;
+    width: 50px; 
+}
+
+.post-img{
+    height: 200px;
+    width: 200px;
+    margin-top: 10px;
+}

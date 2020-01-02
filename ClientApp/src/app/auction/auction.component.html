@@ -1,0 +1,121 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="breadcrumb">
+            <a class="breadcrumb-item" href="#">Buy/Sell </a>
+            <a class="breadcrumb-item" href="#">Auctions </a>
+            <a class="breadcrumb-item" href="#">Livestock </a>
+            <span class="breadcrumb-item active">Llama </span>
+          </div>
+          <button class="btn" [routerLink]="['/newListing']">Post an auction item</button>
+          <h5 class="shop-heading">Auctions:</h5>
+          <h1>Llamas</h1>
+          <div class="list-group">
+              <a href="javascript:;" class="list-group-item" *ngFor="let item of classifiedList">
+                  {{item.name}}
+              </a>
+          </div>
+          <!-- Price slider -->
+          <p>
+            <label for="amount">Price range:</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f14b15; font-weight:bold;">
+          </p>
+
+          <div id="slider-range"></div>
+          <!-- <div id="slider-range-max"></div> -->
+          <p>
+            <a class="filter-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+              aria-controls="collapseExample">
+              Filter by location<i class="fa fa-caret-down" aria-hidden="true"></i>
+            </a>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-block no-border">
+              <div class="checkbox" *ngFor="let item of states">
+                <label>
+                  <input type="checkbox" value="">{{item.name}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-9">
+          <div id="custom-search-input">
+            <div class="input-group">
+              <input type="text" class="search-query form-control" placeholder="Search" name="search"
+              [(ngModel)]="searchText" />
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" (click)="getAuctionList()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Auction Item Card-->
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of auctionList">
+              <div class="panel h-100 feed-panel-box">
+                <a href="#"><img class="panel-img-top" src="{{item.herdLogo}}" alt=""></a>
+                <div class="auction-time">
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>{{item.hours}} hr</div>
+                <div class="panel-body">
+                  <h4 class="panel-title">
+                    <a href="#">{{item.breedLiveStockName}}</a>
+                  </h4> <span class="auction-price-label">Bid</span>
+                  <span class="auction-price">${{item.startBidPrice}}</span>
+
+                  <span class="auction-price buy-now">${{item.byNowPrice}}</span>
+                  <span class="auction-price-label buy-now">Buy</span>
+                  <p class="card-text auction-info">
+                    <span class="auction-detail"><strong>{{item.bid}} {{item.country}}
+                        {{item.breedName}}</strong></span>
+                    <span class="auction-detail"><em>{{item.maleCount}} Male, {{item.femaleCount}} Female</em></span>
+                  </p>
+                  <button class="btn btn-sm btn-shop" [routerLink]="['/bid',item.id]">View</button>
+                </div>
+                <div class="panel-footer">
+                  <span class="seller-name">{{item.sellerName}}</span>
+                  <span class="seller-location">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    {{item.sellerAddress}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.col-lg-9 -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+    </div>
+  </div>
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img class="item-photo" src="http://via.placeholder.com/100x100" />
+          <h4>Item One</h4>
+          <h4 class="cto">Make an offer:</h4>
+          <br>
+          <form>
+            <div class="form-group">
+              <input type="number" class="form-control offer-form" id="number" placeholder="$">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,621 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <form #HertManagementForm="ngForm" id="HertManagementForm" novalidate>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h4 class="d-inline">
+             
+                <input type="text" class="record-edit" name="liveStockName"
+                placeholder=" Livestock name" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.liveStockName"
+                #liveStockName="ngModel" required></h4>
+                <span *ngIf="(liveStockName.touched || IsSubmit) && liveStockName.errors"
+                  class="text-danger">
+                  Please enter livestock name</span>
+              
+            <div class="row">
+              <div class="col-lg-2">
+                <div class="record-profile-photo">
+                  <a class="post-photo-update">
+                    <div class="record-profile-photo-placeholder">
+                      <input id="upload" class="file-upload__input" type="file" name="file-upload" (change)="ProfileonSelectedFileName($event)">
+                      <img *ngIf="!HerdMasterWrapperModel.heardmasterModel.fileName && !HerdMasterWrapperModel.heardmasterModel.HerdProfilePic" class="fa fa-image add-record-photo"  (click)="ProfileopenfileDialogue($event)"  >
+                      <img *ngIf="HerdMasterWrapperModel.heardmasterModel.HerdProfilePic" (click)="ProfileopenfileDialogue($event)" [src]="HerdMasterWrapperModel.heardmasterModel.HerdProfilePic" style="height: 150px;width: 150px">
+                      <img *ngIf="HerdMasterWrapperModel.heardmasterModel.fileName" (click)="ProfileopenfileDialogue($event)" [src]="rootImgPath + HerdMasterWrapperModel.heardmasterModel.fileName" style="height: 150px;width: 150px">
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-10">
+                <div class="row">
+                  <strong class="m-l-10">Livestock description:</strong>
+                  <textarea class="profile-edit" name="liveStockDescription"
+                  [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.liveStockDescription"
+                  #liveStockDescription="ngModel" required></textarea>
+                  <span *ngIf="(liveStockDescription.touched || IsSubmit) && liveStockDescription.errors"
+                  class="text-danger">
+                  Please enter livestock description</span>
+                </div>
+                
+
+                <div class="row">
+                  <strong>Type:</strong>
+                  <!-- <select class="livestock-info-select"  name="type" id="type" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.type"
+                  #type="ngModel" required>
+                    <option value="">Select Type</option>
+                    <option value="1">Cattle</option>
+                    <option value="2">Horse</option>
+                    <option value="3">Swine</option>
+                    <option value="4">Sheep</option>
+                    <option value="5">Goat</option>
+                    <option value="6">Poultry</option>
+                    <option value="7">Llama</option>
+                    <option value="8">Alpaca</option>
+                    <option value="9">Other</option>
+                  </select> -->
+
+                  <select class="livestock-info-select"  name="type" id="type" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.type" (change)="getBreeds(HerdMasterWrapperModel.heardmasterModel.type)" #type="ngModel" required>
+                    <option [ngValue]="">Select Animal Type</option>
+                    <option *ngFor="let animalType of animalTypes" [ngValue]="animalType.id">{{animalType.name}} </option>
+                  </select>
+                 
+                </div>
+                <span *ngIf="(type.touched || IsSubmit) && type.errors"
+                class="text-danger">
+                Please Select type</span>
+
+                <div class="row">
+                  <strong>Breed:</strong>
+                  <!-- <select  class="livestock-info-select" name="breed" id="breed" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.breed"
+                  #breed="ngModel" required>
+                  <option value="">Select Breed</option>
+                    <option value="1">Breed Option 1</option>
+                    <option value="2">Breed Option 2</option>
+                    <option value="3">Breed Option 3</option>
+                    <option value="4">Breed Option 4</option>
+                  </select> -->
+
+                  <select  class="livestock-info-select" name="breed" id="breed" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.breed"
+                  #breed="ngModel" required>
+                    <option [ngValue]="">Select Breed</option>
+                    <option *ngFor="let breed of breeds" [ngValue]="breed.id">{{breed.name}} </option>
+                  </select>
+                 
+                </div>
+                <span *ngIf="(breed.touched || IsSubmit) && breed.errors"
+                class="text-danger">
+                Please Select Breed</span>
+
+                <div class="row">
+                  <strong>Gender: </strong>
+                  <select  class="livestock-info-select" name="grnder" id="grnder" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.grnder"
+                  #grnder="ngModel" required>
+                  <option value="">Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Gelding</option>
+                    <option value="3">Bred Female</option>
+                    <option value="4">Unbred Female</option>
+                  </select>
+                
+                </div>
+                <span *ngIf="(grnder.touched || IsSubmit) && grnder.errors"
+                class="text-danger">
+                Please Select Gender</span>
+
+                <div class="row">
+                  <strong>DOB: </strong> <br>
+                
+                  <input type="text" class="form-control" name="dob" #dob="bsDatepicker" readonly="readonly" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="MM/DD/YYYY"[(ngModel)]="HerdMasterWrapperModel.heardmasterModel.dob"
+            #dob="ngModel" required>
+                </div>
+                <span *ngIf="(dob.touched || IsSubmit) && dob.errors" class="text-danger">
+                  Please select date
+                  </span>
+
+
+                <div class="row">
+                  <strong>Height: </strong> <br>
+                  <input type="text" class="form-control"  name="height"
+                  
+                  placeholder="Height" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.height"
+                  #height="ngModel" required>
+                </div>
+                <span *ngIf="(height.touched || IsSubmit) && height.errors" class="text-danger">
+                  Please enter height
+                  </span>
+               
+                <div class="row">
+                  <strong>Public: </strong>
+                  <label class="switch">
+                    <input type="checkbox" name="ispublic" [(ngModel)]="HerdMasterWrapperModel.heardmasterModel.ispublic"
+                    #ispublic="ngModel">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="row">
+              <ul class="nav nav-pills">
+                <li class="active">
+                  <a href="#id-details" data-toggle="tab">ID Details</a>
+                </li>
+                <li><a href="#health-issues" data-toggle="tab">Health Issues</a>
+                </li>
+                <li><a href="#health-records" data-toggle="tab">Health Records</a>
+                </li>
+                <li><a href="#show-records" data-toggle="tab">Show Records</a>
+                </li>
+                <li><a href="#breed-records" data-toggle="tab">Breed Records</a>
+                </li>
+                <!-- <li><a id="tabAll" href="#">All</a></li> -->
+              </ul>
+            </div>
+
+            <hr class="pill-nav">
+            <div class="spacer"></div>
+            <!-- Tabbed profile info -->
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="id-details">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">IDENTIFICATION DETAILS</h5>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <strong>ID: </strong><br>
+                    <input type="text" name="idNumber" class="record-edit" [(ngModel)]="HerdMasterWrapperModel.herdIdDetailsModel.idNumber"
+                    #idNumber="ngModel" readonly>
+                    <!-- <span *ngIf="(idNumber.touched || IsSubmit) && idNumber.errors" class="text-danger">
+                      Please enter IdNumber</span> -->
+                  </div>
+
+                  <div class="row">
+                    <strong>Color: </strong>
+                    <input type="text" class="record-edit" name="color"
+                    [(ngModel)]="HerdMasterWrapperModel.herdIdDetailsModel.color"
+                    #color="ngModel" required>
+                    <span *ngIf="(color.touched || IsSubmit) && color.errors" class="text-danger">
+                      Please enter Color</span>
+                  </div>
+
+                  <div class="row">
+                    <strong>Microchip: </strong>
+                    <input type="text" class="record-edit" name="microchipName"
+                    [(ngModel)]="HerdMasterWrapperModel.herdIdDetailsModel.microchipName"
+                    #microchipName="ngModel" >
+                    <!-- <span *ngIf="(microchipName.touched || IsSubmit) && microchipName.errors" class="text-danger">
+                      Please enter MicrochipName</span> -->
+                  </div>
+
+                  <div class="row">
+                    <strong>Tattoo: </strong>
+                    <input type="text" class="record-edit"  name="tattoSymbol"
+                    [(ngModel)]="HerdMasterWrapperModel.herdIdDetailsModel.tattoSymbol"
+                    #tattoSymbol="ngModel" >
+                    <!-- <span *ngIf="(tattoSymbol.touched || IsSubmit) && tattoSymbol.errors" class="text-danger">
+                      Please enter TattoSymbol</span> -->
+                  </div>
+
+                  <div class="row">
+                    <strong>Registration Certificate: </strong> 
+                    <span class="span5 btn btn-sm btn-file post-photo-update">
+                      <input id="photoUpdate" type="file" name="fileData" size="1" style="display: none" (change)="RegistrationonSelectedFileName($event)">
+                      <button class="btn btn-sm" (click)="RegistrationopenfileDialogue($event)">
+                          Upload
+                      </button>
+                    </span> <br>
+                    <span>{{HerdMasterWrapperModel.herdIdDetailsModel.regCertfileName}}</span>
+                  </div>
+
+                  <ul class="animal-info-edit" id="id-info">
+
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                    <li id="no-background-color">
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <!--Individual photo thumnail, cropped square-->
+                  <strong>Additional Photos: </strong><br>
+                  <!-- class="photo-post-thumbnails" -->
+                  <div>
+                    <label for="upload" class="post-photo-update file-upload__label">
+                      <div class="record-photo-placeholder">
+                        <i class="fa fa-image add-record-photo" (click)="AdditionPhotoopenfileDialogue($event)"></i>
+                        <input id="AdditionalPhotoupload" class="file-upload__input" type="file" name="file-upload" (change)="AdditionPhotoonSelectedFileName($event)">
+                      </div>
+                    </label>
+                  </div>
+                  
+                  <div *ngIf="HerdMasterWrapperModel.heardIdAddtionalPhotoModelList.heardIdAddtionalPhotoModels">
+                      <label for="upload" class="post-photo-update file-upload__label">
+                        <div class="record-photo-placeholder" *ngFor="let item of HerdMasterWrapperModel.heardIdAddtionalPhotoModelList.heardIdAddtionalPhotoModels">
+                          <img *ngIf="item.fileContent"  [src]="base64 + item.fileContent" style="height: 80px;width: 80px">
+                          <img  *ngIf="item.fileName"  [src]="rootImgPath + item.fileName" style="height: 80px;width: 80px">
+                        </div>
+                      </label>
+                    </div>
+
+                </div>
+              </div>
+
+              <div class="file-upload">
+                <label for="upload" class="file-upload__label"></label>
+                <input id="upload" class="file-upload__input" type="file" name="file-upload">
+              </div>
+              <div class="tab-pane" id="health-issues">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Health Issues</h5>
+                  <button class="btn btn-xs edit-btn" data-toggle="modal" data-target="#healthIssues">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr>
+                        <th style="width:60px">Action</th>
+                        <th style="width:70px">#</th>
+                        <th style="width:120px">Date</th>
+                        <th>Description</th>
+                      </tr>
+                      <tr *ngFor="let item of HerdMasterWrapperModel.heardHealthIssueModel; let i = index">
+                          <td class="d-inline">  
+                            <button class="btn btn-xs edit-btn" (click)="EditHealthIssue(item)" data-toggle="modal" data-target="#healthIssues">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button> 
+                            <button class="btn btn-xs edit-btn" (click)="deleteHealthIssue(i)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                              </button>
+                          </td>
+                        <td>{{i + 1}}</td>
+                        <td>{{item.healthDate | date: 'MM-dd-yyyy'}}</td>
+                        <td>{{item.healthDescription}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="health-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Health Records</h5>
+                  <button class="btn btn-xs edit-btn" data-toggle="modal" data-target="#healthRecords">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr>
+                        <th style="width:60px">Action</th>
+                        <th style="width:70px">#</th>
+                        <th style="width:120px">Date</th>
+                        <th>Description</th>
+                      </tr>
+                      <tr *ngFor="let item of HerdMasterWrapperModel.heardHealthRecordModel; let i = index">
+                        <td class="d-inline">  <button class="btn btn-xs edit-btn" (click)="EditHealthRecord(item)" data-toggle="modal" data-target="#healthRecords">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          </button>
+                          <button class="btn btn-xs edit-btn" (click)="deleteHealthRecord(i)">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>{{i + 1}}</td>
+                        <td>{{item.recordDate | date: 'MM-dd-yyyy'}}</td>
+                        <td>{{item.healthRecordDescription}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="show-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Show Records</h5>
+                  <button class="btn btn-xs edit-btn" data-toggle="modal" data-target="#showRecords">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr>
+                        <th  style="width:60px">Action</th>
+                        <th style="width:70px">#</th>
+                        <td style="width:120px">Event</td>
+                        <th style="width:120px">Date</th>
+                        <th>Description</th>
+                      </tr>
+                      <tr *ngFor="let item of HerdMasterWrapperModel.heardHealthShowRecordModel; let i = index">
+                          <td class="d-inline">  <button class="btn btn-xs edit-btn" (click)="EditShowRecord(item)" data-toggle="modal" data-target="#showRecords">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-xs edit-btn" (click)="deleteShowRecord(i)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                              </button>
+                          </td>
+                        <td>{{i + 1}}</td>
+                        <td>{{item.event}}</td>
+                        <td>{{item.showRecordDate | date: 'MM-dd-yyyy'}}</td>
+                        <td>{{item.healthShowRecordachievement}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="breed-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Breed Records</h5>
+                  <button class="btn btn-xs edit-btn" data-toggle="modal" data-target="#breedRecords">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr>
+                        <th  style="width:60px">Action</th>
+                        <th style="width:70px">#</th>
+                        <th style="width:120px">Date</th>
+                        <th>Description</th>
+                      </tr>
+                      <tr *ngFor="let item of HerdMasterWrapperModel.herdBreedRecordModel; let i = index">
+                        <td class="d-inline">  <button class="btn btn-xs edit-btn" (click)="EditBreedRecord(item)" data-toggle="modal" data-target="#breedRecords">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-xs edit-btn" (click)="deleteBreedRecord(i)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                              </button>
+                        </td>
+                        <td>{{i + 1}}</td>
+                        <td>{{item.breadDate | date: 'MM-dd-yyyy'}}</td>
+                        <td>{{item.breadDescription}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <button class="btn pull-right" (click)="SaveHertManagementDet(HertManagementForm)">Save</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+
+
+<div id="healthIssues" class="modal fade" role="dialog"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearHealthIssue()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health issue</h4>
+        <form name="healthIssuesForm" #healthIssuesForm="ngForm" id="healthIssuesForm" novalidate>
+          <div class="form-group">
+            <textarea class="record-add profile-edit" placeholder="Description"
+              id="healthDescription" name="healthDescription" [(ngModel)]="heardHealthIssueModel.healthDescription"
+              #healthDescription="ngModel" required></textarea>
+
+            <span *ngIf="(healthDescription.touched || isSubmitted) && healthDescription.errors"
+              class="text-danger">
+              Please enter Description</span>
+          </div>
+          <label class="pull-left">Date:</label><br>
+          <input type="text" class="form-control" name="healthDate" #dp="bsDatepicker" readonly="readonly" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="MM/DD/YYYY" [(ngModel)]="heardHealthIssueModel.healthDate"
+            #healthDate="ngModel" required>
+          <span *ngIf="(healthDate.touched || isSubmitted) && healthDate.errors" class="text-danger">
+            Please select date</span>
+          <br>
+          <button type="submit" class="btn btn-default" (click)="AddHealthIssue(healthIssuesForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="healthRecords" class="modal fade" role="dialog"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="ClearHealtRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health records</h4>
+        <form name="healthRecordForm" #healthRecordForm="ngForm" id="healthRecordForm" novalidate>
+          <div class="form-group">
+            <!-- <input type="type" class="form-control record-edit" name="AnimalName" id="AnimalName"  
+            [(ngModel)]="HerdMasterWrapperModel.heardHealthRecordModel.AnimalName"
+            #AnimalName="ngModel" required>
+            <span *ngIf="(AnimalName.touched || IsSubmitedHealthRecord) && AnimalName.errors" class="text-danger">
+              Ple</span>
+            <br>
+
+            <label class="pull-left">Type:</label>
+            <select class="pull-left livestock-info-select" name="healthrecordsType" [(ngModel)]="HerdMasterWrapperModel.heardHealthRecordModel.Type"
+            #healthrecordsType="ngModel" required>
+              <option value="">Type</option>
+              <option value="1">Weight</option>
+              <option value="2">Toenail/hoof clipping</option>
+              <option value="3">Shearing</option>
+              <option value="4">Injection</option>
+              <option value="other">Other</option>
+            </select>
+            <span *ngIf="(healthrecordsType.touched || IsSubmitedHealthRecord) && healthrecordsType.errors" class="text-danger">
+              Ple</span>
+            <br> -->
+
+            <br>
+            <label class="pull-left">Date:</label>
+            <br>
+            <input type="text" class="record-edit livestock-info-select"
+            name="RecordDate" #recordDate="bsDatepicker" readonly="readonly" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="MM/DD/YYYY" [(ngModel)]="heardHealthRecordModel.recordDate"
+            #recordDate="ngModel" required> <br>
+            <span *ngIf="(recordDate.touched || IsSubmitedHealthRecord) && recordDate.errors" class="text-danger">
+              Please select date</span>
+
+            <!-- <div id="medication">
+              <label class="pull-left">Medication Type:</label>
+              <select class="pull-left livestock-info-select" name="medication-type">
+                <option></option>
+                <option value="1">Dectomax injection</option>
+                <option value="2">Dectomax pour on</option>
+                <option value="3">Ivomec injectable</option>
+                <option value="4">Ivomec pour on</option>
+                <option value="5">Safeguard paste</option>
+              </select>
+            </div> -->
+            <div class="spacer"></div>
+
+            <textarea class="record-add profile-edit" name="healthRecordDescription" placeholder="Description"
+            [(ngModel)]="heardHealthRecordModel.healthRecordDescription"
+            #healthRecordDescription="ngModel" required></textarea>
+            <br>
+            <span *ngIf="(healthRecordDescription.touched || IsSubmitedHealthRecord) && healthRecordDescription.errors" class="text-danger">
+              Please enter description</span>
+           
+           
+            <br>
+            <label>Add reminder</label>
+            <label class="switch">
+              <input type="checkbox" id="reminder-checked" name="remainder"  [(ngModel)]="heardHealthRecordModel.remainder">
+              <span class="slider round"></span>
+            </label>
+            <!-- <div id="reminder">
+              <label>Due:</label>
+              <input type="radio" id="once-selected" name="repeat" value="once"> Once
+              <input type="radio" id="repeat-selected" name="repeat" value="repeat"> Repeated<br><br>
+
+              <div id="once">
+                <label>Due On:</label><input type="date" class="record-edit"><br>
+              </div>
+
+              <div id="repeated">
+                <label>Due every:</label>
+                <input type="number" id="todo-times" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select>
+                <label>for</label>
+                <input type="number" id="todo-frequency" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select><br><br>
+                <label>Start date:</label>
+                <input type="date" class="record-edit">
+              </div>
+            </div> -->
+          </div>
+
+          <button type="submit" class="btn btn-default" (click)="AddHealthRecord(healthRecordForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="showRecords" class="modal fade" role="dialog"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearShowRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add show records</h4>
+        <form name="showrecordsForm" #showrecordsForm="ngForm" id="showrecordsForm" novalidate>
+          <div class="form-group">
+            <label class="pull-left">Event:</label>
+            <input type="text" class="record-edit profile-edit" id="Event" name="event"
+              [(ngModel)]="heardHealthShowRecordModel.event" #event="ngModel" required>
+            <span *ngIf="(event.touched || isSubmittedShowRecord) && event.errors" class="text-danger">
+              Please enter Event</span>
+
+            <textarea class="record-add profile-edit" id="healthShowRecordachievement" name="healthShowRecordachievement"
+              [(ngModel)]="heardHealthShowRecordModel.healthShowRecordachievement" #healthShowRecordachievement="ngModel" required
+              placeholder="Achievement"></textarea>
+            <span *ngIf="(healthShowRecordachievement.touched || isSubmittedShowRecord) && healthShowRecordachievement.errors"
+              class="text-danger">
+              Please enter Achievement</span><br>
+
+            <label class="pull-left">Date</label>
+           
+              <input type="text" class="form-control" name="showRecordDate" #showRecordDate="bsDatepicker" readonly="readonly" bsDatepicker
+              [bsConfig]="bsConfig" placeholder="MM/DD/YYYY" [(ngModel)]="heardHealthShowRecordModel.showRecordDate"
+              #showRecordDate="ngModel" required>
+
+              <span *ngIf="(showRecordDate.touched || isSubmittedShowRecord) && showRecordDate.errors"
+              class="text-danger">
+              Please select date</span>
+            <br>
+          </div>
+          <button type="submit" class="btn btn-default" (click)="Addshowrecords(showrecordsForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="breedRecords" class="modal fade" role="dialog"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearBreedRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add breeding records</h4>
+        <form #breedingrecordsForm="ngForm" id="breedingrecordsForm" novalidate>
+          <div class="form-group">
+            <label class="pull-left">Date:</label>
+            <input type="text" class="form-control" name="breadDate" #breadDate="bsDatepicker"
+              readonly="readonly" bsDatepicker [bsConfig]="bsConfig" placeholder="MM/DD/YYYY"
+              [(ngModel)]="herdBreedRecordModel.breadDate" #breadDate="ngModel" required>
+            <span *ngIf="(breadDate.touched || isSubmittedbreedingrecords) && breadDate.errors"
+              class="text-danger">
+              Please select date</span>
+            <br>
+
+            <textarea class="record-add profile-edit"  placeholder="Description"
+              id="breadDescription" name="breadDescription"
+              [(ngModel)]="herdBreedRecordModel.breadDescription" #breadDescription="ngModel" required></textarea>
+
+            <span
+              *ngIf="(breadDescription.touched || isSubmittedbreedingrecords) && breadDescription.errors"
+              class="text-danger">
+              Please enter Description</span>
+          </div>
+          <button type="submit" class="btn btn-default" (click)="Addbreedingrecord(breedingrecordsForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

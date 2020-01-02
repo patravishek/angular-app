@@ -1,0 +1,178 @@
+<!-- Page Content -->
+<div id="page-content-wrapper" class="grey-background">
+    <div class="container-fluid">
+        <!-- Page Content -->
+        <div class="container top">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="orange">My Office</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-right" id="date-degrees">
+                    <p>{{myOfficeModel.date}}</p>
+                </div>
+            </div>
+            <!-- /.row containing all modules-->
+            <div class="row">
+                <div class="col-lg-9 col-sm-12">
+                    <div class="row">
+                        <!--Buy/Sell Module-->
+                        <div class="col-lg-6 feed-panel-box dash-box dash-box-2">
+                            <div class="dash-box-header">
+                                <h5>Listings</h5>
+                            </div>
+                            <div class="dash-box-contents">
+                                <ul class="dash-box-list">
+                                    <li><a routerLink="/newListing">{{listingsModel.totalclassified}}</a> classified
+                                    </li>
+                                    <li><a routerLink="/newListing">{{listingsModel.totalauction}}</a> auction items
+                                    </li>
+                                    <hr>
+                                    <li><a routerLink="/bidOffer">{{listingsModel.totalbid}}</a> active bid</li>
+                                </ul>
+                                <a class="btn pull-right add-dashboard" routerLink="/newListing"><i
+                                        class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <!--Records Overview Module-->
+                        <div class="col-lg-6 col-sm-12 feed-panel-box dash-box dash-box-2 pull-right ">
+                            <div class="dash-box-header">
+                                <h5>Records</h5>
+                            </div>
+                            <div class="dash-box-contents">
+                                <ul class="dash-box-list">
+                                    <li *ngFor="let item of recordModelList">
+                                        <a href="javascript:;">{{recordModel.count}}</a> {{item.animaltype}}</li>
+                                </ul>
+                                <a class="btn pull-right add-dashboard" routerLink="/herd/AddEdit/0"><i
+                                        class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!---My Store Overview Module-->
+                        <div class="col-lg-12 feed-panel-box dash-box">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="dash-box-header">
+                                        <h5>My Store</h5>
+                                    </div>
+                                    <div class="dash-box-contents">
+                                        <ul class="dash-box-list">
+                                            <li><a routerLink="/product">{{myStoreData.totalitems}}</a> items</li>
+                                            <li><a routerLink="/sales">{{myStoreData.totalopenorder}}</a> open orders
+                                            </li>
+                                            <li><a>${{myStoreData.totalsaleforlastmonth}}</a> sales last month</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div id="chart_div"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12 to-do">
+                    <!--To Do List-->
+                    <div class="col-lg-12 feed-panel-box dash-box">
+                        <div class="dash-box-header">
+                            <h5>To-Do</h5>
+                        </div>
+                        <div class="dash-box-contents">
+                            <ul class="dash-box-list">
+                                <li>
+                                    <div>
+                                        <input type="checkbox" value="" class="todo-checkbox">
+                                        <label>
+                                            Vaccinate <a href="javascript:;"> {{myOfficeModel.llamasCount}}
+                                                llamas</a></label>
+                                    </div>
+                                </li>
+                                <li>Review <a href="javascript:;">{{myOfficeModel.offerCount}} offers</a></li>
+                                <li>To-do <a href="javascript:;">link to online task</a></li>
+                                <li>
+                                    <input type="checkbox" value="" class="todo-checkbox">
+                                    <label>
+                                        To-do check box for real world task</label>
+                                </li>
+                            </ul>
+                            <a class="btn pull-right add-dashboard" data-toggle="modal" data-target="#toDo"><i
+                                    class="fa fa-plus"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+<div id="toDo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 class="cto">Add a to-do item</h4>
+                <form name="todoItemForm" #todoItemForm="ngForm" id="todoItemForm" novalidate>
+                    <div class="form-group">
+                        <textarea class="record-add" name="todo-item" placeholder="Description"></textarea>
+                        <br>
+                        <label>Add Due Date </label>
+                        <ui-switch [(ngModel)]="todoItemModel.isDueDate" name="isDueDate"></ui-switch>
+                        <!-- <label class="switch">
+                  <input type="checkbox" id="reminder-checked">
+                  <span class="slider round"></span>
+                </label> -->
+                        <div id="reminder" *ngIf="todoItemModel.isDueDate == true">
+                            <label>Due:</label>
+                            <input type="radio" id="once-selected" name="repeat" value="once"
+                                [(ngModel)]="todoItemModel.dueType"> Once
+                            <input type="radio" id="repeat-selected" name="repeat" value="repeat"
+                                [(ngModel)]="todoItemModel.dueType"> Repeated<br><br>
+
+                            <div id="once">
+                                <label>Due On:</label>
+                                <input type="text" class="record-edit livestock-info-select" name="dueDate"
+                                    #dueDate="bsDatepicker" readonly="readonly" bsDatepicker [bsConfig]="bsConfig"
+                                    placeholder="MM/DD/YYYY" [(ngModel)]="todoItemModel.dueDate" #dueDate="ngModel">
+
+                                <br>
+                            </div>
+
+                            <div id="repeated" *ngIf="todoItemModel.dueType =='repeat'">
+                                <label>Due every:</label>
+                                <input type="number" id="todo-times" class="record-edit"
+                                    [(ngModel)]="todoItemModel.dueEvery" name="dueEvery">
+                                <select class="livestock-info-select todo-select"
+                                    [(ngModel)]="todoItemModel.dueEveryType" name="dueEveryType">
+                                    <option *ngFor="let item of dueTypeList">{{item}}</option>
+                                </select>
+                                <label>for</label>
+                                <input type="number" id="todo-frequency" class="record-edit"
+                                    [(ngModel)]="todoItemModel.frequency" name="frequency">
+                                <select class="livestock-info-select todo-select"
+                                    [(ngModel)]="todoItemModel.frequencyType" name="frequencyType">
+                                    <option *ngFor="let item of dueTypeList">{{item}}</option>
+                                </select><br><br>
+                                <label>Start date:</label>
+                                <input type="text" class="record-edit livestock-info-select" name="startDate"
+                                    #startDate="bsDatepicker" readonly="readonly" bsDatepicker [bsConfig]="bsConfig"
+                                    placeholder="MM/DD/YYYY" [(ngModel)]="todoItemModel.startDate" #startDate="ngModel">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" (click)="saveTodo(todoItemForm)">Add</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

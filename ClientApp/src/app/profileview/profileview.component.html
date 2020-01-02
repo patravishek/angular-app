@@ -1,0 +1,258 @@
+
+
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <!-- User Profile-->
+        <div class="col-lg-8">
+          <span *ngIf="userDetails.UserImageUrl && !IsFarmDetShow">
+          <img class="user-photo"  id="profile-photo" src="{{userDetails.UserImageUrl}}" style="height:100px;width:100px" /></span>
+
+          <span *ngIf="farmProfile.FarmLogoPath && IsFarmDetShow">
+              <img class="farm-photo"  id="profile-photo" src="{{farmProfile.FarmLogoPath}}" style="height:100px;width:100px" /></span>
+          <div>
+            <div class="text-center">
+              <h2 class="profile-section"><a id="user" title="" href="javascript:;" (click)="IsFarmDetShow = false"><span *ngIf="(userDetails && userDetails.firstName)">{{userDetails.firstName}}</span> 
+                <span *ngIf="(userDetails && userDetails.lastName)">{{userDetails.lastName}}</span></a></h2>
+              <h2 class="profile-section"><a id="farm" class="inactive" href="javascript:;"  (click)="IsFarmDetShow = true">{{farmProfile.FarmName}}</a></h2>
+            </div>
+            <div class="text-center" id="user-location">
+              <i class="fa fa-map-marker" aria-hidden="true"></i><span *ngIf="(userDetails && userDetails.city)">{{userDetails.city}}</span>
+            </div>
+            <div class="spacer-sm"></div>
+            <div class="feed-panel-box">
+              <div class="profile-box">
+                <div id="user-profile"  *ngIf="!IsFarmDetShow">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <span class="profile-item-title">Birthday</span>
+                      <span class="profile-item" *ngIf="(userDetails && userDetails.birthday)">{{userDetails.birthday}}</span>
+                    </div>
+                    <div class="col-lg-6">
+                      <span class="profile-item-title">Education</span>
+                      <span class="profile-item" *ngIf="(userDetails && userDetails.education)">{{userDetails.education}}</span>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <span class="profile-item-title">Hobbies</span>
+                      <span class="profile-item" *ngIf="(userDetails && userDetails.hobbies)">{{userDetails.hobbies}}</span>
+                    </div>
+                  </div>
+                  <!--Bio-->
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <hr>
+                      <span class="profile-item-title">Bio</span>
+                      <span class="profile-item" *ngIf="(userDetails && userDetails.bio)">{{userDetails.bio}}</span>
+                    </div>
+                  </div>
+                  <!--Looking For-->
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <hr>
+                      <span class="profile-item-title">Looking for</span>
+                      <div class="profile-item looking-for-section" *ngIf="(userDetails && userDetails.userLookingFor)">
+                          <span  *ngFor="let item of userDetails.userLookingFor" class="looking-for m-r-5">{{item.lookupType}}</span>
+                        <!--<span class="looking-for">Hired work</span>
+        <span class="looking-for">Friends with common interests</span>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div  *ngIf="IsFarmDetShow">  
+                  <!--Profile details-->
+                  <div class="row">
+                    <!--Livestock type-->
+                    <div class="col-lg-6">
+                      <span class="profile-item-title">Livestock</span>
+                      <!--To implement in later phase: Each animal category should be a link target _blank showing that user's public livestock records of that animal type-->
+                      <span class="profile-item profile-item-link">{{FarmAnimals}}</span>
+                    </div>
+                    <div class="col-lg-6">
+                      <span class="profile-item-title">Address</span>
+                      <span class="profile-item" style="margin:0;">{{farmProfile.Street}}</span>
+                      <span class="profile-item" style="margin:0;" *ngIf="farmProfile.City">{{farmProfile.City}} </span>
+                      <!-- <span class="profile-item" style="margin:0;" *ngIf="farmProfile.Zip"> {{farmProfile.Zip}}</span> -->
+                      <span class="profile-item" style="margin:0;" *ngIf="farmProfile.State">{{farmProfile.State}}, </span>
+                      <span class="profile-item" style="margin:0;" *ngIf="farmProfile.Country"> {{farmProfile.Country}}</span>
+                      <span class="profile-item" style="margin:0;" *ngIf="farmProfile.OperatingSince">Since - {{farmProfile.OperatingSince}}</span>
+                    </div>
+
+                  </div>
+                  <!--Overview-->
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <hr>
+                      <span class="profile-item-title">Overview</span>
+                      <span class="profile-item">{{farmProfile.Overview}}</span>
+                    </div>
+                  </div>
+                  <!--Transportation provider badge-->
+                  <div class="row" *ngIf="farmProfile.IsTransportationProvider">
+                    <div class="col-lg-12">
+                      <div class="profile-item">
+                        <span class="looking-for">Transportation provider</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--End of farm profile -->    
+                </div>
+              </div>
+            </div>
+            
+
+            
+            <!-- Post to another user's profile-->
+            <div class="status-box">
+                <!--Status Update Box-->
+               
+                <form action="#" method="post" role="form" enctype="multipart/form-data" [formGroup]="postFormGroup">
+                  <div>
+                    <div class=" feed-panel-box" id="status-box">
+                      <div class="panel-body">
+                        <textarea name="postText" cols="40" formControlName="postText" rows="10" id="postText" class="form-control message"
+                          style="height: 62px; overflow: hidden;" placeholder="Share a status update."></textarea>
+    
+                        <p class="invalid-feedback" *ngIf="postFormGroup.controls.postText.errors?.required && (postFormGroup.controls.postText.touched || isSubmitted)">Status
+                          is required</p>
+                        
+                        <div class="photo-post-thumbnails" *ngIf="!isPosted">
+                          <div class="photo-post-thumbnail" [style.background]="'url('+previewPhoto+')'">
+                            <i class="fa fa-times delete-photo" (click)="removePhoto()"></i>
+                          </div>
+                         
+                        </div>
+                      </div>
+                      <div class="panel-footer status-footer">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group update-status pull-right">
+                              <input type="submit" name="submit" value="Post" class="btn btn-sm pull-right" (click)="createPost()">
+                            
+                              <span class="span5 btn btn-sm btn-file post-photo-update"><i class="fa fa-image" (click)="openfileDialogue($event)"></i>
+                                <input id="photoUpdate" type="file" name="fileData" size="1" style="display: none" (change)="onSelectedFileName($event)">
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            <!-- <div class="feed-panel-box">
+              <div class="profile-box">
+                <span class="profile-item-title"><a href="isakPhotos.html">Photos</a></span>
+                <div class="profile-item">
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album" data-title="User's caption"><img class="album-photo"  src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album" data-title="Another caption"><img class="album-photo"  src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album"><img class="album-photo"  src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album"><img class="album-photo"  src="http://via.placeholder.com/150x150" /></a>
+
+                </div>
+              </div>
+            </div> -->
+            <div *ngIf="(userDetails && posts.length >0)">
+                <div class="post-box"  *ngFor="let item of posts">
+                  <img class="post-author-photo pull-left post-author-photo-dimension" src="{{item.AuthorProfilePicUrl}}" />
+                  <span class="post-author"><a href="javascript:;">{{item.AuthorName}}</a></span>
+                  <span class="post-timestamp">{{item.Timespan | date:'MM/dd/yyyy HH:mm'}}</span>
+                  <span class="post-author-farm"><a href="javascript:;">{{item.FarmName}}</a></span>
+                  <div class="post-content">
+                    <span class="post-status">{{item.PostText}}</span>
+                    <!-- <a href="http://via.placeholder.com/800x1200" data-lightbox="post-photo" data-title="Growth of the Soil by Knut Hamsun"></a> -->
+                      <!-- <div class="post-photo-container post-photo-container-vertical">
+                        
+                      </div> -->
+                      <div class="row text-center">
+                          <a *ngFor="let postImg of item.PostImages;" href="{{imgPath + postImg.FileName}}" data-lightbox="post-photo"
+                          data-title="{{post.PostText}}">
+                          <!-- <img class="post-photo" [src]="post.PostImageUrl"> -->
+                          <img class="post-photo" [src]="imgPath + postImg.FileName">
+          
+                        </a>
+
+                          <!-- <img class="post-img" src="{{imgPath}}{{item.PostImages[0].fileName}}"> -->
+                      </div>
+                    
+                    <span class="post-likes"><a data-toggle="modal" data-target="#likes">{{item.Likes}} likes</a></span>
+    
+                    
+    
+                    <span class="post-likes"><a data-toggle="modal" data-target="#likes">{{item.PostComments.length}} Comments</a></span>
+                    <hr>
+                    <span class="like">
+                        <a *ngIf="!item.IsLiked" class="like-button" [ngClass]="{'liked': item.IsLiked}" (click)="likeUnlikePost(item,true)"><i
+                          class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        Like</a>
+                      <a *ngIf="item.IsLiked" class="like-button liked" (click)="likeUnlikePost(item,false)"><i class="fa fa-thumbs-up"
+                          aria-hidden="true"></i>
+                        Liked</a>
+                    </span>
+    
+                    <span class="comment"  (click)="item.isCommentsShow = !item.isCommentsShow">
+                      <a class="comment-button" ><i class="fa fa-comment" aria-hidden="true"></i>
+                        Comment</a>
+                    </span>
+                   
+                    <span class="post-options"><i class="fa fa-flag"></i></span>
+    
+                    <!--Comment box follows each post, hidden by default-->
+                    <div class="comments-section" [hidden]="!item.isCommentsShow">
+                        <img class="user-photo" *ngIf="userDetails.UserImageUrl"  src="{{userDetails.UserImageUrl}}" />
+                      <input type="text" [(ngModel)]="item.CommentText" placeholder="Add your comment" class="comment-box" #CommentText="ngModel" (keydown)="addComment(item,$event)">
+                      <i class="fa fa-send-o cursor" aria-hidden="true" (click)="addComment(item,$event,true)"></i>
+                      <div class="user-comments">
+                        <!--Each comment goes in its own div.user-comment-->
+                        <div class="user-comment" *ngFor="let postcomment of item.PostComments">
+                          <div class="row">
+                              <div class="col-md-8 col-sm-8 pull-left">
+                                  <span class="comment-name"><a>{{postcomment.Author}}</a></span>
+                                  <span class="comment-body">{{postcomment.Comment}}</span>
+                              </div>
+    
+                              <div class="col-md-4 col-sm-4 pull-right">
+                                  <span class="comment-timestamp ">{{postcomment.TimeStamp |date: 'MM/dd/yyyy hh:mm:ss'}} </span>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <span class="like m-l-15">
+                                  <a *ngIf="!postcomment.isLiked" class="like-button" [ngClass]="{'liked': postcomment.isLiked}" (click)="likeUnlikeComment(postcomment,true,item.id)"><i
+                                    class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                  Like</a>
+                                <a *ngIf="postcomment.isLiked" class="like-button liked" (click)="likeUnlikeComment(postcomment,false,item.id)"><i class="fa fa-thumbs-up"
+                                    aria-hidden="true"></i>
+                                  Liked</a>
+                                </span>
+                                <span class="comment-likes">{{postcomment.likes}} | Likes</span>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    </div>
+    
+                  </div>
+                </div>
+    
+              </div>
+          </div>
+        </div>
+        <!--Search, suggested farms and add friends column-->
+        <app-suggested-farmers></app-suggested-farmers>
+       
+      </div>
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+

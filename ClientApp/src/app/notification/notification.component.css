@@ -1,0 +1,14 @@
+.notification-img {
+    margin-right: 3px;
+    margin-top: 8px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .fnt-14{
+      font-size: 14px;
+  }
+
+  .read{
+    background-color: #ccc;
+  }

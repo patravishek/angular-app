@@ -1,0 +1,8 @@
+/*Following Page*/
+.following .following-user-dropdown{
+  display: inline-block !important;
+}
+
+.following .follow-user-dropdown {
+  display: none !important;
+}

@@ -1,0 +1,277 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-8 feed-panel-box">
+          <div class="profile-box">
+            <h4>Seller Info</h4>
+            <div class="col-lg-6">
+              <img class="seller-photo pull-left" src="http://via.placeholder.com/30x30">
+              <span class="post-author"><a href="javascript:;">{{checkOutModel.sellerName}}</a></span>
+              <span class="post-author-farm"><a href="javascript:;">{{checkOutModel.sellerFarm}}</a></span>
+            </div>
+            <div class="col-lg-6">
+              <button class="btn btn-sm pull-right contact-seller" data-toggle="modal" data-target="#compose">Contact
+                Seller</button>
+              <span class="seller-location">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{checkOutModel.sellerLocation}}</span>
+            </div>
+          </div>
+
+        </div>
+        <!--Check out box-->
+        <div class="col-lg-4 hidden-md hidden-sm hidden-xs">
+          <div class="affix col-lg-3">
+            <!--Suggested farms box-->
+            <div class="col-lg-12 feed-panel-box">
+              <div class="suggestion-box">
+                <div class="suggestion-box-header">
+                  <h6>Check Out</h6>
+                </div>
+                <div class="checkout-box">
+                  <span class="checkout-heading">How you're paying</span>
+                  <span class="checkout-detail">{{checkOutModel.paymentType}} {{checkOutModel.cardNumber}}</span>
+
+                  <span class="checkout-heading">Livestock total</span>
+                  <span class="checkout-detail">${{checkOutModel.totalPrice}}</span>
+                  <span class="checkout-heading">Shipping:</span>
+                  <span class="checkout-detail">{{checkOutModel.shippingType}}</span>
+                  <span class="checkout-heading total"><strong>Total:</strong></span>
+                  <span class="checkout-detail total"><strong>${{checkOutModel.total}}</strong></span>
+                </div>
+                <div class="buy-now">
+                  <button class="btn buy-now-btn">Proceed To Checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 feed-panel-box">
+          <div class="profile-box">
+            <h4 class="d-inline">Prudence</h4>
+            <i class="fa fa-print pull-right edit-records" aria-hidden="true"></i>
+            <i class="fa fa-envelope pull-right edit-records" data-toggle="modal" data-target="#shareRecord"
+              aria-hidden="true"></i>
+            <div class="row">
+              <div class="col-lg-4">
+                <!-- Overview info - doesn't toggle -->
+                <div class="record-profile-photo">
+                  <a href="{{checkOutModel.bigImageUrl}}" data-lightbox="profile-photo">
+                    <img src="{{checkOutModel.imageUrl}}" id="record-photo" class="profile-photo">
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <span class="price">$402</span>
+                <span class="shipping">Buyer provides shipping</span>
+                <ul class="animal-info">
+                  <li>My favorite goat on planet Earth.</li>
+                  <li><strong>Type: </strong>{{checkOutModel.type}}</li>
+                  <li><strong>Breed: </strong>{{checkOutModel.breed}}</li>
+                  <li><strong>Gender: </strong>{{checkOutModel.gender}}</li>
+                  <li><strong>DOB: </strong>{{checkOutModel.dob | date:'MM-dd-yyyy'}}</li>
+                  <li><strong>Age: </strong>{{checkOutModel.age}} year old</li>
+                  <li><strong>Height: </strong>{{checkOutModel.height}}</li>
+                </ul>
+
+              </div>
+            </div>
+            <div class="spacer"></div>
+
+            <ul class="nav nav-pills">
+              <li class="active">
+                <a href="#id-details" data-toggle="tab">ID Details</a>
+              </li>
+              <li><a href="#health-issues" data-toggle="tab">Health Issues</a>
+              </li>
+              <li><a href="#health-records" data-toggle="tab">Health Records</a>
+              </li>
+              <li><a href="#show-records" data-toggle="tab">Show Records</a>
+              </li>
+              <li><a href="#breed-records" data-toggle="tab">Breed Records</a>
+              </li>
+              <li><a id="tabAll" href="javascript:;">All</a></li>
+            </ul>
+            <hr class="pill-nav">
+            <div class="spacer"></div>
+            <!-- Tabbed profile info -->
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="id-details">
+                <div class="col-lg-6">
+                  <h5 class="d-inline">Identification Details
+                  </h5>
+                  <ul class="animal-info" id="id-info">
+                    <li><strong>ID: </strong>
+                      <span class="record-detail">
+                        {{checkOutModel.idDetailsModel.idNumber}}
+                      </span>
+                    </li>
+                    <li><strong>Color: </strong>
+                      <span class="record-detail">
+                          {{checkOutModel.idDetailsModel.color}}
+                      </span>
+                    </li>
+                    <li><strong>Microchip: </strong>
+                      <span class="record-detail">
+                          {{checkOutModel.idDetailsModel.microchipName}}
+                      </span>
+                    </li>
+                    <li><strong>Tattoo: </strong>
+                      <span class="record-detail">
+                          {{checkOutModel.idDetailsModel.tattoSymbol}}
+                      </span>
+                    </li>
+                    <li><strong>Registration Certificate: </strong>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <a *ngFor="let item of checkOutModel.idDetailsModel.recordPhotos"  href="{{checkOutModel.idDetailsModel.recordBigImageUrl}}" data-lightbox="animal-photo">
+                    <img src="{{item.imageUrl}}" id="record-photo" class="animal-photo">
+                  </a>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="health-issues">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Health Issues</h5>
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr *ngFor="let item of checkOutModel.healthIssueModel">
+                        <td>{{item.healthDate | date:'MM/dd/yy'}}</td>
+                        <td>{{item.healthDescription}}</td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="health-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Health Records</h5>
+                  <table class="table table-hover">
+
+                    <tbody *ngFor="let item of checkOutModel.healthRecordModel">
+                      <tr>
+                        <td>{{item.recordDate | date:"MM/dd/yy"}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.healthRecordDescription}}</td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="show-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Show Records</h5>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr *ngFor="let item of checkOutModel.healthShowRecordModel">
+                        <td>{{item.showRecordDate | date:'MM/dd/yy'}}</td>
+                        <td>{{item.event}}</td>
+                        <td>{{item.healthShowRecordachievement}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="breed-records">
+                <div class="col-lg-12">
+                  <h5 class="d-inline">Breed Records</h5>
+                  <table class="table table-hover">
+
+                    <tbody>
+                      <tr *ngFor="let item of checkOutModel.breedRecordModel">
+                          <td>{{item.startDate | date:'MM/dd/yy'}}</td>
+                          <td>{{item.dueDate | date:'MM/dd/yy'}}</td>
+                        <td>{{item.breadDescription}}</td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!--Display this checkout box on smaller screens-->
+        <div class="col-lg-8 feed-panel-box hidden-lg">
+          <div class="suggestion-box">
+            <div class="suggestion-box-header">
+              <h6>Check Out</h6>
+            </div>
+            <div class="profile-box">
+              <div class="checkout-box">
+                <span class="checkout-heading">How you're paying</span>
+                <span class="checkout-detail">{{checkOutModel.paymentType}} {{checkOutModel.cardNumber}}</span>
+
+                <span class="checkout-heading">Livestock total</span>
+                <span class="checkout-detail">${{checkOutModel.totalPrice}}</span>
+                <span class="checkout-heading">Shipping:</span>
+                <span class="checkout-detail">{{checkOutModel.shippingType}}</span>
+                <span class="checkout-heading total"><strong>Total:</strong></span>
+                <span class="checkout-detail total"><strong>${{checkOutModel.total}}</strong></span>
+              </div>
+              <div class="buy-now">
+                <a class="btn buy-now-btn">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- Compose message modal -->
+<div id="compose" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="cto">Compose Message</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form #composeMessageForm="ngForm">
+
+      <div class="modal-body">
+          <div class="form-group">
+            <label class="pull-left">To:</label>
+            <input type="text" class="form-control" placeholder="Seller Name" disabled name="to"
+              [(ngModel)]="sellerModel.sellerName"><br><br>
+            <label class="pull-left">Message:</label>
+            <textarea id="sender-msg" name="senderMessage" [(ngModel)]="sellerModel.message"
+              #senderMessage="ngModel" required></textarea>
+            <p class="invalid-feedback"
+              *ngIf="senderMessage.errors?.required && (senderMessage.touched || isMessageSubmitted)">
+              Message is required</p>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <div class="msg-btns">
+          <button class="btn btn-sm pull-right" id="send-btn" type="submit"
+            (click)="sendMessage(composeMessageForm)">Send</button>
+          <input type="file" class="photoUpdate" (change)="uploadFile($event)"/>
+          <a class="btn btn-sm pull-right post-photo-update"><i class="fa fa-image"></i></a>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

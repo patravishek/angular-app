@@ -1,0 +1,133 @@
+
+/* Dashboard Styles */
+
+
+
+.add-dashboard a{
+  text-decoration: none;
+  color: white;
+}
+
+
+
+
+.dash-box-header {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-weight: 800;
+
+}
+
+.dash-box-contents {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  color:#333;
+  min-height: 160px;
+
+}
+
+ .dash-box-2 {
+    max-width: 49.25%;
+  }
+
+ul.dash-box-list {
+  list-style: none;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+
+ul.dash-box-list li {
+  padding-bottom: 15px;
+}
+
+ul.dash-box-list li a {
+  color: #f14b15;   
+
+}
+
+.add-dashboard {
+  /* display: none; */
+  border-radius: 50%;
+  margin: 5px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+}
+
+input[type=checkbox].todo-checkbox + label {
+  font-style: normal;
+  color:black;
+  font-weight: normal;
+  }
+
+  label {
+    display:inline;
+  }
+
+  input.todo-checkbox {
+    margin-right: 10px;
+  }
+
+  .newDashboardItem{
+  font-size: 3em;
+  color: rgba(0,0,0,0.1);
+  padding: 15px;
+}
+.new-panel > div:hover  {
+
+  background-color: rgba(0,0,0,0.05);
+}
+
+
+
+.new-panel > div:hover i.newDashboardItem {
+ color: #f14b15;   
+}
+
+.new-panel:hover {
+ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+ border: 1px solid rgba(0,0,0,0.2);
+}
+
+.add-dashboard {
+  /* display: none; */
+  text-align: center;
+}
+
+.panel:hover div {
+  display: block;
+}
+
+@media only screen and (min-width: 1200px) {
+
+  .dash-box-2 {
+    max-width: 49%;
+  }
+  #storeBox {
+    padding-right: 0px;
+  }
+
+  #storeGraphBox {
+    padding-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  #toDoList {
+    margin-left: 0px;
+  }
+  .dash-box-2 {
+    width: 100%;
+  }
+  #storeGraph {
+    width: 100%;
+    height: 200px;
+  }
+}

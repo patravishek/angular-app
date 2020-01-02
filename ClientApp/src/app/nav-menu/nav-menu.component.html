@@ -1,0 +1,360 @@
+<div id="signIn" class="modal fade" role="dialog" [hidden]="display">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Sign In to LivestockCity</h4>
+        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal-body">
+        <form novalidate #f="ngForm">
+          <br>
+          <!--<form>-->
+          <div class="form-group login-form login-contact-form">
+            <label>Email Address or User ID</label>
+            <input type="email" name="userName" [(ngModel)]="username" placeholder="username" required> <br>
+            <p class="invalid-feedback" *ngIf="f.controls.userName?.errors && f.controls.userName?.touched">Email is
+              required</p>
+
+            <label>Password</label>
+            <input type="password" id="pw-sign-in" name="password" placeholder="password" [(ngModel)]="password"
+              required>
+            <p class="invalid-feedback" *ngIf="f.controls.password?.errors && f.controls.password?.touched">Password is
+              required</p>
+
+            <!-- Show this message if the email is valid but the password incorrect -->
+            <div class="alert alert-danger" id="incorrect-pw" role="alert">
+              <strong>Incorrect password</strong> Please try again.
+            </div>
+            <!-- Show this message if the email is not associated with an existing account -->
+            <div class="alert alert-danger" id="invalid-email-confirmation" role="alert">
+              <strong>Invalid email.</strong> This email is not associated with a LivestockCity account.
+              <ul id="login-links">
+                <li><a class="sign-up-link" href="#">Are you a new user? Start here.</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="chekUidPass">
+            <strong class="text-small">User name or password is incorrect</strong>
+          </div>
+          <div class="alert alert-danger alert-dismissible" *ngIf="emailEmptyForgotPassword">
+            <button type="button" class="close" (click)="emailEmptyForgotPassword = false">&times;</button>
+            <strong>
+              <small>Email Address is missing or not valid. Please enter email address in the user name inpuut field
+                above.</small>
+            </strong>
+          </div>
+          <div class="alert alert-success" *ngIf="resetPasswordSuccess">
+            <button type="button" class="close" (click)="resetPasswordSuccess = false">&times;</button>
+            <strong>
+              <small>Your password has been reset and an email was sent to {{username}}. For testing only, the new
+                password is: {{newPassword}} (remove this before going live).</small>
+            </strong>
+
+          </div>
+
+          <button type="submit" id="sign-in-btn" data-toggle="modal" data-target="#resendConfirmation" class="btn"
+            (click)="SignIn(f)">Sign In</button>
+          <!--</form>-->
+          <ul id="login-links">
+            <li><a class="sign-up-link login-link" data-toggle="modal" data-target="#resetPassword">Forgot password?</a>
+            </li>
+            <br>
+            <li><a class="sign-up-link login-link" href="/sign-up">Are you a new user? Start here.</a></li>
+          </ul>
+
+          <h6>Social login:</h6>
+          <div id="social-login-links">
+            <i (click)="socialSignIn('facebook')" class="fa fa-facebook-square"></i>
+            <!-- <i  class="fa fa-twitter-square"></i> -->
+            <i (click)="socialSignIn('google')" class="fa fa-google-plus-square"></i>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+
+<div id="resetPassword" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Reset Password</h4>
+        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <form #forgotPasswordForm="ngForm">
+          <div class="form-group login-form login-contact-form">
+            <span>Enter the email address you used to create your LivestockCity account and we'll send you a link to
+              reset your password.</span>
+            <input type="email" name="userEmail" [(ngModel)]="email" id="email-password-reset" placeholder="email"
+              required><br>
+
+            <p class="invalid-feedback"
+              *ngIf="forgotPasswordForm.controls.userEmail?.errors && (forgotPasswordForm.controls.userEmail?.touched || IsSubmitted)">
+              Email
+              is
+              required</p>
+
+            <div class="alert alert-success" id="reset-link-sent" role="alert" *ngIf="IsLinkSentSuccess">
+              <strong>Reset password link sent.</strong> Please check your email and follow the instructions to reset
+              your password.
+            </div>
+          </div>
+          <a id="reset-email" class="btn" (click)="sendForgotPasswordMail(forgotPasswordForm)">Send Reset Email</a>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" *ngIf="!IsLoggedIn">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="javascript:;">
+        <img id="livestock-logo" src="../../assets/images/livestockcity-logo.png" />
+      </a>
+    </div>
+    <ul class="navbar-nav pull-right desktop-nav-menu" id="homepage-nav">
+      <li class="nav-item homepage-nav-item">
+        <a class="nav-link" href="/sign-up" role="button" aria-haspopup="true" aria-expanded="true">Sign Up</a>
+      </li>
+      <li class="nav-item homepage-nav-item">
+        <a class="nav-link orange" data-toggle="modal" data-target="#signIn" role="button" aria-haspopup="true"
+          aria-expanded="true">Log In</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" *ngIf="IsLoggedIn">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink='/feed'><img id="livestock-logo"
+          src="../../assets/images/livestockcity-logo.png" /></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <ul class="navbar-nav pull-right desktop-nav-menu">
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Buy/Sell <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink='/shop'>Classifieds</a>
+              <a class="dropdown-item" routerLink='/auction'>Auction</a>
+              <a class="dropdown-item" routerLink='/farmstore'>Farm Stores</a>
+            </div>
+          </li>
+      <li class="active">
+        <a routerLink='/myoffice'>My Office</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">My Store <i
+            class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink='/product' >View Store</a>
+          <a class="dropdown-item" routerLink='/addproduct/0'>Add Product</a>
+          <a class="dropdown-item" routerLink='/storeedit'>Edit Store</a>
+          <a class="dropdown-item" routerLink='/sales'>Sales</a>
+        </div>
+      </li>
+      <li class="active">
+        <a routerLink='/herd'>My Records</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" routerLink='/directory' role="button" aria-haspopup="true" aria-expanded="true">Directory <i
+            class="fa fa-angel-down" aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" routerLink='/eventPage' role="button" aria-haspopup="true" aria-expanded="true">Events <i
+            class="fa fa-angel-down" aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" routerLink='/messages' role="button" aria-haspopup="true" aria-expanded="true">Messages <i
+            class="fa fa-angel-down" aria-hidden="true"></i></a>
+      </li>
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="true">Directories</a>
+      </li>-->
+
+
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i
+            class="fa fa-bell" aria-hidden="true"></i><span class="badge new-notification">4</span></a>
+           
+
+   <div class="dropdown-menu notification-box" id="notification-dropdown">
+    <a class="dropdown-item" href="#" *ngFor="let item of NotificationList;">
+     {{item.userfullName}} <br>{{item.notification}}
+    
+    </a>
+    
+    </div> 
+    <span class="notification-count">{{notificationCount}}</span>
+      </li> -->
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i
+            class="fa fa-bell" aria-hidden="true"></i><span class="badge new-notification">{{notificationCount}}</span>
+          <span class="sr-only">unseen notifications</span></a>
+        <div class="dropdown-menu dropdown-menu-right" id="notification-dropdown">
+          <a class="dropdown-item" href="#" *ngFor="let item of NotificationList | slice:1:4"
+            (click)="ReadNotificatio(item)" [ngClass]="{'read': item.status}">
+            <img class="notification-img round-photo" *ngIf="item.userProfilePic"
+              [src]="rootImgPath + item.userProfilePic" />
+            <img class="notification-img round-photo" *ngIf="!item.userProfilePic"
+              src="http://via.placeholder.com/20x20" />
+            {{item.notification}}
+            <i class="fa fa-envelope pull-right m-10" *ngIf="!item.status" title="UnRead"></i>
+            <i class="fa fa-envelope-open pull-right m-10" *ngIf="item.status" title="Read"></i>
+          </a>
+          <div class="dropdown-divider"></div>
+          <div class="text-center">
+            <a routerLink='/notifications'>All</a>
+          </div>
+        </div>
+      </li>
+      <!-- <li class="nav-item dropdown">
+       <a class="nav-link" routerLink='/messages' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i
+            class="fa fa-envelope" aria-hidden="true"></i></a> -->
+
+      <!--<div class="dropdown-menu dropdown-menu-right" id="messages-dropdown">
+            <a class="dropdown-item" href="#">
+              <img class="user-photo" src="http://via.placeholder.com/30x30" />
+              <span class="msg-preview-sender">Fiona Apple</span>
+              <span class="msg-preview-date">Jan 10</span>
+              <span class="msg-preview-body">
+                Is Harvey the goat for sale?
+                <i class="fa fa-check-circle pull-right msg-read-status" aria-hidden="true"></i>
+              </span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="inbox.html">
+              <img class="user-photo" src="http://via.placeholder.com/30x30" />
+              <span class="msg-preview-sender">Bilbo Baggins</span>
+              <span class="msg-preview-date">Jan 8</span>
+              <span class="msg-preview-body">
+                The auction starts on Saturday at 8am if you are interested and....
+                <i class="fa fa-long-arrow-left pull-right msg-read-status" aria-hidden="true"></i>
+              </span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="inbox.html">
+              <img class="user-photo" src="http://via.placeholder.com/30x30" />
+              <span class="msg-preview-sender">4 Non Blondes</span>
+              <span class="msg-preview-date">Jan 7</span>
+              <span class="msg-preview-body">
+                Hey, what's going on?
+                <i class="fa fa-check-circle pull-right msg-read-status" aria-hidden="true"></i>
+              </span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="inbox.html">
+              <img class="user-photo" src="http://via.placeholder.com/30x30" />
+              <span class="msg-preview-sender">Tommy W</span>
+              <span class="msg-preview-date">Jan 3</span>
+              <span class="msg-preview-body">
+                Oh hai, Mark
+                <i class="fa fa-long-arrow-left pull-right msg-read-status" aria-hidden="true"></i>
+              </span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <div class="text-center">
+              <a href="inbox.html">All</a>
+              |
+              <a data-toggle="modal" data-target="#compose">New Message</a>
+            </div>
+          </div>-->
+
+      <!-- </li> -->
+      <!-- Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="true">{{FirstName}}&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/myprofile">View Profile</a>
+          <a class="dropdown-item" routerLink='/editprofile'>Edit Profile</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" style="cursor:pointer" (click)="SignOut()">Sign out</a>
+        </div>
+      </li>
+    </ul>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav hamburger-menu">
+        <li class="active"><a href="/myprofile">View Profile</a></li>
+        <li class="active"><a routerLink='/editprofile'>Edit Profile</a></li>
+        <!-- <div class="dropdown-divider"></div>
+          <li class="active"><a href="farmedit.html">Edit Farm</a></li>
+          <div class="dropdown-divider"></div>
+          <li class="active">
+            <a href="products.html">Buy/Sell</a>
+            <ul>
+              <li class="dropdown-item"><a href="shop.html">Classifieds</a></li>
+              <li class="dropdown-item"><a href="auction.html">Auctions</a></li>
+              <li class="dropdown-item"><a href="farmstore.html">Farm Stores</a></li>
+            </ul>
+          </li>
+          <li class="active">
+            <a href="dashboard.html">My Office</a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <li class="active">
+            <a href="products.html">My Store</a>
+            <ul>
+              <li class="dropdown-item"><a href="products.html">View Store</a></li>
+              <li class="dropdown-item"><a href="addproduct.html">Add Product</a></li>
+              <li class="dropdown-item"><a href="storeedit.html">Edit Store</a></li>
+              <li class="dropdown-item"><a href="sales.html">Sales</a></li>
+            </ul>
+          </li>
+          <div class="dropdown-divider"></div>
+          <li class="active">
+            <a href="herd.html">My Records</a>
+            <ul>
+              <li class="dropdown-item"><a href="herd.html">Livestock</a></li>
+              <li class="dropdown-item"><a href="equipment.html">Equipment</a></li>
+            </ul>
+          </li>
+          <div class="dropdown-divider"></div>
+          <li class="active">
+            <a href="offers.html">Offers</a>
+          </li>
+          <div class="dropdown-divider"></div> -->
+        <li class="active">
+
+          <!-- <a href="feed.html">Network</a> -->
+          <ul>
+            <!-- <li class="dropdown-item"><a href="forum.html">Forum</a></li> -->
+            <li class="dropdown-item"><a routerLink='/eventPage'>Events</a></li>
+            <li class="dropdown-item"><a routerLink='/messages'>Messages</a></li>
+            <li class="dropdown-item"><a routerLink='/directory'>Directory</a></li>
+            <li class="dropdown-item"><a routerLink='/herd'>My Records</a></li>
+            <li class="dropdown-item"><a routerLink='/myoffice'>My Office</a></li>
+          </ul>
+        </li>
+        <div class="dropdown-divider"></div>
+        <li class="active">
+          <a style="cursor:pointer" (click)="SignOut()">Sign out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>

@@ -1,0 +1,235 @@
+@media (min-width: 992px) {
+    .two-user-chat, .group-chat {
+      width: 49%;
+    }
+  }
+  /* Inbox Styles */
+  
+  .msg-sender {
+    display: inline;
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: .9em;
+  }
+  .msg-attachment {
+    float: right;
+    display: inline;
+    margin-right: 10px;
+    margin-top: 3px;
+  }
+  .msg-date {
+    float: right;
+    display: inline;
+  
+  }
+  .msg-subject {
+    display: block;
+    margin-left: 25px;
+    font-size: .9em;
+  }
+  .msg-preview {
+    display: block;
+    margin-left: 15px;
+    font-style: italic;
+    font-size: .75em;
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .msg-body {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+    height:auto;
+    max-height: 50vh;
+  }
+  
+  .msg-date {
+    font-size: .8em;
+  }
+  
+  .unread-message {
+    border-left: 5px solid #f14b15 !important;
+  }
+  
+  .inbox-collapsed {
+      overflow-y: scroll;
+    height:auto;
+    max-height: 90vh;
+  }
+  
+  #msg-response {
+    width:100%;
+  }
+  #inbox-list.list-group-item {
+    border-left: none;
+    border-right: none;
+  }
+  
+  #inbox-list.list-group-item:first-child {
+    border-top: none;
+  }
+  
+  #inbox-list.list-group-item:last-child {
+    border-bottom: none;
+  }
+  
+  .inbox {
+    float: right;
+  }
+  
+  .two-user-chat, .group-chat {
+    z-index: 500;
+    display: none;
+    padding: 15px 40px 40px 40px;
+    margin-bottom: 10px;
+  }
+  
+  .two-user-chat a:hover ,.group-chat a:hover {
+    text-decoration: underline;
+  }
+  
+  .sender-photo {
+    border-radius: 50%;
+    clear: both;
+  }
+  
+  textarea, textarea.compose-msg {
+    width: 100%;
+    height: 50px;
+    padding: 12px 20px;
+    border: 1px solid rgba(0,0,0,0.05);
+    font-size: 16px;
+    resize: none;
+  }
+  
+  textarea#bio-signup {
+    width: 90%;
+  }
+  
+  textarea:focus, textarea.compose-msg:focus, input.form-control:focus, textarea#status_message:focus {
+    border: 1px solid #f14b15; 
+    box-shadow: none;
+  }
+  
+  input.form-control {
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .msg-btns {
+    width: 100%;
+  
+  }
+  
+  #send-btn {
+    margin-top: 0px;
+    margin-left: 5px;
+  }
+  
+  #save-draft {
+    color: gray;
+    font-size: .8em;
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+  
+  .msg-textarea {
+    width: 100%;
+    height: 200px;
+    margin-top: 25px;
+  }
+  
+  #new-msg-button {
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  
+  #mailboxes-button {
+    margin-left: 15px;
+  }
+   .message-received {
+    float: left;
+    width: 55%;
+    background-color: rgba(0,0,0,0.05);
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+   }
+  
+   .message-sent {
+    float: right;
+    width: 55%;
+    color: white;
+    background-color: #ea8937;
+     padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+   }
+  .message-settings-dropdown {
+    color: rgba(0,0,0,0.3);
+  }
+  
+  .message-received-timestamp, .read-receipt-chat {
+    clear: both;
+    font-size: .8em;
+    color: rgba(0,0,0,0.5);
+  }
+  
+  .sender-name.group-chat {
+    margin-right: 5px;
+    margin-left: 5px;
+    color: rgba(0,0,0,0.5);
+    padding: 0px !important;
+  }
+  
+  .message-received-timestamp .sender-photo{
+    margin-bottom: 10px;
+  }
+  
+  input.profile-edit, input#sender, input#sender-email {
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  input.profile-edit:focus, textarea#sender-msg:focus, textarea#contact-msg:focus, input#sender:focus, input#sender-email:focus  {
+    border: 1px solid #f14b15;   
+    box-shadow: none;
+  }
+  
+  textarea#sender-msg {
+    width: 100%;
+    height: 10em;
+    resize: vertical;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .mailbox-categories {
+    width: 70%;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-right: 0px;
+  }
+  
+  /* .80-width {
+    max-width: 80%;
+  } */
+  
+  .post-photo-update {
+    background-color: white;
+    color: #f14b15; 
+    border: 1px solid #f14b15;
+    margin-top: 0px;
+  }
+  
+  input.photoUpdate {
+  display: none;
+  
+  }
+
+  a.list-group-item, button.list-group-item {
+    color: #555 !important;
+}
+  

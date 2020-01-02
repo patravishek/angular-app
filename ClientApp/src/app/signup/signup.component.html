@@ -1,0 +1,83 @@
+<div id="page-content-wrapper">
+  <div id="signup-box" class="col-sm-12 col-lg-8 col-lg-offset-2">
+    <div id="signup-section-1" *ngIf="showSignupForm">
+      <div class="row text-center">
+        <h2>Welcome to LivestockCity!</h2>
+        <h3>A place to meet other livestock farmers.</h3>
+
+        <form [formGroup]="registrationFormGroup">
+
+          <div class="form-group">
+            <input type="text" placeholder="Your First Name*" name="firstName" formControlName="firstName" class="signup-input signup-required text-upper" />
+          </div>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.firstName.errors?.required && (registrationFormGroup.controls.firstName.touched || isSubmitted)">
+            First Name is required
+          </p>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.firstName.errors?.pattern &&(registrationFormGroup.controls.firstName.touched || isSubmitted)">
+            Special characters and number not allowed in first name
+          </p>
+
+          <div class="form-group">
+            <input type="text" placeholder="Your Last Name*" name="lastName" formControlName="lastName" class="signup-input signup-required text-upper" />
+          </div>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.lastName.errors?.required && (registrationFormGroup.controls.lastName.touched || isSubmitted)">
+            Last Name is required
+          </p>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.lastName.errors?.pattern &&(registrationFormGroup.controls.lastName.touched || isSubmitted)">
+            Special characters and number not allowed in last name
+          </p>
+
+
+          <div [formGroup]="passwordFormGroup">
+            <div class="form-group">
+              <input class="signup-input signup-required" [pattern]="passwordPattern" placeholder="Enter Password*" type="password"
+                     name="password" formControlName="password">
+            </div>
+            <p class="invalid-feedback" *ngIf="passwordFormGroup.controls.password.errors?.required && ( passwordFormGroup.controls.password.touched  || submitted)">
+              Password is required
+            </p>
+            <p class="invalid-feedback" *ngIf="passwordFormGroup.controls.password.errors?.pattern">
+              Password should contain one special character, one number, one uppercase letter and must contain at least 6 characters
+            </p>
+          </div>
+
+          <div class="form-group">
+            <input class="signup-input signup-required" type="text" (keyup)="CheckEmail()" (blur)="CheckEmail()" placeholder="Your Email*" name="email" formControlName="email" />
+          </div>
+          <p class="invalid-feedback text-danger" style="font-weight:bold" *ngIf="!isValidEmail">Email already exists</p>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.email.errors?.required && (registrationFormGroup.controls.email.touched || submitted)">
+            Email is required
+          </p>
+          <p class="invalid-feedback" *ngIf="registrationFormGroup.controls.email.errors?.pattern">
+            Please enter a correct email id
+          </p>
+
+          <div class="row text-center">
+            Note: <strong>YOUR EMAIL AND PHONE WILL ALWAYS BE PRIVATE,</strong>
+            and are simply used for account verification. <br>By clicking "Join!" below, you agree to the LivestockCity User Agreement, Privacy Policy, and Cookie Policy reference at the bottom of this page.
+          </div>
+
+          <br>
+          <div class="row text-center">
+
+            <button class="btn" (click)="Signup()">Join!</button>
+            <br><br> Alternatively, you can use social login:
+            <br><br> <div id="social-login-links">
+              <i class="fa fa-facebook-square fa-2x" (click)="socialSignIn('facebook')"></i>
+              <i class="fa fa-google-plus-square" (click)="socialSignIn('google')"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="showOnSuccess" class="col-sm-12 col-lg-12">
+      <div class="row text-center">
+        <h4>
+          Signup successful. A verification link has been sent to email account. Please check and verify.
+        </h4>
+      </div>
+    </div>
+
+  </div>
+</div>

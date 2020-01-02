@@ -1,0 +1,81 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs and Add New-->
+        <div class="container top">
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="breadcrumb">
+                        <a class="breadcrumb-item" href="farmstore.html">My Store</a>
+                        <span class="breadcrumb-item active">Edit</span>
+                    </div>
+                    <a routerLink="/addproduct/0" class="btn">Add Product</a>
+                    <h5 class="shop-heading">My Farm Store</h5>
+                    <h1>Edit</h1>
+                    Products
+                    <div class="list-group">
+                        <a href="products.html" class="list-group-item">Active <span class="badge">7</span></a>
+                        <a href="products.html" class="list-group-item">Drafts <span class="badge">1</span></a>
+                        <a href="products.html" class="list-group-item">Sold Out <span class="badge">3</span></a>
+                        <br>
+                        Orders
+                        <a href="sales.html" class="list-group-item">Open orders
+                            <span class="badge badge-important">2</span></a>
+                        <a href="sales.html" class="list-group-item">Past orders</a>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <form #StoreDetForm="ngForm" novalidate>
+                        <div class="text-center">
+
+                            <h1>Edit Farm Store</h1>
+                            <!--Profile Photo-->
+                            <img *ngIf="!FarmpreviewPhoto" class="farm-logo" id="profile-photo" src="http://via.placeholder.com/150x150" /> 
+                            <img *ngIf="FarmpreviewPhoto" class="farm-logo" id="profile-photo" [src]="FarmpreviewPhoto" height="130" width="130" /><br>
+                            <div><button class="btn btn-sm" type="button"  (click)="openFarmFileDialogue($event)">New Farm Store Logo</button></div>
+                            <input type="file" id="upload-farm-photo" class="hidden" (change)="onSelectedFarmFileName($event)" />
+                            <div class="spacer"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--Basic Info-->
+                                <span class="profile-item-title">Store Name</span>
+                                <input type="text" class="profile-edit profile-edit-privacy-toggle form-control"
+                                    name="storeName" id="storeName" [(ngModel)]="FarmStoreModel.storeName"
+                                    #storeName="ngModel" required>
+                                <span *ngIf="(storeName.touched || IsSubmit) && storeName.errors" class="text-danger">
+                                    Please enter store name</span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="profile-item-title">Products Sold</span>
+                                <input type="text" class="profile-edit profile-edit-privacy-toggle form-control"
+                                    name="productSold" name="productSold" [(ngModel)]="FarmStoreModel.productSold"
+                                    #productSold="ngModel" required><br>
+                                   
+                            </div>
+                            <span *ngIf="(productSold.touched || IsSubmit) && productSold.errors"
+                            class="text-danger">Please enter product sold </span>
+                            <div class="col-md-12">
+                                <span class="profile-item-title">Store Overview</span>
+                                <textarea class="profile-edit" name="storeOverview" id="storeOverview"
+                                    [(ngModel)]="FarmStoreModel.storeOverview" #storeOverview="ngModel"
+                                    required>
+                                   
+                                </textarea>
+                                <p *ngIf="(storeOverview.touched || IsSubmit) && storeOverview.errors"
+                                    class="text-danger">Please enter Store Overview </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="spacer"></div>
+                                <button class="btn" (click)="SaveStore(StoreDetForm)">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

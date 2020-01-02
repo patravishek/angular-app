@@ -1,0 +1,146 @@
+/*Sign up page*/
+/* input.signup-input, textarea {
+  height: 3em;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: vertical;
+  height: 5em;
+}
+
+#no-photo-warning {
+  display: none;
+}
+
+#signup-box {
+  margin: auto;
+  margin-bottom: 50px;
+  margin-left: 16.667%;
+}
+
+@media (max-width: 1199px) {
+ #signup-box {
+  margin-left: 0;
+}
+
+}
+
+.interested-in {
+  padding-left: 75px;
+  font-size: 1.1em;
+}
+
+#signup-section-2, #signup-section-3, #signup-section-4, #signup-section-5 {
+  display: none;
+}
+
+#upload-profile {
+  font-size: 5em;
+
+}
+
+#progress-gray {
+  background-color: rgba(0,0,0,0.1);
+  width: 500px;
+  margin: auto;
+  margin-bottom: 100px;
+}
+
+#progress-orange {
+  background-color: #f14b15;   
+  width: 0px;
+  height: 100%;
+}
+
+input.signup-required {
+  border: 1px solid #ea8937 !important;
+} */
+
+/*Sign up page*/
+input.signup-input, textarea {
+  height: 3em;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: vertical;
+  height: 5em;
+}
+
+#no-photo-warning {
+  display: none;
+}
+
+#signup-box {
+  margin: auto;
+  margin-bottom: 50px;
+  margin-left: 16.667%;
+}
+
+@media (max-width: 1199px) {
+ #signup-box {
+  margin-left: 0;
+}
+
+}
+
+.interested-in {
+  padding-left: 75px;
+  font-size: 1.1em;
+}
+
+#signup-section-2, #signup-section-3, #signup-section-4, #signup-section-5 {
+  display: none;
+}
+
+#upload-profile {
+  font-size: 5em;
+
+}
+
+#progress-gray {
+  background-color: rgba(0,0,0,0.1);
+  width: 500px;
+  margin: auto;
+  margin-bottom: 100px;
+}
+
+#progress-orange {
+  background-color: #f14b15;   
+  width: 0px;
+  height: 100%;
+}
+
+input.signup-required {
+  border: 1px solid #ea8937 !important;
+}
+
+.m-t-10{
+  margin-top: 10px;
+}
+.form-group {
+  margin-bottom: 0px !important;
+}
+
+.form-group {
+  margin-bottom: 0px !important;
+}
+.m-t-20{
+  margin-top: 20px;
+}
+.form-select {
+  height: 3em;
+  width: 90%;
+  margin-bottom: 10px;
+}
+.signup-error {
+    color: #a94442 !important;
+    border-color: #a94442 !important;
+}
+.invalid-feedback{
+  color: #a94442 !important;
+  font-weight: bold;
+}

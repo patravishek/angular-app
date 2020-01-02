@@ -1,0 +1,116 @@
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs and Add New-->
+        <div class="container top">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="breadcrumb">
+                        <a class="breadcrumb-item" href="farmstore.html">My Store</a>
+                        <span class="breadcrumb-item active">Orders</span>
+                    </div>
+                    <a routerLink="/addproduct/0" class="btn">Add Product</a>
+                    <h5 class="shop-heading">My Farm Store<a routerLink="/storeedit"><i class="fa fa-pencil"
+                                aria-hidden="true"></i></a></h5>
+                    <h1>Orders</h1>
+                    Products
+                    <div class="list-group">
+                        <a href="javascript:;" class="list-group-item">All <span
+                                class="badge">{{statisticsModel.All}}</span></a>
+                        <a href="javascript:;" class="list-group-item">Active <span
+                                class="badge">{{statisticsModel.Active}}</span></a>
+                        <a href="javascript:;" class="list-group-item">Drafts <span
+                                class="badge">{{statisticsModel.Drafts}}</span></a>
+                        <a href="javascript:;" class="list-group-item">Sold Out <span
+                                class="badge">{{statisticsModel.SoldOut}}</span></a> Orders
+                        <a href="javascript:;" class="list-group-item">Open orders
+                            <span class="badge badge-important">{{statisticsModel.OpenOrders}}</span></a>
+                        <a href="javascript:;" class="list-group-item">Past orders <span
+                                class="badge">{{statisticsModel.PastOrders}}</span></a>
+                    </div>
+                </div>
+
+                <!-- /.col-lg-3 -->
+                <div class="col-lg-9">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="search-query form-control" placeholder="Search" name="search"  [(ngModel)]="searchText" #search="ngModel" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button" (click)="search()">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 offer-table">
+
+
+                        <!--Sales History-->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Sold Date</th>
+                                    <th>Shipping Option</th>
+                                    <th>Reference No.</th>
+                                    <th>Total Amount Paid</th>
+                                    <th>Buyer Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of saleList">
+                                    <td>{{item.prodName}}</td>
+                                    <td>{{item.prodCategory}}</td>
+                                    <td>{{item.saleDate | date:'MM/dd/yy'}}</td>
+                                    <td>{{item.shippingName}}</td>
+                                    <td>{{item.saleRefrenceNo}}</td>
+                                    <td>${{item.totalPrice}}</td>
+                                    <td>{{item.customerName}}</td>
+                            </tbody>
+                        </table>
+
+                        <!--End of row-->
+                    </div>
+                    <!--Individual offer-->
+                    <div class="col-md-3" id="single-offer">
+                        <!--Back to list view of offers-->
+                        <i class="fa fa-arrow-circle-o-right" id="collapse-single-offer" aria-hidden="true"></i>
+                        <div class="card">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <span class="auction-time">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>16 hr</span>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">Group Name</a>
+                                </h4> <span class="auction-price-label">Bid</span>
+                                <span class="auction-price">$24.99</span>
+
+                                <span class="auction-price buy-now">$51.99</span>
+                                <span class="auction-price-label buy-now">Buy</span>
+                                <p class="card-text auction-info">
+                                    <span class="auction-detail"><strong>20 Icelandic Cattle</strong></span>
+                                    <span class="auction-detail"><em>10 Male, 10 Female</em></span>
+
+
+                                </p>
+                                <button class="btn btn-sm btn-shop records">Records</button>
+                                <button class="btn btn-sm btn-shop" data-toggle="modal" data-target="#myModal">Make
+                                    Offer</button>
+                            </div>
+                            <div class="card-footer">
+                                <span class="seller-name">Seller Name</span>
+                                <span class="seller-location">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    Place, ST</span>
+                            </div>
+
+                        </div>
+                        <!-- /.col-lg-9 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="row">
+  <div id="hero-img">
+    <div class="text-right homepage-header-box">
+      <h1 class="homepage-header">Buy, sell,<br>connect,<br>manage.</h1>
+      <h3 class="homepage-header">One site to rule them all!</h3>
+
+      <form [formGroup]="newsLetterFormGroup" class="signup-form">
+        <!-- <input class="signup-form" type="text" placeholder="Enter Email" name="email" required> -->
+        <input class="form-control" type="text" placeholder="Enter Email*" name="email" formControlName="email"
+        class="signup-form" />
+
+        <p class="invalid-feedback" *ngIf="newsLetterFormGroup.controls.email.errors?.required && (newsLetterFormGroup.controls.email.touched || submitted)">Email
+          is required</p>
+        <p class="invalid-feedback" *ngIf="newsLetterFormGroup.controls.email.errors?.pattern">Please enter a
+          correct email id</p>
+
+        <div class="clearfix">
+          <button type="submit" (click)="SubscribeNews()" class="signupbtn btn">Sign Up for Free</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6 homepage homepage-left" style="padding-left:100px;padding-right:100px;">
+    <h2>A network for farmers</h2>
+    <p>LivestockCity offers a network for you to connect with other farmers locally and worldwide. Browse and search farms by location or livestock type, view relevant farms' records and updates, connect with like-minded others for new friendships or business partnerships, and ask and answer questions in the LivestockCity forums. It's all about opening up the farming community world -- and making it that much smaller at the same time.</p>
+
+  </div>
+  <div class="col-lg-6 homepage text-center" style="padding-left:100px;padding-right:100px;">
+    <img class="homepage-icon" src="../../assets/images/heart-chat.png" />
+
+  </div>
+</div>
+<div class="row gray">
+  <div class="col-lg-6 pull-right homepage homepage-right" style="padding-left:100px;padding-right:100px;">
+    <h2> Herd Management</h2>
+
+    <p class="pull-right">With LivestockCity's herd management platform, all your livestock records are at your fingertips from any computer or mobile connection. Use Herd Management to add helpful medical reminders, maintain health, breeding, and show records, and share information with potential buyers. Herd and equipment records integrate with LivestockCity sales and auctions to make listing and transferring aninmals and items a breeze.</p>
+
+  </div>
+  <div class="col-lg-6 homepage text-center" style="padding-left:100px;padding-right:100px;">
+    <img class="homepage-icon" src="../../assets/images/coming-soon.png" />
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 homepage homepage-left" style="padding-left:100px;padding-right:100px;">
+    <h2>Buy & Sell</h2>
+    <p>
+      With LivestockCity, there are several ways to sell:<br>
+      -Classified listings for buying and selling livestock, equipment, and more at set prices.<br>
+      -An auction event format including minimum bid and buy-now options.<br>
+      -Online storefronts for each user to sell food and non-food farm products and browse the shops of others.
+    </p>
+
+  </div>
+  <div class="col-lg-6 homepage text-center" style="padding-left:100px;padding-right:100px;">
+    <img class="homepage-icon" src="../../assets/images/coming-soon.png" />
+
+  </div>
+  <!-- <div class="col-sm-12 footer" style="margin-top: 10px">
+    <app-footer></app-footer>
+  </div> -->
+</div>

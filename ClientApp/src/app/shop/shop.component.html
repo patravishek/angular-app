@@ -1,0 +1,104 @@
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <!-- Page Content -->
+        <div class="container top">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="breadcrumb">
+                        <a class="breadcrumb-item" href="javascript:;">Buy/Sell / </a>
+                        <a class="breadcrumb-item" href="javascript:;">Classifieds / </a>
+                        <a class="breadcrumb-item" href="javascript:;">Livestock / </a>
+                        <span class="breadcrumb-item active">Cattle </span>
+                    </div>
+                    <button class="btn" [routerLink]="['/newListing']">Post a Classified</button>
+                    <h5 class="shop-heading">Classifieds:</h5>
+                    <h1>Cattle</h1>
+                    <!--LIVESTOCK CATEGORIES-->
+                    <div class="list-group">
+                        <a href="javascript:;" class="list-group-item" *ngFor="let item of classifiedList">
+                            {{item.name}}
+                        </a>
+                    </div>
+                    <!--NON LIVESTOCK CATEGORIES-->
+                    <div class="list-group">
+                        <a href="javascript:;" class="list-group-item" *ngFor="let item of nonLiveStockCateist">
+                            {{item.name}}
+                        </a>
+                    </div>
+                    <!-- Price slider -->
+                    <p>
+                        <label for="amount">Price range:</label>
+                        <input type="text" id="amount" readonly style="border:0; color:#f14b15; font-weight:bold;">
+                    </p>
+
+                    <div id="slider-range"></div>
+                    <p>
+                        <a class="filter-link" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            Filter by location<i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-block no-border">
+                            <div class="checkbox" *ngFor="let item of states">
+                                <label>
+                                    <input type="checkbox" value="">{{item.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-3 -->
+                <div class="col-lg-9">
+
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="search-query form-control" placeholder="Search" name="search"
+                                [(ngModel)]="searchModel.searchText" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button">
+                                    <i class="fa fa-search" aria-hidden="true" (click)="getClassifiedList()"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of classifiedDetList">
+                            <div class="feed-panel-box">
+                                <a href="javascript:;"><img class="panel-img-top" src="{{item.imgUrl}}" alt=""></a>
+                                <div class="panel-body">
+                                    <h4 class="panel-title">
+                                        <a href="javascript:;">{{item.breedLiveStockName}}</a>
+                                    </h4>
+                                    <h5>${{item.price}}</h5>
+                                    <p class="panel-text">
+                                        <strong>Breed:</strong> {{item.breedName}}
+                                        <br>
+                                        <strong>Gender:</strong> {{item.gender}}
+                                        <br>
+                                        <strong>DOB:</strong> {{item.dob | date:'MM-dd-yyyy'}}
+                                        <br>
+                                        <strong>Age:</strong> {{item.age}} years
+                                        <br>
+                                        <strong>Height:</strong> {{item.height}}
+                                    </p>
+                                    <button class="btn btn-sm btn-shop" [routerLink]="['/checkout',item.id]">View</button>
+                                </div>
+                                <div class="panel-footer">
+                                    <span class="seller-name">{{item.sellerName}}</span>
+                                    <span class="seller-location">
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                        {{item.sellerAddress}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.col-lg-9 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </div>
+</div>

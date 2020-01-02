@@ -1,0 +1,307 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Livestock City | The smart farmer's all-in-one toolkit</title>
+ Google Font-->
+<!-- <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet"> -->
+<!-- FA -->
+<!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
+<!-- Bootstrap core CSS
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jQuery UI CSS 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--LivestockCity custom CSS
+</head>
+
+<body> -->
+<!-- Navigation -->
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><img src="../../assets/images/livestockcity-logo.png" style="width: 100px"/></a>
+
+        <ul class="navbar-nav pull-right">
+                <li class="nav-item dropdown">
+                        <a class="nav-link" href="directory.html" role="button" aria-haspopup="true" aria-expanded="true">Directories</a>
+                      </li>
+
+                      <li class="nav-item dropdown">
+                        <a class="nav-link" href="eventPage.html" role="button" aria-haspopup="true" aria-expanded="true">Events <i class="fa fa-angel-down" aria-hidden="true"></i></a>
+                      </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-bell" aria-hidden="true"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="inbox.html"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+            </li>
+            <!-- Dropdown Menu -->
+<!--<li class="nav-item dropdown">
+  <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">George <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="profile.html">View Profile</a>
+    <a class="dropdown-item" href="edit.html">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Sign out</a>
+  </div>
+</li>
+</ul>
+</div>
+</nav>-->
+<!--Div for loading spinner-->
+
+<!--Begin Event Content -->
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+          <div class="row">
+            <div class="col-sm-2">
+              <!--Add a new event-->
+              <button class="btn" id="new-event-btn" routerLink='/newEvent'>Add Event</button>
+            </div>
+            <div class="col-sm-10">
+              <!--Search events (upcoming only)-->
+              <div id="custom-search-input">
+                <div class="input-group">
+                  <input type="text" class="search-query form-control" id="search-keywords" placeholder="Search events"
+                    name="search" [(ngModel)]="searchText" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-danger" type="button" (click)="searchEvents()">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Display events by date-->
+          <ul class="events-dates">
+            <li [ngClass]="categoryFlag=='ALL'?'btn-active':''" (click)="categoryFilter('ALL')"><a>ALL</a></li>
+            <li [ngClass]="categoryFlag=='Today'?'btn-active':''" (click)="categoryFilter('Today')"><a>Today</a></li>
+            <li [ngClass]="categoryFlag=='Tomorrow'?'btn-active':''" (click)="categoryFilter('Tomorrow')"><a>Tomorrow</a></li>
+            <li [ngClass]="categoryFlag=='Thisweek'?'btn-active':''" (click)="categoryFilter('Thisweek')"><a>This week</a></li>
+            <li [ngClass]="categoryFlag=='Nextweek'?'btn-active':''" (click)="categoryFilter('Nextweek')"><a>Next week</a></li>
+            <li [ngClass]="categoryFlag=='Thismonth'?'btn-active':''" (click)="categoryFilter('Thismonth')"><a>This
+                month</a></li>
+            <li [ngClass]="categoryFlag=='Nextmonth'?'btn-active':''" (click)="categoryFilter('Nextmonth')"><a>Next
+                month</a></li>
+          </ul>
+          <ul class="event-list events">
+            <!-- Events today-->
+            <!-- Events this month-->
+            <!-- Events next month-->
+            <!-- <hr>
+              <span class="profile-item-section">Next Month</span> -->
+            <!--Individual Event-->
+            <li class="feed-panel-box event-box" *ngFor="let evnt of events; let i = index">
+              <time datetime="2018-02-01 0000">
+                <span class="day">{{evnt.day}}</span>
+                <span class="month">{{evnt.month}}</span>
+                <span class="year">{{evnt.year}}</span>
+              </time>
+              <!--Use user-uploaded image if provided, otherwise use livestockcity square logo as placeholder-->
+              <div class="event-photo">
+                <img class="event-photo" [src]="rootImgPath + evnt.FileName">
+              </div>
+
+              <div class="info">
+                <h2 class="title"><a style="cursor: pointer;" (click)="viewSingleEvent(evnt);">{{evnt.EventName}}</a></h2>
+                <p class="desc">{{evnt.EventHeadline}}</p>
+                <span class="time-and-location">
+                  {{evnt.EventStreet}}, {{evnt.EventState}}-{{evnt.EventZip}}
+                  <i class="fa fa-circle event-suggestion-divider"></i>
+                  <span [hidden]="evnt.AllDayEvent">All day</span>
+                  <span [hidden]="!evnt.AllDayEvent">{{evnt.eStart}} - {{evnt.eEnd}}</span>
+                </span>
+
+              </div>
+              <div class="social">
+                <ul>
+                  <li shareButton="facebook" [title]="evnt.EventName" [description]="evnt.EventDescription" class="facebook facebook-event"
+                    image="{{evnt.EventImage}}"><a class="facebook-event-share" data-toggle="tooltip" data-placement="top"
+                      title="Share this event on Facebook"><span class="fa fa-facebook"></span></a></li>
+
+                  <!-- <li class="facebook facebook-event"><a class="facebook-event-share" data-toggle="tooltip"
+                      data-placement="right" title="Share this event on Facebook"><span class="fa fa-facebook"></span></a></li> -->
+                  <li class="twitter twitter-event"></li>
+                  <li class="email email-event" data-toggle="modal" (click)="OpenEmailsharePopup(evnt.EventId)"><a class="email-event-share"
+                      data-toggle="tooltip" data-placement="right" title="Share this event via email"><span class="fa fa-envelope"></span></a></li>
+                </ul>
+              </div>
+            </li>
+            <!--Individual Event-->
+            <!-- <li class="feed-panel-box event-box">
+                <time datetime="2018-02-01 0000">
+                  <span class="day">28</span>
+                  <span class="month">May</span>
+                  <span class="year">2018</span>
+                  <span class="time">2:00PM - 8:00PM CT</span>
+                </time>
+                <div class="event-photo"></div>
+                <div class="info">
+                  <h2 class="title"><a href="singleEvent.html">Memorial Day BBQ</a></h2>
+                  <p class="desc">Burgers, dogs, and beers for all!</p>
+                  <span class="time-and-location">
+                    Carthage, SD
+                    <i class="fa fa-circle event-suggestion-divider"></i>
+                    All day
+                  </span>
+
+                </div>
+                <div class="social">
+                  <ul>
+                    <li class="facebook facebook-event"><a class="facebook-event-share" data-toggle="tooltip" data-placement="right" title="Share this event on Facebook"><span class="fa fa-facebook"></span></a></li>
+                    <li class="twitter twitter-event"><a class="twitter-event-share" data-toggle="tooltip" data-placement="right" title="Share this event on Twitter"><span class="fa fa-twitter"></span></a></li>
+                    <li class="email email-event" data-toggle="modal" data-target="#share-event-email"><a class="email-event-share" data-toggle="tooltip" data-placement="right" title="Share this event via email"><span class="fa fa-envelope"></span></a></li>
+                  </ul>
+                </div>
+              </li> -->
+            <!-- Events over one month in the future-->
+            <!-- <hr>
+              <span class="profile-item-section">Later Events</span> -->
+            <!--Individual Event-->
+            <!-- <li class="feed-panel-box event-box">
+                <time datetime="2018-02-01 0000">
+                  <span class="day">6</span>
+                  <span class="month">June</span>
+                  <span class="year">2018</span>
+                  <span class="time">ALL DAY</span>
+                </time>
+                <div class="event-photo"></div>
+                <div class="info">
+                  <h2 class="title"><a href="singleEvent.html">Farmers Market Trip</a></h2>
+                  <p class="desc">Join us as we stroll the smog-filled streets and wish we were in the countryside</p>
+                  <span class="time-and-location">
+                    Los Angeles, CA
+                    <i class="fa fa-circle event-suggestion-divider"></i>
+                    10:00AM - 2:00PM PT
+                  </span>
+
+                </div> -->
+            <!-- <div class="col-sm-12 footer" style="margin-top: 10px">
+                  <app-footer></app-footer>
+                </div> -->
+            <!-- <div class="social">
+                  <ul>
+                    <li class="facebook facebook-event"><a class="facebook-event-share" data-toggle="tooltip" data-placement="right" title="Share this event on Facebook"><span class="fa fa-facebook"></span></a></li>
+                    <li class="twitter twitter-event"><a class="twitter-event-share" data-toggle="tooltip" data-placement="right" title="Share this event on Twitter"><span class="fa fa-twitter"></span></a></li>
+                    <li class="email email-event" data-toggle="modal" data-target="#share-event-email"><a class="email-event-share" data-toggle="tooltip" data-placement="right" title="Share this event via email"><span class="fa fa-envelope"></span></a></li>
+                  </ul>
+                </div>
+              </li> -->
+          </ul>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- /.container -->
+
+
+<!--End Event Content -->
+<!-- Share Event Via Email Modal -->
+
+<div id="share-event-email" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="cto">Share Event</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form [formGroup]="EventEmailFormGroup">
+        <div class="modal-body" style="margin-bottom: 30px;">
+          <!-- <div class="col-md-12">
+              <span class="profile-item-title pull-left"><i class="fa fa-envelope"></i>Send to:</span>
+              <tags-input class="col-md-12 form-control" (onTagsChanged)="onTagsChanged($event)" [removeLastOnBackspace]="removeLastOnBackspace"
+                [(ngModel)]="emailIdList" name="emailIdList"></tags-input>
+               
+          </div>
+          <div>
+              <p class="invalid-feedback" *ngIf="(emailIdList.length == 0 && isSubmitted)">
+                  Email(s) is required</p>
+          </div> -->
+          <span class="profile-item-title pull-left"><i class="fa fa-envelope"></i>Send to:</span>
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Your Email*" name="email" formControlName="email"
+              class="signup-input signup-required" />
+          </div>
+
+          <p class="invalid-feedback"
+            *ngIf="EventEmailFormGroup.controls.email.errors?.required && (EventEmailFormGroup.controls.email.touched || submitted)">
+            Emailis required</p>
+          <p class="invalid-feedback" *ngIf="EventEmailFormGroup.controls.email.errors?.pattern">Please enter a correct
+            email id</p>
+         
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm pull-right" (click)="shareEventByMail()">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- Footer -->
+<!-- <footer class="footer py-5 bg-orange">
+    <div class="container footer-container">
+        <div class="row footer-row">
+            <div class="col-lg-4 footer-item">
+                <h6>About</h6>
+                <hr>
+                <ul class="footer-list">
+                    <li><a href="FAQ.html">FAQ</a></li>
+                    <li><a href="#">About LivestockCity</a></li>
+                    <li><a href="#">Our team</a></li>
+                    <li><a href="#">Our services</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 footer-item">
+                <h6>Important Stuff</h6>
+                <hr>
+                <ul class="footer-list">
+                    <li><a href="#">Press release</a></li>
+                    <li><a href="#">Terms and conditions</a></li>
+                    <li><a href="#">Auction terms</a></li>
+                    <li><a href="#">Privacy policy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 footer-item">
+                <h6>Contact</h6>
+                <hr>
+                <ul class="footer-list">
+                    <li><a href="#">email@address.com</a></li>
+                    <li class="livestockcity-address">LivestockCity</li>
+                    <li class="livestockcity-address">P.O. Box 56</li>
+                    <li class="livestockcity-address">Mount Solon, VA 22843</li>
+                    <li class="livestockcity-address">540.910.2025</li>
+                </ul>
+            </div>
+        </div>
+        <p class="m-0 text-center text-white">Copyright &copy; LivestockCity 2017</p>
+    </div>
+</footer> -->
+<!-- Bootstrap core JavaScript -->
+<!--</body>-->
+<!-- <table>
+  <tbody>
+    <tr *ngFor="let ent of events">
+      <td>
+        {{ent.eventName}}
+      </td>
+    </tr>
+  </tbody>
+</table> -->
+
+<!--</html>-->

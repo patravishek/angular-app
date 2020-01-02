@@ -1,0 +1,145 @@
+/*Homepage Styles*/
+
+#hero-img {
+  background-image: url(cow-hero.jpeg);
+  background-size: cover;
+  height: 450px;
+  width: 100%;
+  margin-top: 50px;
+
+}
+
+
+.homepage-header-box {
+  float: right;
+  width: 75%;
+
+}
+
+@media (max-width: 860px){
+  .homepage-header-box {
+    margin: auto;
+    width: 100% !important;
+    float: none;
+  }
+
+  #hero-img {
+    background-image: url(cow-hero-blur.jpg);
+  }
+}
+
+.homepage-header {
+  text-align: center;
+}
+
+h1.homepage-header {
+  font-size: 4em;
+  color: #f14b15;   
+  padding-top: 50px;
+}
+
+.homepage-icon {
+  height: 200px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.homepage-box {
+  text-align: center;
+}
+
+.homepage-box h5 {
+  color: #f14b15;   
+}
+
+.homepage p {
+  font-size: 1.2em;
+  line-height: 1.5em;
+  font-family: "Lato";
+}
+
+.homepage h2{
+ color: #f14b15;   
+}
+
+.homepage {
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 25px;
+  padding-bottom: 40px;
+}
+
+.login-form {
+  text-align: center;
+}
+
+.login-contact-form > input {
+  margin-bottom: 10px;
+  width: 100%;
+  height: 50px;
+}
+
+.login-contact-form > input:focus {
+  border: 1px solid #f14b15;   
+}
+
+ul#login-links {
+  padding-left: 0;
+  list-style: none;
+}
+
+#social-login-links > i.fa {
+  font-size: 2em;
+}
+
+.fa-google-plus-square {
+  color: #dd4b39;
+}
+
+.fa-twitter-square {
+  color: #0084b4;
+}
+
+.fa-facebook-square {
+  color: #3b5998
+}
+
+.sign-up-link:hover, a#signup-3:hover {
+ text-decoration: underline;
+ cursor: pointer;
+}
+
+#incorrect-pw, #invalid-email, #reset-link-sent, #invalid-email-confirmation, #activation-link-sent, #email-send-failure {
+  display: none;
+}
+
+input.signup-form {
+  width: 300px;
+  height: 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+input.signup-form[type="text"] {
+  font-size: 1.5em;
+}
+
+input.signup-form:focus::-webkit-input-placeholder { color:transparent; }
+input.signup-form:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input.signup-form:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input.signup-form:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+.signupbtn {
+  width: 200px;
+}
+
+.signup-form {
+  text-align: center;
+}
+
+
+#social-login-links > i:hover{
+  cursor: pointer;
+ }
+
+ 

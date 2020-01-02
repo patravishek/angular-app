@@ -1,0 +1,409 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="container top">
+      <div class="row">
+        <!-- User Profile-->
+        <div class="col-lg-8">
+          <!--Profile Picture-->
+            <div *ngIf="userid != loggedInUserId">
+            <div class="btn-group pull-right follow-user-dropdown">
+              <button class="btn btn-sm follow-button" (click)="userFollowfun()" *ngIf="!IsFollowed">
+                Follow
+              </button>
+              <button class="btn btn-sm follow-button" (click)="userFollowfun()" *ngIf="IsFollowed">
+                  Unfollow
+                </button>
+              <button type="button"  class="btn btn-sm dropdown-toggle dropdown-toggle-split followingUserDropdown" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" style="border: 1px solid;">
+              <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+                <!-- <a class="dropdown-item unfollow-button" (click)="userFollowfun()" *ngIf="IsFollowed">Unfollow</a> -->
+                <a class="dropdown-item mute-button" (click)="userFollowfun()">Mute</a>
+                <!-- <a class="dropdown-item block-button" (click)="userFollowfun()">Block</a> -->
+              </div>
+              </div>
+            </div>
+          <!--Message and Follow Buttons-->
+          <!-- <div>
+           
+            <div class="btn-group pull-right follow-user-dropdown">
+              <a class="btn btn-sm followUser" type="button">
+                Follow
+              </a>
+              <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item block-button" href="#">Block</a>
+              </div>
+            </div>
+           
+            <div class="btn-group pull-right following-user-dropdown">
+              <a class="btn btn-sm followingUser" type="button">
+                Following
+              </a>
+              <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split followingUserDropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item unfollow-button">Unfollow</a>
+                <a class="dropdown-item mute-button">Mute</a>
+                <a class="dropdown-item block-button">Block</a>
+              </div>
+            </div>
+            
+            <div class="btn-group pull-right muted-user-dropdown">
+              <a class="btn btn-sm mutedUser" type="button">
+                Muted
+              </a>
+              <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split mutedUserDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item unfollow-button">Unfollow</a>
+                <a class="dropdown-item unmute-button">Unmute</a>
+                <a class="dropdown-item block-button">Block</a>
+              </div>
+            </div>
+           
+            <div class="btn-group pull-right blocked-user-dropdown">
+              <a class="btn btn-sm blockedUser" type="button">
+                Blocked
+              </a>
+              <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split blockedUserDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item unblock-button">Unblock</a>
+              </div>
+            </div>
+
+
+
+            <a class="btn btn-sm pull-right profile-btn" data-toggle="modal" data-target="#compose"><i class="fa fa-envelope-o"
+                aria-hidden="true"></i></a>
+          </div> -->
+          <span *ngIf="userProfileDetail.UserImageUrl && !IsFarmDetShow">
+              <img class="user-photo"  id="profile-photo" src="{{userProfileDetail.UserImageUrl}}" style="height:100px;width:100px" /></span>
+    
+              <span *ngIf="farmProfile.FarmLogoPath && IsFarmDetShow">
+                  <img class="farm-photo"  id="profile-photo" src="{{farmProfile.FarmLogoPath}}" style="height:100px;width:100px" /></span>
+          <div>
+            <!-- <span class="online-status"><i class="fa fa-circle"></i> Online now</span> -->
+            <div class="text-center">
+              <!-- First name, last name-->
+              <h2 class="profile-section"><a id="user" title="" href="javascript:;" (click)="IsFarmDetShow = false"><span *ngIf="(userProfileDetail && userProfileDetail.firstName)">{{userProfileDetail.firstName}}</span> 
+                <span *ngIf="(userProfileDetail && userProfileDetail.lastName)">{{userProfileDetail.lastName}}</span></a></h2>
+             <!-- Farm name-->
+                <h2 class="profile-section"><a id="farm" class="inactive" href="javascript:;"  (click)="IsFarmDetShow = true">{{farmProfile.FarmName}}</a></h2>
+            </div>
+            <div class="text-center" id="user-location">
+              <!-- City name, state (if US) or city name, country (if international)-->
+              <i class="fa fa-map-marker" aria-hidden="true"></i><span *ngIf="(userProfileDetail && userProfileDetail.city)">{{userProfileDetail.city}}</span><span *ngIf="(userProfileDetail && userProfileDetail.state)">,{{userProfileDetail.state}}</span>
+            </div>
+            <div class="spacer-sm"></div>
+            <div class="feed-panel-box">
+              <div class="profile-box">
+                  <div id="user-profile"  *ngIf="!IsFarmDetShow">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <span class="profile-item-title">Birthday</span>
+                          <span class="profile-item" *ngIf="(userProfileDetail && userProfileDetail.birthday)">{{userProfileDetail.birthday}}</span>
+                        </div>
+                        <div class="col-lg-6">
+                          <span class="profile-item-title">Education</span>
+                          <span class="profile-item" *ngIf="(userProfileDetail && userProfileDetail.education)">{{userProfileDetail.education}}</span>
+                        </div>
+                      </div>
+    
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <span class="profile-item-title">Hobbies</span>
+                          <span class="profile-item" *ngIf="(userProfileDetail && userProfileDetail.hobbies)">{{userProfileDetail.hobbies}}</span>
+                        </div>
+                      </div>
+                      <!--Bio-->
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <hr>
+                          <span class="profile-item-title">Bio</span>
+                          <span class="profile-item" *ngIf="(userProfileDetail && userProfileDetail.bio)">{{userProfileDetail.bio}}</span>
+                        </div>
+                      </div>
+                      <!--Looking For-->
+    
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <hr>
+                          <span class="profile-item-title">Looking for</span>
+                          <div class="profile-item looking-for-section" *ngIf="(userProfileDetail && userProfileDetail.userLookingFor)">
+                              <span  *ngFor="let item of userProfileDetail.userLookingFor" class="looking-for m-r-5">{{item.lookupType}}</span>
+                            <!--<span class="looking-for">Hired work</span>
+            <span class="looking-for">Friends with common interests</span>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+    
+                    <div  *ngIf="IsFarmDetShow">  
+                      <!--Profile details-->
+                      <div class="row">
+                        <!--Livestock type-->
+                        <div class="col-lg-6">
+                          <span class="profile-item-title">Livestock</span>
+                          <!--To implement in later phase: Each animal category should be a link target _blank showing that user's public livestock records of that animal type-->
+                          <span class="profile-item profile-item-link">{{FarmAnimals}}</span>
+                        </div>
+                        <div class="col-lg-6">
+                          <span class="profile-item-title">
+                                <span *ngIf="(streetPrivacy && streetPrivacy.privcytype)">{{farmProfile.Street}}</span>
+                                <span *ngIf="!streetPrivacy">{{farmProfile.Street}}</span>
+                          </span>
+                          <span class="profile-item" *ngIf="farmProfile.OperatingSince"> {{farmProfile.OperatingSince}} 
+                              <span *ngIf="(cityPrivacy && cityPrivacy.privcytype && farmProfile.City)"> {{farmProfile.City}}  </span>
+                              <span *ngIf="!cityPrivacy && farmProfile.City"> {{farmProfile.City}}  </span>
+                              <span *ngIf="(statePrivacy && statePrivacy.privcytype && farmProfile.State)">{{farmProfile.State}}  </span>
+                              <span *ngIf="!statePrivacy  && farmProfile.State">{{farmProfile.State}}  </span>
+                              <span *ngIf="(countryPrivacy && countryPrivacy.privcytype && farmProfile.Country)">{{farmProfile.Country}} </span>
+                              <span *ngIf="!countryPrivacy  && farmProfile.Country">{{farmProfile.Country}} </span>
+                              <!-- <span>{{farmProfile.Zip}}</span> -->
+                          </span>
+                        </div>
+                      </div>
+                      <!--Overview-->
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <hr>
+                          <span class="profile-item-title">Overview</span>
+                          <span class="profile-item">{{farmProfile.Overview}}</span>
+                        </div>
+                      </div>
+                      <!--Transportation provider badge-->
+                      <div class="row" *ngIf="farmProfile.IsTransportationProvider">
+                        <div class="col-lg-12">
+                          <div class="profile-item">
+                            <span class="looking-for">Transportation provider</span>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <!--End of farm profile -->    
+                    </div>
+              </div>
+            </div>
+            <!--Photos-->
+            <!-- <div class="feed-panel-box">
+              <div class="profile-box">
+                <span class="profile-item-title"><a href="isakPhotos.html">Photos</a></span>
+                <div class="profile-item">
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album" data-title="User's caption"><img
+                      class="album-photo" src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album" data-title="Another caption"><img
+                      class="album-photo" src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album"><img class="album-photo" src="http://via.placeholder.com/150x150" /></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="farm-album"><img class="album-photo" src="http://via.placeholder.com/150x150" /></a>
+
+                </div>
+              </div>
+            </div> -->
+
+
+            <!-- Post to another user's profile-->
+        
+
+            <!--Show user's posts here, most recent at top -->
+            <div *ngIf="(userProfileDetail &&  posts.length >0)">
+            <div class="post-box"  *ngFor="let item of posts">
+
+                <div class="shared-post" *ngFor="let share of item.PostShares">
+                    {{share.sharedBy}} shared a post at {{share.sharedDateTime | date:'MM/dd/yyyy HH:mm'}}.<br>
+                  </div>
+
+              <img class="post-author-photo pull-left post-author-photo-dimension" src="{{item.AuthorProfilePicUrl}}" />
+              <span class="post-author"><a href="javascript:;">{{item.AuthorName}}</a></span>
+              <span class="post-timestamp">{{item.Timespan | date:'MM/dd/yyyy HH:mm'}}</span>
+              <span class="post-author-farm"><a href="javascript:;">{{item.FarmName}}</a></span>
+              <div class="post-content">
+                <span class="post-status">{{item.PostText}}</span>
+                <!-- <a href="http://via.placeholder.com/800x1200" data-lightbox="post-photo" data-title="Growth of the Soil by Knut Hamsun"></a> -->
+                  <!-- <div class="post-photo-container post-photo-container-vertical">
+                    
+                  </div> -->
+                  <div class="row text-center">
+                    <a *ngFor="let postImg of item.PostImages;" href="{{imgPath + postImg.FileName}}" data-lightbox="post-photo"
+                    data-title="{{post.PostText}}">
+                    <!-- <img class="post-photo" [src]="post.PostImageUrl"> -->
+                    <img class="post-photo" [src]="imgPath + postImg.FileName">
+    
+                  </a>
+                  </div>
+                
+                <span class="post-likes"><a data-toggle="modal" data-target="#likes">{{item.Likes}} likes</a></span>
+
+                <span class="post-likes"><a data-toggle="modal" data-target="#likes">{{item.PostComments.length}} Comments</a></span>
+                <hr>
+                <span class="like">
+                    <a *ngIf="!item.IsLiked" class="like-button" [ngClass]="{'liked': item.IsLiked}" (click)="likeUnlikePost(item,true)"><i
+                      class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    Like</a>
+                  <a *ngIf="item.IsLiked" class="like-button liked" (click)="likeUnlikePost(item,false)"><i class="fa fa-thumbs-up"
+                      aria-hidden="true"></i>
+                    Liked</a>
+                </span>
+
+                <span class="comment"(click)="item.isCommentsShow = !item.isCommentsShow">
+                  <a class="comment-button" ><i class="fa fa-comment" aria-hidden="true"></i>
+                    Comment</a>
+                </span>
+
+                <!-- <span class="like">
+                  <a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    Like</a>
+                </span>
+                <span class="comment">
+                  <a class="comment-button"><i class="fa fa-comment" aria-hidden="true"></i>
+                    Comment</a>
+                </span> -->
+                <span class="share">
+                  <a class="share-button"  (click)="OpenSharePost(item)"><i class="fa fa-share"
+                      aria-hidden="true">
+                      <!-- <a class="share-button" (click)="SharePost(item)"><i class="fa fa-share" aria-hidden="true">
+                        Share</a> -->
+                    </i>
+                    Share</a>
+                </span>
+                <!--Flag as inappropriate-->
+                <span class="post-options"><i class="fa fa-flag"></i></span>
+
+                <!--Comment box follows each post, hidden by default-->
+                <div class="comments-section" [hidden]="!item.isCommentsShow">
+                  <!-- <img class="user-photo" src="http://via.placeholder.com/25x25"> -->
+                  <img class="user-photo" *ngIf="userProfileDetail.UserImageUrl" src="{{userProfileDetail.UserImageUrl}}" />
+                  <input type="text" [(ngModel)]="item.CommentText" placeholder="Add your comment" class="comment-box" #CommentText="ngModel" (keydown)="addComment(item,$event)">
+                  <i class="fa fa-send-o cursor" aria-hidden="true" (click)="addComment(item,$event,true)"></i>
+                  <div class="user-comments">
+                    <!--Each comment goes in its own div.user-comment-->
+                    <div class="user-comment" *ngFor="let postcomment of item.PostComments">
+                      <div class="row">
+                          <div class="col-md-8 col-sm-8 pull-left">
+                              <span class="comment-name"><a>{{postcomment.Author}}</a></span>
+                              <span class="comment-body">{{postcomment.Comment}}</span>
+                          </div>
+
+                          <div class="col-md-4 col-sm-4 pull-right">
+                              <span class="comment-timestamp ">{{postcomment.TimeStamp |date: 'MM/dd/yyyy hh:mm:ss'}} </span>
+                          </div>
+                      </div>
+                      <!--<img class="user-photo" src="http://via.placeholder.com/25x25" />-->
+                     
+                      
+                      <span class="like m-l-15">
+                          <a *ngIf="!postcomment.IsLiked" class="like-button" [ngClass]="{'liked': postcomment.IsLiked}" (click)="likeUnlikeComment(postcomment,true,item.Id)"><i
+                            class="fa fa-thumbs-up" aria-hidden="true"></i>
+                          Like</a>
+                        <a *ngIf="postcomment.IsLiked" class="like-button liked" (click)="likeUnlikeComment(postcomment,false,item.Id)"><i class="fa fa-thumbs-up"
+                            aria-hidden="true"></i>
+                          Liked</a>
+                        </span>
+                        <span class="comment-likes">{{postcomment.likes}} | Likes</span>
+                      <!-- <span class="delete-comment pull-right"><a class="delete-btn"><i class="fa fa-trash"></i></a></span> -->
+                      <!-- <br>
+                      <span class="comment-like"><a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a></span>
+                      <span class="comment-reply"><a class="reply-button">Reply</a></span>
+                      |
+                      <span class="comment-likes"><a data-toggle="modal" data-target="#likes">{{postcomment.likes}} likes</a></span> -->
+                    </div>
+                  </div>
+                
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+           
+
+            <!-- A post with multiple photos -->
+            <!-- <div class="post-box">
+              <img class="post-author-photo pull-left" src="http://via.placeholder.com/30x30" />
+              <span class="post-author"><a href="#">Isak Hamsun</a></span>
+              <span class="post-timestamp">Dec 10, 2017</span>
+              <span class="post-author-farm"><a href="#">Sellanraa Farm</a></span>
+              <div class="post-content">
+                <span class="post-status">Check out this post with multiple photos</span>
+                <span class="photo-count">3 photos</span>
+
+                <a href="http://via.placeholder.com/800x1200" data-lightbox="multiple-post-photo" data-title="This is my first photo."> 
+                  <div class="post-photo-container post-photo-container-multiple">
+                  </div></a>
+                  <a href="http://via.placeholder.com/1200x800" data-lightbox="multiple-post-photo" data-title="This is my second photo.">
+                   <div class="post-photo-container post-photo-container-multiple">
+                   </div>
+                 </a>
+                 <a href="http://via.placeholder.com/800x1200" data-lightbox="multiple-post-photo" data-title="This is my third photo.">
+                 </a>
+                 <span class="post-likes"><a data-toggle="modal" data-target="#likes">12 likes</a></span>
+                 <hr>
+                 <span class="like">
+                  <a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    Like</a>
+                  </span>
+                  <span class="comment">
+                    <a class="comment-button"><i class="fa fa-comment" aria-hidden="true"></i>
+                      Comment</a>
+                    </span>
+                    <span class="share">
+                      <a class="share-button" data-toggle="modal" data-target="#share-post"><i class="fa fa-share" aria-hidden="true"></i>
+                        Share</a>
+                      </span>
+
+                    </div>
+            </div> -->
+
+          </div>
+        </div>
+        <!--Search, suggested farmers and add friends column-->
+        <app-suggested-farmers></app-suggested-farmers>
+      </div>
+      <!-- /.row -->
+    </div>
+  </div>
+</div>
+
+
+<!--Share this post modal-->
+<div id="share-post" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4 class="cto">Share post</h4>
+          Share this post by publishing it on your activity feed?<br><br>
+          <button class="btn" (click)="SharePost()">Share this</button><br><br>
+          <div class="text-left">
+            <div class="post-box">
+              <!-- <img class="post-author-photo pull-left" src="http://via.placeholder.com/30x30" /> -->
+              <img class="user-photo"  id="profile-photo" src="{{userProfileDetail.UserImageUrl}}" style="height:100px;width:100px" />
+              <span class="post-author"><a href="#">{{sharepostmodel.AuthorName}}</a></span>
+              <span class="post-timestamp">{{sharepostmodel.Timespan | date:'MM/dd/yyyy HH:mm'}}</span>
+              <span class="post-author-farm"><a href="#">{{sharepostmodel.FarmName}}</a></span>
+              <div class="post-content">
+                <span class="post-status">
+                  {{sharepostmodel.PostText}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>

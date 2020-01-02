@@ -1,0 +1,182 @@
+/*Footer Styles*/
+
+
+/* body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer {
+  margin: auto auto 0 auto;
+  width: 100%;
+}
+
+
+.footer {
+  background-color: #f14b15; 
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.footer-item {
+  display: inline;
+  color: white;
+}
+
+.footer-item h6, .footer-item a {
+  display: inline;
+  color: white;
+  padding-left: 0;
+  margin-left: 0;
+
+}
+
+.footer-item a {
+  font-family: sans-serif;
+  font-size: .9em;
+  margin-right: 0px;
+}
+
+.footer-item > a > i {
+  margin-top: 10px;
+}
+
+.livestockcity-address {
+  font-size: .75em;
+  font-family: sans-serif;
+}
+
+ul.footer-list{
+  list-style: none;
+  display: inline;
+  width: 200px;
+}
+
+li.footer-list{
+  display: inline;
+  width: 200px;
+}
+
+.footer-row {
+  margin: 0 auto;
+}
+ul.footer-list li a:hover {
+  color:black !important;
+}
+
+.text-white {
+  color: white;
+}
+
+.footer-item a:hover {
+  color: black !important;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+
+}
+
+.footer p {  
+ margin-bottom: 0; 
+} */
+
+/*Footer Styles*/
+
+
+/*body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}*/
+footer {
+  margin: auto auto 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+
+.footer {
+  background-color: #f14b15; 
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.footer-item {
+  display: inline;
+  color: white;
+}
+
+.footer-item h6, .footer-item a {
+  display: inline;
+  color: white;
+  padding-left: 0;
+  margin-left: 0;
+
+}
+
+.footer-item a {
+  font-family: sans-serif;
+  font-size: 1.1em !important;
+  margin-right: 0px;
+  color: white !important;
+}
+
+.footer-item > a > i {
+  margin-top: 10px;
+}
+
+.livestockcity-address {
+  font-size: .9em;
+  font-family: sans-serif;
+}
+
+ul.footer-list{
+  list-style: none;
+  display: inline;
+  width: 200px;
+}
+
+li.footer-list{
+  display: inline;
+  width: 200px;
+}
+
+.footer-row {
+  margin: 0 auto;
+}
+ul.footer-list li a:hover {
+  color:black !important;
+}
+
+.text-white {
+  color: white;
+}
+
+.footer-item a:hover {
+  color: black !important;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+
+}
+
+/*Rakesh */
+
+
+.hr{
+  margin-top: 6px !important;
+  margin-bottom: 0px !important;
+} 
+
+.fnt-16{
+  font-size: 16px !important;
+}
+
+
+/*End Rakesh*/

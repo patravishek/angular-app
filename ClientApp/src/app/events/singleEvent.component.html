@@ -1,0 +1,139 @@
+<!--Begin Event Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="container top">
+      <div class="row">
+        <div class="col col-lg-10 col-lg-offset-1">
+          <div class="row">
+            <div class="col-lg-2">
+              <!--Add a new event-->
+              <button class="btn" id="new-event-btn" routerLink='/newEvent'>Add Event</button>
+            </div>
+            <!-- <div class="col-lg-10">
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" class="search-query form-control" id="search-keywords" placeholder="Search events"/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-danger" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+          </div>
+
+          <!--Display events by date-->
+          <!-- <ul class="events-dates">
+              <li><a href="eventPage.html">ALL</a></li>
+              <li><a>Today</a></li>
+              <li><a>Tomorrow</a></li>
+              <li><a>This week</a></li>
+              <li><a>Next week</a></li>
+              <li><a>This month</a></li>
+              <li><a>Next month</a></li>
+            </ul> -->
+          <div class="spacer"></div>
+          <!--Individual Event-->
+          <div class="feed-panel-box single-event row">
+            <div class=" col col-lg-4">
+              <!--Use event image as background-img of event-img-->
+              <div class="event-img" [style.backgroundImage]="'url('+ (rootImgPath +  eventDetails.FileName) +')'">
+              </div>
+            </div>
+            <div class="col col-lg-8">
+              <div class="info">
+                <!--Title, headline, and location-->
+                <h3 class="title"><a href="javaScript:;">{{eventDetails.EventName}}</a></h3>
+                <p class="desc">{{eventDetails.EventHeadline}}</p>
+                <!--Date and time-->
+                <span class="month">{{eventDetails.Month}}</span>
+                <span class="day">{{eventDetails.Day}},</span>
+                <span class="year">{{eventDetails.Year}}</span>
+                <span class="time-and-location"> {{eventDetails.EventStreet}},
+                  {{eventDetails.EventState}}-{{eventDetails.EventZip}}
+                  <i class="fa fa-circle event-suggestion-divider"></i>
+                  <span [hidden]="!eventDetails.AllDayEvent">All day</span>
+                  <span [hidden]="eventDetails.AllDayEvent">{{eventDetails.eStart}} - {{eventDetails.eEnd}}</span>
+                </span>
+                <span class="rsvp">{{eventDetails.EventIntrestCount}} interested in this event</span>
+              </div>
+              <!--RSVP button-->
+              <button class="btn btn-sm" (click)="eventInterested()" id="rsvp-button">I'm interested</button>
+              <!--Show this button after a user has RSVP'd-->
+              <a class="btn btn-sm" id="rsvp-received">You marked your interest</a>
+              <!--Social Sharing buttons-->
+              <div class="social single-event">
+                <ul>
+                  <!-- <button shareButton="facebook">Share</button> -->
+                  <li shareButton="facebook" [title]="eventDetails.EventName"
+                    [description]="eventDetails.EventDescription" class="facebook facebook-event"
+                    image="{{EventImage}}"><a class="facebook-event-share" data-toggle="tooltip" data-placement="top"
+                      title="Share this event on Facebook"><span class="fa fa-facebook"></span></a></li>
+                  <!-- <li class="twitter twitter-event"><a class="twitter-event-share" data-toggle="tooltip" data-placement="top" title="Share this event on Twitter"><span class="fa fa-twitter"></span></a></li> -->
+                  <li class="email email-event" data-toggle="modal" (click)="OpenEmailsharePopup()"><a
+                      class="email-event-share" data-toggle="tooltip" data-placement="top"
+                      title="Share this event via email"><span class="fa fa-envelope"></span></a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12 event-description">
+                <div>
+                  {{eventDetails.EventDescription}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- /.container -->
+
+
+<!-- /#page-content-wrapper -->
+
+<!--End Event Content -->
+<!-- Share Event Via Email Modal -->
+<div id="share-event-email" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="cto">Share Event</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form [formGroup]="EventEmailFormGroup">
+        <div class="modal-body">
+          <span class="profile-item-title pull-left"><i class="fa fa-envelope"></i>Send to:</span>
+          <!-- <tags-input class="form-control" (onTagsChanged)="onTagsChanged($event)" [removeLastOnBackspace]="removeLastOnBackspace"
+          [(ngModel)]="emailIdList" name="emailIdList"></tags-input>
+          <div>
+              <p class="invalid-feedback" *ngIf="(emailIdList.length == 0 && isSubmitted)">
+                  Email(s) is required</p>
+          </div> -->
+
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Your Email*" name="email" formControlName="email"
+              class="signup-input signup-required" />
+          </div>
+
+          <p class="invalid-feedback"
+            *ngIf="EventEmailFormGroup.controls.email.errors?.required && (EventEmailFormGroup.controls.email.touched || submitted)">
+            Emailis required</p>
+          <p class="invalid-feedback" *ngIf="EventEmailFormGroup.controls.email.errors?.pattern">Please enter a correct
+            email id</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm pull-right" (click)="shareEventByMail()">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

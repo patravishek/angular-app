@@ -1,0 +1,29 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-md-12">
+          <form>
+            <h1>Email Verification</h1>
+            <div *ngIf="isResponseGet">
+              <div class="col-md-12 text-center" *ngIf="verificationMsg">
+                <h3>{{verificationMsg}}.</h3>
+                <span>Click   <a class="nav-link orange" data-toggle="modal" data-target="#signIn" role="button" aria-haspopup="true"
+                 aria-expanded="true">here </a>to login</span>
+              </div>
+              <div class="col-md-12 text-center" *ngIf="!verificationMsg">
+                <h3>Email is not confirmed.</h3>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /#page-content-wrapper -->
+</div>
+
+<!-- /#wrapper -->

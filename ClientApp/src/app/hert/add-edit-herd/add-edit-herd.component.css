@@ -1,0 +1,49 @@
+.post-photo-update {
+    border: none !important;
+  }
+  
+  textarea.record-edit{
+      background: rgba(0,0,0,0.015);
+  }
+
+  .animal-info-edit li{
+    background: none;
+  }
+
+  input.record-edit{
+      height: 35px;
+      background: rgba(0,0,0,0.015);
+  }
+
+  .m-l-10{
+      margin-left: 10px !important;
+  }
+
+  .file-upload {
+	position: relative;
+	display: inline-block;
+}
+
+.file-upload__label {
+  /* display: block;
+  padding: 1em 2em; */
+  border-radius: .4em;
+}
+
+.file-upload__label:hover {
+    cursor: pointer;
+    /* background: #000; */
+ }
+    
+.file-upload__input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}
+

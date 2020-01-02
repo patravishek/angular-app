@@ -1,0 +1,290 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Add new listing</h2>
+          <div class="row">
+            <div id="list-classifieds" class="text-center d-inline-block"><i class="fa fa-newspaper-o"
+                aria-hidden="true"></i>
+              <a (click)="classifiedType('listClassified')" id="list-classified">I want to list a classified</a></div>
+            <div id="list-auctions" class="text-center d-inline-block"><i class="fa fa-gavel" aria-hidden="true"></i>
+              <a (click)="classifiedType('listAuction')" id="list-auction">I want to list an auction</a></div>
+          </div>
+          <div id="application-received">
+            <h3>Thank you for listing with LivestockCity!</h3>
+            <a>Click here to view your live listing.</a>
+          </div>
+          <div id="add-classified" *ngIf="tabType=='listClassified'">
+            <form #classifiedForm="ngForm" novalidate>
+              <div id="food-seller-info">
+                <h4 class="d-inline">Livestock: </h4>
+                <select class="form-control seller-edit shipping-product" name="type"
+                  [(ngModel)]="classifiedModel.typeId" #type="ngModel"  (change)="getClassfiedBreadItemByUser(classifiedModel.typeId,'Classified')">
+                  <option value="">Select</option>
+                  <option *ngFor="let item of typeList" [value]="item.id">{{item.name}}
+                  </option>
+                </select>
+                <p class="invalid-feedback" *ngIf="type.errors?.required && (type.touched || isClassifiedSubmitted)">
+                  Type is required</p>
+                <br>
+
+                <input id='classifieds-individual-price-select' type="radio" name='select-price' value="true"
+                  [(ngModel)]="classifiedModel.isSetIndividualPrices"> <label>Set individual prices</label><br>
+                <input id='classifieds-group-price-select' type="radio" name='select-price' value="false"
+                  [(ngModel)]="classifiedModel.isSetIndividualPrices">
+                <label>Set one price for group</label><br>
+
+                <div class="classifieds-group-price" *ngIf="classifiedModel.isSetIndividualPrices=='false'">
+                  <label>Price for group:</label>
+                  <input type="text" placeholder="$" name="priceForGrp" [(ngModel)]="classifiedModel.priceForGroup">
+                </div>
+                <div class="spacer"></div>
+
+                <div id="custom-search-input">
+                  <div class="input-group">
+                    <input type="text" class="search-query form-control" placeholder="Search" name="searchClassifiedText"
+                      [(ngModel)]="searchClassifiedText" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-danger" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" [(ngModel)]="isAllClassifiedRecordSelected"
+                          (change)="selectClassifiedRecordUnselectAll()" name="isAllClassifiedRecordSelected"></th>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Breed</th>
+                      <th>Gender</th>
+                      <th class="classifieds-individual-price" *ngIf="classifiedModel.isSetIndividualPrices=='true'">
+                        Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of classifiedModel.recordList;let i = index">
+                      <th><input type="checkbox" [(ngModel)]="item.isSelected" name="isSelected_{{i}}"></th>
+                      <td> <img class="round-photo" src="{{rootImgPath}}{{item.herdLogo}}" /></td>
+                      <td>{{item.breedLiveStockName}}</td>
+                      <td>{{item.breedName}}</td>
+                      <td>{{item.gender}}</td>
+                      <td class="classifieds-individual-price" *ngIf="classifiedModel.isSetIndividualPrices=='true'">
+                        <input type="text" placeholder="$" name="price_{{i}}" [(ngModel)]="item.price">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a class="btn" routerLink='/herd/AddEdit/0' target="_blank">Input new animal record</a>
+                <hr>
+
+              </div>
+              <div class="add-product-section">
+                <div class="form-group">
+                  <label>Sale Title</label>
+                  <input type="text" class="form-control" placeholder="" name="title"
+                    [(ngModel)]="classifiedModel.saleTitle" required #title="ngModel">
+                  <p class="invalid-feedback"
+                    *ngIf="title.errors?.required && (title.touched || isClassifiedSubmitted)">
+                    Title is required</p>
+                </div>
+                <div class="form-group">
+                  <label for="shipping-product">Shipping:</label>
+                  <select class="form-control seller-edit shipping-product" name="shipping"
+                    [(ngModel)]="classifiedModel.shipingTypeId">
+                    <option value="">Select</option>
+                    <option *ngFor="let item of shippingList" [value]="item.id">{{item.type}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group shipping-cost">
+                  <label>Shipping Cost</label>
+                  <input type="text" class="form-control seller-edit" placeholder="" name="cost"
+                    [(ngModel)]="classifiedModel.shippingCost">
+                </div>
+                <br>
+                <button class="btn inactive-btn" (click)="saveClassified(classifiedForm)" type="submit">Draft</button>
+                <button class="btn" [routerLink]="['/shop']">List</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Add non food goods -->
+          <div id="add-auction" *ngIf="tabType=='listAuction'">
+            <form #auctionForm="ngForm" novalidate>
+              <div id="food-seller-info">
+                <h4 class="d-inline">Livestock:</h4>
+                <select class="form-control seller-edit shipping-product" name="auctionType"
+                  [(ngModel)]="auctionModel.animalTypeId" required #auctionType="ngModel" (change)="getClassfiedBreadItemByUser(auctionModel.animalTypeId,'Auction')">
+                  <option value="">Select</option>
+                  <option *ngFor="let item of typeList" [value]="item.id">{{item.name}}
+                  </option>
+                </select>
+                <p class="invalid-feedback"
+                  *ngIf="auctionType.errors?.required && (auctionType.touched || isAuctionSubmitted)">
+                  Type is required</p>
+                <br>
+                <input id='individual-price-select' type="radio" name='select-price' value="true"
+                  [(ngModel)]="auctionModel.isSetIndividualStartBids"> <label>Set individual start bids</label><br>
+                <input id='group-price-select' type="radio" name='select-price' value="false"
+                  [(ngModel)]="auctionModel.isSetIndividualStartBids">
+                <label>Set one start bid for group</label><br>
+
+                <!-- <input id='individual-price-select' type='radio' name='select-price' checked />
+                <label>Set individual start bids</label><br>
+                <input id='group-price-select' type='radio' name='select-price' />
+                <label>Set one start bid for group</label><br> -->
+                <div class="group-price" *ngIf="auctionModel.isSetIndividualStartBids=='false'">
+                  <label>Start bid for group:</label>
+                  <input type="text" placeholder="$" name="bidForGrp" [(ngModel)]="auctionModel.bidForGrp">
+                  <input type="checkbox" id="group-buy-now-check" name="isBuyPriceForGrp"
+                    [(ngModel)]="auctionModel.isBuyPriceForGrp">
+                  <label>Buy Now price for group: </label>
+                  <input type="text" placeholder="$" id="group-buy-now" [disabled]="!auctionModel.isBuyPriceForGrp"
+                    [ngClass]="{'disabled-input':!auctionModel.isBuyPriceForGrp}" name="buyPriceForGrp"
+                    [(ngModel)]="auctionModel.buyPriceForGrp">
+                  <input type="checkbox" id="group-min-bid-check" name="isMinBidForGrp"
+                    [(ngModel)]="auctionModel.isMinBidForGrp">
+                  <label>Min bid for group:</label>
+                  <input type="text" placeholder="$" id="group-min-bid" [disabled]="!auctionModel.isMinBidForGrp"
+                    [ngClass]="{'disabled-input':!auctionModel.isMinBidForGrp}" name="minBidForGrp"
+                    [(ngModel)]="auctionModel.minBidForGrp">
+                </div>
+
+                <div class="spacer"></div>
+
+                <div id="custom-search-input" class="col-8">
+                  <div class="input-group">
+                    <input type="text" class="search-query form-control" placeholder="Search" name="searchAuctionText"
+                    [(ngModel)]="searchAuctionText"/>
+                    <span class="input-group-btn">
+                      <button class="btn btn-danger" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" [(ngModel)]="isAllAuctionRecordSelected"
+                          (change)="selectAuctionRecordUnselectAll()" name="isAllAuctionRecordSelected"></th>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Breed</th>
+                      <th>Gender</th>
+                      <th class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">Start Bid
+                        &nbsp;&nbsp;&nbsp;</th>
+                      <th class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">Buy Now Option
+                      </th>
+                      <th class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">Min Buy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of auctionModel.recordList;let i = index">
+                      <td><input type="checkbox" [(ngModel)]="item.isSelected" name="isSelected_{{i}}"></td>
+                      <td> <img class="round-photo" src="{{rootImgPath}}{{item.herdLogo}}"  /></td>
+                      <td>{{item.breedLiveStockName}}</td>
+                      <td>{{item.breedName}}</td>
+                      <td>{{item.gender}}</td>
+                      <td class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">
+                        <input type="text" placeholder="$" name="bid_{{i}}" [(ngModel)]="item.bid">
+                      </td>
+                      <td class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">
+                        <input type="checkbox" id="buy-now-1-check" name="isBuy_{{i}}" [(ngModel)]="item.isBuy">
+                        <input type="text" placeholder="$" [disabled]="!item.isBuy"
+                          [ngClass]="{'disabled-input':!item.isBuy}" id="buy-now-1" name="buy_{{i}}"
+                          [(ngModel)]="item.buy">
+                      </td>
+                      <td class="individual-price" *ngIf="auctionModel.isSetIndividualStartBids=='true'">
+                        <input type="checkbox" id="min-bid-1-check" name="isMinBuy_{{i}}" [(ngModel)]="item.isMinBuy">
+                        <input type="text" placeholder="$" [disabled]="!item.isMinBuy"
+                          [ngClass]="{'disabled-input':!item.isMinBuy}" id="min-bid-1" name="minBuy_{{i}}"
+                          [(ngModel)]="item.minBuy">
+                      </td>
+                    </tr>
+                 </tbody>
+                </table>
+                <a class="btn" routerLink='/herd/AddEdit/0' target="_blank">Input new animal record</a>
+                <hr>
+
+              </div>
+              <div class="add-product-section">
+                <div class="form-group">
+                  <label>Auction Title</label>
+                  <input type="text" class="form-control" placeholder="" name="auctionTitle" #auctionTitle="ngModel"
+                    [(ngModel)]="auctionModel.auctionTitle" required>
+                  <p class="invalid-feedback"
+                    *ngIf="auctionTitle.errors?.required && (auctionTitle.touched || isAuctionSubmitted)">
+                    Title is required</p>
+                </div>
+                <br>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="shipping-product">Shipping:</label>
+                    <select class="form-control seller-edit shipping-product" name="shipping"
+                      [(ngModel)]="auctionModel.shipingTypeId">
+                      <option value="">Select</option>
+                      <option *ngFor="let item of shippingList" [value]="item.id">{{item.type}}
+                      </option>
+                    </select>
+                  </div>
+                  <br>
+                  <div class="form-group shipping-cost">
+                    <label>Shipping Cost</label>
+                    <input type="text" class="form-control seller-edit" placeholder="" name="shippingCost"
+                      [(ngModel)]="auctionModel.shippingCost">
+                  </div>
+                </div>
+                <br>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="start-date">Start Date:</label>
+                      <input type="text" class="form-control" name="startDate" #dp="bsDatepicker" readonly="readonly"
+                        bsDatepicker [(ngModel)]="auctionModel.startDate" [bsConfig]="bsConfig"
+                        placeholder="MM/DD/YYYY">
+                    </div>
+
+                    <div class="col-md-3">
+                      <label for="start-time">Start Time:</label>
+                      <input type="time" class="form-control" [(ngModel)]="auctionModel.startTime" name="startTime">
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="start-date">End Date:</label>
+                      <input type="text" class="form-control" name="endDate" #dp="bsDatepicker" readonly="readonly"
+                        bsDatepicker [(ngModel)]="auctionModel.endDate" [bsConfig]="bsConfig" placeholder="MM/DD/YYYY">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="start-time">End Time:</label>
+                      <input type="time" class="form-control" [(ngModel)]="auctionModel.endTime" name="endTime">
+                    </div>
+                  </div>
+                  <!-- <br><br>
+                    <label for="end-date">End Date:</label>
+                    <input type="text" class="form-control" name="endDate" #dp="bsDatepicker"
+                    readonly="readonly" bsDatepicker [(ngModel)]="auctionModel.endDate" [bsConfig]="bsConfig" placeholder="MM/DD/YYYY">
+                    <label for="end-time">End Time:</label>
+                    <input type="time" id="end-time">
+                  </div> -->
+                </div>
+                <br>
+                <button class="btn inactive-btn" type="submit" (click)="saveAuction(auctionForm)">Draft</button><button
+                  class="btn ml-5" [routerLink]="['/auction']">List</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>

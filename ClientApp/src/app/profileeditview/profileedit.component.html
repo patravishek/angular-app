@@ -1,0 +1,566 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="container top">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Edit Profile</h1>
+          <ul class="nav nav-pills">
+            <li class="active">
+              <a href="#edit-user-profile" data-toggle="tab" (click)="GetUserDetails()">User Profile</a>
+            </li>
+            <li>
+              <a href="#edit-farm-profile" data-toggle="tab" (click)="GetFarmProfile()">Farm Profile</a>
+
+            </li>
+            <li>
+              <a href="#privacy" data-toggle="tab" (click)="GetPrivacyOptions()">Privacy</a>
+            </li>
+            <li>
+              <a href="#change-pw" data-toggle="tab">Change Password</a>
+            </li>
+          </ul>
+          <hr class="pill-nav">
+
+          <div class="tab-content clearfix">
+            <!--User profile start-->
+            <div class="tab-pane active" id="edit-user-profile">
+              <div class="row">
+                <div class="col-md-12 text-center">
+
+                  <h3>User Profile</h3>
+                  <!--Profile Photo-->
+                  <!-- <img class="user-photo own-profile" *ngIf="userDetails.UserImageUrl && !previewPhoto && !IsCamera" id="profile-photo" [src]="rootImgPath + userDetails.UserImageUrl"
+                    width="200" /> -->
+                  <!-- <img class="user-photo own-profile" *ngIf="previewPhoto && !IsCamera" id="profile-photo" [src]="previewPhoto"
+                    width="200" /> -->
+
+                  <img class="user-photo own-profile" id="profile-photo" *ngIf="userDetails.UserImageUrl && !croppedImage && !IsCamera" [src]="userDetails.UserImageUrl">
+
+                  <div *ngIf="!UserDetailsSubmitted && validImage && !IsCamera">
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                      format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                  </div>
+                  <div *ngIf="!UserDetailsSubmitted && validImage && IsCamera">
+                    <image-cropper [imageBase64]="imageBase64Url" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                      format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                  </div>
+
+                  <div class="wrapper" *ngIf="IsCamera" (window:resize)="onResize($event)">
+                    <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="!imageBase64Url"
+                      [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions"
+                      (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)" [width]="480"
+                      [height]="480"></webcam>
+                    <div *ngIf="imageBase64Url">
+                      <img [src]="imageBase64Url" style="height: 310px;width: 435px" />
+                    </div>
+
+                    <div class="row">
+                      <button class="m-t-10 btn btn-primary btn-outline-primary ripple m-t-20 cm-btn1" (click)="triggerSnapshot();">
+                        Capture
+                        <i class="fa fa-camera m-l-5"></i>
+                      </button>
+
+                      <button class="m-t-10 btn btn-primary btn-outline-primary ripple m-t-20 cm-btn1" (click)="takeAnother();">
+                        Take another!
+                        <i class="fa fa-camera m-l-5"></i>
+                      </button>
+
+                      <button class="m-t-10 btn btn-primary btn-outline-primary ripple m-t-10 cm-btn1" (click)="showNextWebcam(true);"
+                        *ngIf="multipleWebcamsAvailable">
+                        Switch Cameras
+                        <i class="fa fa-arrow-right m-l-5"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <br>
+                  <div>
+                    <a (click)="OpenCamera()">Take photo</a> or
+                    <a href="#" (click)="openfileDialogue($event)">Upload photo</a>
+                  </div>
+                  <br>
+                  <input type="file" id="upload-profile-photo" (change)="onSelectedFileName($event)" />
+
+                  <div class="spacer"></div>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <span class="profile-item-section">Basic Info</span>
+                </div>
+                <form #userProfileForm="ngForm">
+                  <div class="col-md-12 form-group">
+                    <!--Basic Info-->
+                    <span class="profile-item-title">First Name </span>
+                    <!-- <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="firstName" z="firstName" > -->
+                    <input type="text" [(ngModel)]="userDetails.FirstName" placeholder="Your FirstName*" name="firstName"
+                      class="capitalize-word profile-edit profile-edit-privacy-toggle form-control" required [pattern]="namePattern" />
+                  </div>
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.firstName?.errors?.required && (userProfileForm.controls.firstName.touched || isSubmitted)">First
+                    Name is required</p>
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.firstName?.errors?.pattern &&(userProfileForm.controls.firstName.touched || isSubmitted)">Special
+                    characters not allowed in first name</p>
+
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Last Name</span>
+                    <input type="text" class="capitalize-word profile-edit profile-edit-privacy-toggle form-control"
+                      name="lastName" [(ngModel)]="userDetails.LastName" required [pattern]="namePattern">
+                  </div>
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.lastName?.errors?.required && (userProfileForm.controls.lastName.touched || isSubmitted)">Last
+                    Name is required</p>
+
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.lastName?.errors?.pattern &&(userProfileForm.controls.lastName.touched || isSubmitted)">Special
+                    characters not allowed in last name</p>
+
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Username <i class="fa fa-question" data-toggle="tooltip"
+                        data-placement="top" title="This is the unique name that will appear on the url of your LivestockCity profile, and will also be your unique identifier for LivestockCity messaging."></i></span>
+                    <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="username"
+                      [(ngModel)]="userDetails.UserName">
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Birthday</span>
+                    <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="bdate" #dp="bsDatepicker"
+                      readonly="readonly" bsDatepicker [(ngModel)]="userDetails.Birthday" [bsConfig]="bsConfig"
+                      placeholder="MM/DD/YYYY">
+
+                    <!-- <input type="date" [(ngModel)]="userDetails.Birthday"  class="profile-edit profile-edit-privacy-toggle public form-control" name="user-bday"> -->
+                    <!-- <span class="change-icon">
+                      <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': birthdayPrivacy.privcytype}"
+                        (click)="setPrivacy(birthdayPrivacy.id,'Birthday',true)" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Make invisible - keep this private"></i>
+                      <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                        data-toggle="tooltip" data-placement="top" title="Make visible" [ngClass]="{'text-primary': birthdayPrivacy && birthdayPrivacy.privcytype == false}"
+                        (click)="setPrivacy(birthdayPrivacy.id,'Birthday',false)"></i>
+                    </span> -->
+                  </div>
+
+                  <div class="col-md-12">
+                    <hr>
+                    <!-- <span class="profile-item-section">Private details - for account verification only</span> -->
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Email</span>
+                    <input type="email" class="profile-edit profile-edit-privacy-toggle form-control" name="email"
+                      [(ngModel)]="userDetails.Email" required [pattern]="emailPattern">
+                        
+                    <!-- <span class="change-icon">
+                      <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': emailPrivacy.privcytype}"
+                        (click)="setPrivacy(emailPrivacy.id,'Email',true)" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Make invisible - keep this private"></i>
+                      <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                        data-toggle="tooltip" data-placement="top" title="Make visible" [ngClass]="{'text-primary': emailPrivacy && emailPrivacy.privcytype == false}"
+                        (click)="setPrivacy(emailPrivacy.id,'Email',false)"></i>
+                    </span> -->
+                  </div>
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.email?.errors?.required && (userProfileForm.controls.email.touched || isSubmitted)">Email
+                    is required</p>
+                  <p class="invalid-feedback" *ngIf="userProfileForm.controls.email?.errors?.pattern">Please enter a
+                    correct email id</p>
+
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Mobile</span>
+                    <input mask='(000) 000-0000' type="text" class="profile-edit profile-edit-privacy-toggle form-control"
+                      name="phone" [(ngModel)]="userDetails.Phone">
+                  </div>
+
+                  <!-- <div class="col-md-12">
+                    <hr>
+                    <span class="profile-item-section">Links</span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="profile-item-title">Payment Method</span>
+                    <button class="btn" id="connect-paypal"><i class="fa fa-paypal" aria-hidden="true"></i>Connect
+                      Paypal
+                      account</button>
+                    <br>
+                    *You must have a PayPal account connected to buy and sell via classifieds, auctions, and farm
+                    stores.
+                  </div>
+                  <div class="col-md-12"><br>
+                    <span class="profile-item-title">Enable social login</span>
+                    <i class="fa fa-facebook-square social-link" aria-hidden="true"></i>
+                    <i class="fa fa-google-plus-square social-link" aria-hidden="true"></i>
+                    <i class="fa fa-twitter-square social-link" aria-hidden="true"></i>
+                    <div class="spacer"></div>
+                  </div> -->
+                  <div class="col-md-12">
+                    <hr>
+                    <span class="profile-item-section">More</span>
+                  </div>
+                  <div class="col-md-12">
+                    <!-- More -->
+                    <span class="profile-item-title">Education</span>
+                    <input type="text" [(ngModel)]="userDetails.Education" name="education" class="profile-edit form-control"
+                      name="education">
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Hobbies</span>
+                    <input type="text" [(ngModel)]="userDetails.Hobbies" name="hobbies" class="profile-edit form-control"
+                      name="hobbies">
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Bio</span>
+                    <textarea class="profile-edit" [(ngModel)]="userDetails.Bio" name="Bio"></textarea>
+                  </div>
+                </form>
+                <div class="col-md-12">
+                  <span class="profile-item-title">I'm looking for:</span>
+
+                  <div *ngFor="let item of userDetails.UserLookingFor; let i = index;">
+                    <label for="item{{item.LookupType}}">
+                      <input class="form-check-input" type="checkbox" id="LookingFor{{item.Id}}" name="LookingForOptions"
+                        [checked]="item.IsSelected" (change)="SelectedLookingForList(i)">
+                      {{item.LookupType}}
+                    </label>
+                  </div>
+                  <!-- <div *ngFor="let item of LookingForList; let i = index;">
+                      <label for="item{{item.InterestName}}">
+                        <input class="form-check-input" type="checkbox" id="LookingFor{{item.Id}}" name="LookingForOptions"
+                          [checked]="item.IsSelected" (change)="SelectedLookingForList(i)">
+                        {{item.InterestName}}
+                      </label>
+                    </div> -->
+
+                  <div class="spacer"></div>
+                  <!--FEATURED USER PHOTOS-->
+                  <!-- <span class="profile-item-title">Featured Farm Photos</span>
+                  <div class="photo-post-thumbnail" style="background-image: url('http://via.placeholder.com/600x400')">
+                    <i class="fa fa-times delete-photo"></i>
+                  </div>
+                  <div class="photo-post-thumbnail" style="background-image: url('http://via.placeholder.com/600x400')">
+                    <i class="fa fa-times delete-photo"></i>
+                  </div>
+                  <div class="photo-post-thumbnail" style="background-image: url('http://via.placeholder.com/600x400')">
+                    <i class="fa fa-times delete-photo"></i>
+                  </div>
+                  <div class="photo-post-thumbnail" style="background-image: url('http://via.placeholder.com/600x400')">
+                    <i class="fa fa-times delete-photo"></i>
+                  </div>
+                  <input type="file" id="featured-photo-update" class="hidden" />
+                  <br>
+                  <a id="post-featured-photo-update" type="file">Upload Photos</a> -->
+                  <div class="spacer"></div>
+
+
+                  <button class="btn" id="save-profile-edits" type="submit" (click)="SaveUserProfile(userProfileForm)">Save</button>
+                  <div class="alert alert-success" id="profile-edit-success" role="alert">
+                    <strong>Successfully saved.</strong>
+                  </div>
+                  <div class="alert alert-danger" id="profile-edit-fail" role="alert">
+                    <strong>Save failed.</strong> Oops! Please try again later.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--User profile End-->
+
+            <!--Farm profile End-->
+            <div class="tab-pane fade" id="edit-farm-profile">
+              <div class="row">
+                <div class="col-md-12">
+                  <form #farmProfileForm="ngForm">
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <h3>Farm Profile</h3>
+                        <!--Profile Photo-->
+                        <img class="farm-logo" width="250" id="farmLogo" *ngIf="farmProfile.FarmDisplayLogoPath && !croppedImage" [src]="farmProfile.FarmDisplayLogoPath" />
+                        <div>
+                          <a href="#" id="post-farm-logo-update" (click)="openFarmFileDialogue($event)">Upload New Farm
+                            Logo</a>
+                          <br>
+                          <input type="file" id="upload-farm-photo" class="hidden" (change)="onSelectedFarmFileName($event)" />
+
+                          <image-cropper *ngIf="!FarmDetailsSubmitted && validImage" [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                        </div>
+                        <div class="spacer"></div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <!--Basic Info-->
+                        <span class="profile-item-title">Farm Name</span>
+                        <input type="text" class="profile-edit" name="FarmName" [(ngModel)]="farmProfile.FarmName">
+                      </div>
+                      <div class="col-md-12">
+                        <span class="profile-item-title">Animals</span>
+                        <div id="animal-types-list" >
+                          <ul *ngFor="let item of AnimalList; let i = index;">
+                              <li>
+                                <label for="item{{item.InterestName}}">
+                                  <input class="form-check-input" type="checkbox" id="Animal{{item.Id}}" name="AnimalOptions" [checked]="item.IsSelected"
+                                    (change)="SelectedAnimalList(i)">
+                                  {{item.InterestName}}
+                                </label>
+                              </li>
+                          </ul>
+                          
+                        </div>
+                        <!-- <div id="animal-types-list">
+                          <ul>
+                            <li>
+                              <input type="checkbox" id="pigs">
+                              <label for="pigs">Pigs</label>
+                            </li>
+                            <li>
+                              <input type="checkbox" id="horses">
+                              <label for="horses">Horses</label>
+                            </li>
+                            <li>
+                              <input type="checkbox" id="cattle">
+                              <label for="cattle">Cattle</label>
+                            </li>
+                            <li>
+                              <input type="checkbox" id="llamas">
+                              <label for="pigs">Llamas</label>
+                            </li>
+                            <li>
+                              <input type="checkbox" id="avians">
+                              <label for="avians">Avians</label>
+                            </li>
+                            <li>
+                              <input type="checkbox" id="other-animals">
+                              <label for="other-animals">Other</label>
+                            </li>
+                          </ul>
+                        </div> -->
+
+                      </div>
+                      <div class="col-md-12">
+                        <span class="profile-item-title">Operating since</span>
+                        <input type="text" class="profile-edit" name="OperatingSince" [(ngModel)]="farmProfile.OperatingSince">
+                      </div>
+                      <div class="col-md-12">
+                        <span class="profile-item-title">Overview</span>
+                        <textarea class="profile-edit" name="Overview" [(ngModel)]="farmProfile.Overview"></textarea>
+                      </div>
+                      <div class="col-md-12">
+                        <hr>
+                        <span class="profile-item-section">Location</span>
+                      </div>
+
+
+                      <div class="col-md-12">
+                        <span class="profile-item-title">Country</span>
+                        <select placeholder="Country" (change)="onChangeCountry()" class="profile-edit profile-edit-privacy-toggle form-control"
+                          name="country" id="Country" [(ngModel)]="farmProfile.Country">
+                          <option value="">Select Country</option>
+                          <option *ngFor="let item of countryList" [value]="item.Name">
+                            {{item.Name}}
+                          </option>
+                        </select>
+
+                        <!-- <span class="change-icon">
+                          <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': countryPrivacy.privcytype}"
+                            (click)="setPrivacy(countryPrivacy.id,'Country',true)" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                          <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Make invisible - keep this private" [ngClass]="{'text-primary': countryPrivacy && countryPrivacy.privcytype == false}"
+                            (click)="setPrivacy(countryPrivacy.id,'Country',false)"></i>
+                        </span> -->
+                      </div>
+                      <div class="col-md-12">
+                        <span class="profile-item-title">State</span>
+                        <select placeholder="State" class="profile-edit profile-edit-privacy-toggle form-control" name="state"
+                          id="State" [(ngModel)]="farmProfile.State">
+                          <option value="">Select State</option>
+                          <option *ngFor="let item of stateList" [value]="item.Name">
+                            {{item.Name}}
+                          </option>
+                        </select>
+
+                        <span class="change-icon">
+                          <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': statePrivacy.privcytype}"
+                            (click)="setPrivacy(statePrivacy.id,'State',true)" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                          <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Make invisible - keep this private" [ngClass]="{'text-primary': statePrivacy && statePrivacy.privcytype == false}"
+                            (click)="setPrivacy(statePrivacy.id,'State',false)"></i>
+                        </span>
+                      </div>
+                      <!-- <span class="change-icon">
+                          <i class="fa fa-eye privacy public" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Make invisible - keep this private"></i>
+                          <i class="fa fa-eye-slash privacy private" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                        </span>
+                      </div>
+
+                      <div class="col-md-12">
+                        <span class="profile-item-title">State</span>
+                        <select placeholder="State" class="profile-edit profile-edit-privacy-toggle form-control" name="state"
+                          id="State" [(ngModel)]="farmProfile.State">
+                          <option value="">Select State</option>
+                          <option *ngFor="let item of stateList" [value]="item.Name">
+                            {{item.Name}}
+                          </option>
+                        </select>
+
+                        <span class="change-icon">
+                          <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': statePrivacy.privcytype}" (click)="setPrivacy(statePrivacy.id,'State',true)" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make invisible - keep this private"></i>
+                          <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Make visible"
+                            [ngClass]="{'text-primary': statePrivacy && statePrivacy.privcytype == false}"
+                            (click)="setPrivacy(statePrivacy.id,'State',false)"></i>
+                            </span>
+                         <span class="change-icon">
+                          <i class="fa fa-eye privacy public" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            title="Make invisible - keep this private"></i>
+                          <i class="fa fa-eye-slash privacy private" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                        </span> -->
+
+                      <div class="col-md-12">
+                        <span class="profile-item-title">City</span>
+                        <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="City"
+                          [(ngModel)]="farmProfile.City">
+                        <span class="change-icon">
+                          <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': cityPrivacy.privcytype}"
+                            (click)="setPrivacy(cityPrivacy.id,'City',true)" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                          <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Make invisible - keep this private" [ngClass]="{'text-primary': cityPrivacy && cityPrivacy.privcytype == false}"
+                            (click)="setPrivacy(cityPrivacy.id,'City',false)"></i>
+                        </span>
+                      </div>
+                      <!-- <div class="col-md-12">
+                        <span class="profile-item-title">Street</span>
+                        <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="Street"
+                          [(ngModel)]="farmProfile.Street">
+                        <span class="change-icon">
+                          <i class="fa fa-eye privacy public privacy-public-birthday cursor" [ngClass]="{'text-primary': streetPrivacy.privcytype}"
+                            (click)="setPrivacy(streetPrivacy.id,'Street',true)" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Make visible"></i>
+                          <i class="fa fa-eye-slash privacy private privacy-private-birthday cursor" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Make invisible - keep this private" [ngClass]="{'text-primary': streetPrivacy && streetPrivacy.privcytype == false}"
+                            (click)="setPrivacy(streetPrivacy.id,'Street',false)"></i>
+                        </span>
+                      </div> -->
+                      <!-- <div class="col-md-12">
+                        <span class="profile-item-title">Zip Code</span>
+                        <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" [(ngModel)]="farmProfile.Zip"
+                          name="Zip">
+                      
+                      </div> -->
+                      <div class="col-md-12">
+                        <hr>
+                        <span class="profile-item-section">Transportation</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="profile-item-title">Transportation provider? (Select yes even if you only
+                          occasionally transport to livestock events).</span>
+                        <div class="col-md-12 ml-5 checkbox">
+                          <input type="checkbox" id="IsTransportationProvider" name="IsTransportationProvider"
+                            [(ngModel)]="farmProfile.IsTransportationProvider">
+                          <label for="transportation-provider">Yes</label>
+                        </div>
+                        <div class="spacer"></div>
+
+                        <button class="btn" (click)="SaveFarmProfile(farmProfileForm)">Save</button>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+            <!--Farm profile End-->
+
+            <!--Privacy Start-->
+            <div class="tab-pane fade" id="privacy">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3>Who sees your posts</h3>
+                  <em>You can always change your privacy settings on a per-post basis when you post an update.</em>
+                  <br><br>
+                </div>
+                <form action="">
+                  <div class="col-md-12 d-block">
+                    <div *ngFor="let item of privacyOptions.PostPrivacy">
+                      <input type="radio" name="privacy" value="item.Id" [checked]="item.IsSelected" (change)="OnPostPrivacyChange(item)">
+                      {{item.Description}}
+                      <br><br>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <h3>Who sees your online status</h3>
+                    <br>
+                  </div>
+                  <div class="col-md-12 d-block">
+                    <div *ngFor="let item of privacyOptions.OnlineStatus">
+                      <input type="radio" name="online-status" value="item.Id" [checked]="item.IsSelected" (change)="OnOnlineStatusPrivacyChange(item)">
+                      {{item.Description}}
+                      <br><br>
+                    </div>
+                  </div>
+                </form>
+                <div class="col-md-12">
+                  <h3>Who sees your profile details</h3>
+                  <em>Control who can see your visible details. If you mark a profile detail as invisible, that detail
+                    will be visible to only you.</em><br><br>
+                </div>
+                <div class="col-md-12 d-block">
+                  <form action="">
+                    <div *ngFor="let item of privacyOptions.ProfileDetails">
+                      <input type="radio" name="profile-visibility" value="item.Id" [checked]="item.IsSelected"
+                        (change)="OnProfileDetailsPrivacyChange(item)"> {{item.Description}}
+                      <br><br>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-12">
+                  <button class="btn" (click)="SavePrivacySetting()">Save</button>
+                </div>
+              </div>
+            </div>
+            <!--Privacy End-->
+
+            <!--Change Password-->
+            <div class="tab-pane fade" id="change-pw">
+              <form #changePasswordForm="ngForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Change Password</h3>
+                  </div>
+                  <div class="col-md-12 d-block">
+                    <span class="profile-item-title">Current Password</span>
+                    <input type="password" class="profile-edit form-control" name="currentpw" [(ngModel)]="changePasswordModel.CurrentPassword"
+                      required>
+                    <p class="invalid-feedback" *ngIf="changePasswordForm.controls.currentpw?.errors?.required && (changePasswordForm.controls.currentpw.touched || isSubmitted)">
+                      Current password is required</p>
+
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">New Password</span>
+                    <input type="password" class="profile-edit form-control" name="newpw" [(ngModel)]="changePasswordModel.NewPassword"
+                      required [pattern]="passwordPattern">
+                    <p class="invalid-feedback" *ngIf="changePasswordForm.controls.newpw?.errors?.required && (changePasswordForm.controls.newpw.touched || isSubmitted)">
+                      New password is required</p>
+                    <p class="invalid-feedback" *ngIf="changePasswordForm.controls.newpw?.errors?.pattern && (changePasswordForm.controls.newpw?.touched || isSubmitted)">Password
+                      should
+                      contain one special character, one number and must contain at least 6 characters</p>
+                  </div>
+                  <div class="col-md-12">
+                    <span class="profile-item-title">Confirm New Password</span>
+                    <input type="password" class="profile-edit form-control" name="newpwconfirm" [(ngModel)]="changePasswordModel.ConfirmPassword"
+                      required>
+                    <p class="invalid-feedback" *ngIf="changePasswordForm.controls.newpwconfirm?.errors?.required && (changePasswordForm.controls.newpwconfirm.touched || isSubmitted)">
+                      Confirm password is required</p>
+
+                    <p class="invalid-feedback" *ngIf="changePasswordModel.NewPassword && changePasswordModel.ConfirmPassword && changePasswordModel.NewPassword != changePasswordModel.ConfirmPassword && (changePasswordForm.controls.newpwconfirm.touched || isSubmitted)">
+                      Password does not match</p>
+                  </div>
+                  <div class="col-md-12">
+                    <button class="btn" type="submit" (click)="ChangePassword(changePasswordForm)">Save</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+            <!--Change password end-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

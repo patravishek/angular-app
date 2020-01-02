@@ -1,0 +1,61 @@
+ <!--Suggested farms and add friends column-->
+ <div class="col-lg-4 hidden-md hidden-sm hidden-xs">
+  <div class="affix col-lg-3">
+    <!--Suggested farms box-->
+    <div class="col-lg-12 feed-panel-box">
+      <div class="suggestion-box">
+        <div class="suggestion-box-header">
+          <h6>Suggested Farmers</h6>
+        </div>
+
+        <!--Suggested Farm--> 
+        <div class="row"  *ngFor="let item of suggestedFarmers">
+          <div class="col-lg-3">
+            <img class="user-photo suggestion-photo pull-right suggested-farm-profile-pic" src="{{item.profileurl}}">
+          </div>
+          <div class="col-lg-6">
+            <ul class="suggestion">
+              <li>  <a (click)="viewUserProfile(item.FarmId)" class="suggestion-name">{{item.FirstName}}, {{item.LastName}}</a> </li>
+              <!-- <li>  <span class="suggestion-name">{{item.city}}</span> </li> -->
+              <li>  <span class="suggestion-location">{{item.City}}</span> </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <button class="btn btn-sm follow-button"  (click)="userFollowfun(item)">Follow</button>
+            <!-- <button class="btn btn-sm follow-button" *ngIf="!item.IsFollow" (click)="userFollowfun(item)">Follow</button> -->
+            <!-- <button class="btn btn-sm follow-button"  *ngIf="item.IsFollow" (click)="userFollowfun(item)">UnFollow</button> -->
+          </div>
+          <hr>
+        </div> 
+
+        
+
+        <div class="invite-friends">
+          <h6>Invite friends to LivestockCity</h6>
+          <form [formGroup]="inviteUserFormGroup">
+           <div class="form-group">
+
+            <input class="form-control invite-form" type="text"  id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="Enter email*" name="email" formControlName="email"/>
+            <!-- <input type="email" class="form-control invite-form" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> -->
+            <button type="submit" (click)="inviteUsers()" class="btn btn-sm invite-btn"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
+
+          </div>
+
+          <p class="invalid-feedback" *ngIf="inviteUserFormGroup.controls.email.errors?.required && (inviteUserFormGroup.controls.email.touched || submitted)">Email is required</p>
+          <p class="invalid-feedback" *ngIf="inviteUserFormGroup.controls.email.errors?.pattern">Please enter a correct email id</p>
+
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>    
+
+</div>
+<!-- /.row -->
+
+
+
+              

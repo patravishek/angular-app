@@ -1,0 +1,85 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs and Add New-->
+    <div class="product-page container top">
+      <div class="row">
+        <div class="col-lg-3">
+          <h1>My Store Products
+          </h1>
+          <a routerLink="/addproduct/0" class="btn" style="color: #fff !important">Add Product</a>
+          <h5 class="shop-heading">My Farm Store</h5>
+          <h1>Products</h1> Products
+          <div class="list-group">
+            <a href="javascript:;" class="list-group-item">All <span class="badge">{{statisticsModel.All}}</span></a>
+            <a href="javascript:;" class="list-group-item">Active <span class="badge">{{statisticsModel.Active}}</span></a>
+            <a href="javascript:;" class="list-group-item">Drafts <span class="badge">{{statisticsModel.Drafts}}</span></a>
+            <a href="javascript:;" class="list-group-item">Sold Out <span class="badge">{{statisticsModel.SoldOut}}</span></a> Orders
+            <a href="javascript:;" class="list-group-item">Open orders
+              <span class="badge badge-important">{{statisticsModel.OpenOrders}}</span></a>
+            <a href="javascript:;" class="list-group-item">Past orders <span class="badge">{{statisticsModel.PastOrders}}</span></a>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-9">
+          <div id="custom-search-input">
+            <div class="input-group">
+              <input type="text" class="search-query form-control" id="search" name="search" placeholder="Search" [(ngModel)]="searchModel" #search="ngModel"/>
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" (click)="searchProduct()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="btn-group pull-right">
+            <a href="javascript:;" (click)="isListView = true" id="list" class="btn btn-default btn-sm"><i class="fa fa-list" aria-hidden="true"></i></a> 
+            <a href="javascript:;" (click)="isListView = false" id="grid" class="btn btn-default btn-sm"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+          </div>
+          <div class="row product-btn-row">
+            <div class="col-lg-3">
+              <div id="bulkOptionsDiv">
+                <button class="btn btn-sm dropdown-toggle grey" type="button" id="dropdownMenuButton"
+                  data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                  Bulk Options
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" [routerLink]="['/addproduct',0]">Edit</a>
+                  <a class="dropdown-item" href="javascript:;">Save as draft</a>
+                  <a class="dropdown-item" href="javascript:;" >Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Start of product grid-->
+          <div class="row product-list item-img-container" >
+
+            <div class="item grid-group-item col-xs-6 col-sm-4 col-lg-3 item-img-col-xs" *ngFor="let item of productList">
+              <div class="item-img">
+              </div>
+              <div class="row">
+                <div class="col-xs-8 col-sm-7 col-md-5 col-lg-6">
+                  <h6 class="product-name"><a href="javascript:;">{{item.productName}}</a></h6>
+                </div>
+                <div class="product-options col-xs-2 col-sm-5 col-md-3 col-lg-3 pull-right" >
+
+                  <button class="btn btn-sm dropdown-toggle product-options-btn" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-double-down"></i></button>
+
+                  <ul class="dropdown-menu dropdown-menu-right collapse product-options-menu"
+                    aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" [routerLink]="['/addproduct',item.id]">Edit</a></li>
+                    <li><a class="dropdown-item" (click)="updateProductStatus(item.id, 'Draft')">Save as Draft</a></li>
+                    <li><a class="dropdown-item" (click)="deleteProduct(item.id)">Delete</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="listed-banner">Public</div>
+            </div>
+          </div>
+          <!-- /.col-lg-9 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.cm-cursor{
+    cursor: pointer !important;
+}
+
+#add-nonfood {
+    display: block !important;
+}
+
+#add-food {
+    display: block !important;
+}
+
+#application-received{
+    display: block !important;
+}
+.fa-cutlery, .fa-shopping-bag{
+    display: block !important;
+    font-size: 3em !important;
+}
+h1, h2, a {
+    color: #f14b15 !important;
+}
+.btn {
+    background-color: #f14b15;
+    color: white !important;
+}
+.btn-dark {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    color: white !important;
+    border: none;
+}

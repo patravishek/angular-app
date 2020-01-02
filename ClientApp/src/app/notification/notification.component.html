@@ -1,0 +1,32 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>Notifications</h1>
+          <table class="table table-hover" id="notifications-table">
+            <tbody>
+              <tr  *ngFor="let item of NotificationList" [ngClass]="{'read': item.status}" (click)="ReadNotificatio(item)" style="cursor:pointer">
+                <td>
+                  <a>
+                      <img class="notification-img round-photo"  *ngIf="item.userProfilePic" [src]="rootImgPath + item.userProfilePic" />
+                    <img class="notification-img round-photo" *ngIf="!item.userProfilePic" src="http://via.placeholder.com/20x20" />
+                    <span class="notification-content fnt-14"> {{item.notification}}</span>
+                    <span class="notification-timestamp">{{item.notificationDatetime | date:'MM/dd/yyyy HH:mm'}}</span>
+                    <i class="fa fa-envelope pull-right m-10" *ngIf="!item.status" title="UnRead"></i>
+                    <i class="fa fa-envelope-open pull-right m-10" *ngIf="item.status" title="Read"></i>
+                  </a>
+                </td>
+              </tr>
+         
+        </tbody>
+      </table> 
+
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+</div>
+<!-- /.container -->
+</div>

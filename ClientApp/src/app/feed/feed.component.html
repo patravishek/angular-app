@@ -1,0 +1,372 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <!--Main Activity Feed Column-->
+        <div class="col-lg-8">
+          <!--Search box-->
+          <div id="custom-search-input">
+            <div class="input-group">
+              <!--<input type="text" class="search-query form-control" id="search-keywords" [(ngModel)]="searchText"
+                #SearchText="ngModel" placeholder="Search">-->
+              <ng-template #rtC let-r="result" let-t="term">
+                {{ r.fullName}}
+              </ng-template>
+              <input id="typeaheadUser" name="typeaheadUser" type="text" class="form-control input-height cm-input"
+                placeholder="Seach user" [(ngModel)]="SelectedUser" [ngbTypeahead]="searchUser" (selectItem)="selectedUser($event)"
+                 (click)="clickSearchUser$.next($event.target.value)"
+                #instance="ngbTypeahead" [resultTemplate]="rtC" [inputFormatter]="formatterUser" #typeaheadCountry="ngModel"
+                ngControl="typeaheadUser" />
+              <span class="input-group-btn">
+                <!-- <button class="btn btn-danger" type="button" (click)="searchActivityFeed()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button> -->
+                <button class="btn btn-danger" type="button" (click)="viewUserProfile()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <!-- <div id="search-results" class="hidden-xs" style="display: none;">
+            <div class="row">
+              <div class="col-sm-1">
+                <img class="user-photo" id="profile-photo" src="http://via.placeholder.com/30x30">
+              </div>
+              <div class="col-sm-4">
+                <a>First Lastname</a>
+              </div>
+              <div class="col-sm-4">
+                <a>Farm Name</a>
+              </div>
+              <div class="col-sm-2">
+                <em>Location</em>
+              </div>
+            </div>
+            <div class="row result">
+              <div class="col-sm-1">
+                <img class="user-photo" id="profile-photo" src="http://via.placeholder.com/30x30">
+              </div>
+              <div class="col-sm-4">
+                <a>First Lastname</a>
+              </div>
+              <div class="col-sm-4">
+                <a>Farm Name</a>
+              </div>
+              <div class="col-sm-2">
+                <em>Location</em>
+              </div>
+            </div>
+            <div class="row result">
+              <div class="col-sm-1">
+                <img class="user-photo" id="profile-photo" src="http://via.placeholder.com/30x30">
+              </div>
+              <div class="col-sm-4">
+                <a>First Lastname</a>
+              </div>
+              <div class="col-sm-4">
+                <a>Farm Name</a>
+              </div>
+              <div class="col-sm-2">
+                <em>Location</em>
+              </div>
+            </div>
+            <div class="row">
+              <hr>
+              <div class="col-sm-12 text-center">
+                <a href="javascript:;" id="all-search-results">All Results</a>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="status-box">
+            <img class="user-photo" *ngIf="userDet.UserImageUrl" [src]="userDet.UserImageUrl">
+            <h5 class="user-name"><a routerLink='/editprofile'>{{userDet.FirstName}} {{userDet.LastName}}</a></h5>
+            <ul class="status-box-user-info">
+              <li>{{userDet.FarmName}}</li>
+              <li id="followers"><a routerLink='/followers'>{{userDet.FollowerCount}} followers</a></li>
+              <li id="following"><a routerLink='/followers'>{{userDet.FollowingCount}} following</a></li>
+            </ul>
+
+            <!--Status Update Box-->
+            <form action="#" method="post" role="form" enctype="multipart/form-data" [formGroup]="postFormGroup">
+              <div>
+                <div class=" feed-panel-box" id="status-box">
+                  <div class="panel-body">
+                    <textarea name="postText" cols="40" formControlName="postText" rows="10" id="postText" class="form-control message"
+                      style="height: 62px; overflow: hidden;" placeholder="Share a status update."></textarea>
+
+                    <p class="invalid-feedback" *ngIf="postFormGroup.controls.postText.errors?.required && (postFormGroup.controls.postText.touched || isSubmitted)">Status
+                      is required</p>
+                    <!--Photo thumbnails appear here when user is posting photo updates-->
+
+                    <!--Individual photo thumnail, cropped square-->
+                    <div class="photo-post-thumbnails" *ngIf="!isPosted">
+                      <div class="photo-post-thumbnail" [style.background]="'url('+previewPhoto+')'">
+                        <i class="fa fa-times delete-photo" (click)="removePhoto()"></i>
+                      </div>
+                      <!-- <div class="photo-post-thumbnail" style="background-image: url('http://via.placeholder.com/600x800')">
+                      <i class="fa fa-times delete-photo"></i>
+                    </div>
+                    <div class="thumbnail-add-photo text-center">
+                     <i class="fa fa-plus add-photo-icon"></i>
+                   </div> -->
+                    </div>
+                  </div>
+                  <div class="panel-footer status-footer">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group update-status pull-right">
+                          <input type="submit" name="submit" value="Post" class="btn btn-sm pull-right" (click)="createPost()">
+                          <select name="privacy" class="form-control privacy-dropdown pull-right input-sm fw-normal" formControlName="IsPublicOrMutual">
+                            <!-- <option value="">Select</option> -->
+                            <option value="true">Public</option>
+                            <option value="false">Mutuals Only</option>
+                            <!-- <option value="false">Only me</option> -->
+                          </select>
+                          <span class="span5 btn btn-sm btn-file post-photo-update"><i class="fa fa-image" (click)="openfileDialogue($event)"></i>
+                            <input id="photoUpdate" type="file" name="fileData" size="1" style="display: none" (change)="onSelectedFileName($event)">
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <app-suggested-farmers></app-suggested-farmers>
+
+        <!--Followed farms udates-->
+        <div class="col-lg-8" *ngFor="let post of posts;">
+            <div class="shared-post" *ngFor="let share of post.PostShares">
+                {{share.sharedBy}} shared a post at {{share.sharedDateTime | date:'MM/dd/yyyy HH:mm'}}.<br>
+              </div>
+          <div class="post-box" >
+            <img class="post-author-photo pull-left" *ngIf="post.AuthorProfilePicUrl" [src]="post.AuthorProfilePicUrl">
+            <span class="post-author"><a href="javascript:;" (click)="viewUserProfile(post.AuthorUserId)">{{post.AuthorName}}</a></span>
+            <span class="post-timestamp">{{post.Timespan | date:'MMM dd, yyyy'}}</span>
+            <span class="post-author-farm"><a href="javascript:;">{{post.AuthorFarm}}</a></span>
+            <div class="post-content">
+              <span class="post-status">{{post.PostText}}</span>
+
+              <a *ngFor="let postImg of post.PostImages;" href="{{rootImgPath + postImg.FileName}}" data-lightbox="post-photo"
+                data-title="{{post.PostText}}">
+                <!-- <img class="post-photo" [src]="post.PostImageUrl"> -->
+                <img class="post-photo" [src]="rootImgPath + postImg.FileName">
+
+              </a>
+              <span class="post-likes"><a data-toggle="modal" data-target="#likes">{{post.Likes}} likes</a></span>
+              <span class="post-comments"><a class="show-comments">{{post.PostComments.length}} comments</a></span>
+              <hr>
+              <span class="like">
+                <a *ngIf="!post.IsLiked" class="like-button" [ngClass]="{'liked': post.IsLiked}" (click)="likeUnlikePost(post,true)"><i
+                    class="fa fa-thumbs-up" aria-hidden="true"></i>
+                  Like</a>
+                <a *ngIf="post.IsLiked" class="like-button liked" (click)="likeUnlikePost(post,false)"><i class="fa fa-thumbs-up"
+                    aria-hidden="true"></i>
+                  Liked</a>
+              </span>
+              <span class="comment">
+                <a class="comment-button" (click)="post.isCommentsShow = !post.isCommentsShow"><i class="fa fa-comment"
+                    aria-hidden="true"></i>
+                  Comment</a>
+              </span>
+              <span class="share" >
+                <a class="share-button" (click)="OpenSharePost(post)"><i class="fa fa-share" aria-hidden="true"></i>
+                  Share</a>
+              </span>
+              <span class="post-options"><i class="fa fa-flag"></i></span>
+              <div class="comments-section" [hidden]="!post.isCommentsShow">
+                <img class="user-photo" *ngIf="userDet.UserImageUrl" [src]="userDet.UserImageUrl">
+                <input type="text" [(ngModel)]="post.CommentText" placeholder="Add your comment" class="comment-box"
+                  #CommentText="ngModel" (keydown)="addComment(post,$event)">
+                <i class="fa fa-send-o cursor" aria-hidden="true" (click)="addComment(post,$event,true)"></i>
+
+                <div class="user-comment" *ngFor="let comment of post.PostComments;">
+                  <img src="http://via.placeholder.com/25x25">
+                  <span class="comment-name"><a>{{comment.Author}}</a></span>
+                  <span class="comment-timestamp pull-right">{{comment.TimeStamp | date:'MM/dd/yyyy HH:mm'}}</span>
+                  <span class="comment-body">{{comment.Comment}} </span>
+                  <br>
+                  
+                    <span class="like m-l-15">
+                        <a *ngIf="!comment.IsLiked" class="like-button" [ngClass]="{'liked': comment.IsLiked}" (click)="likeUnlikeComment(comment,true,post.Id)"><i
+                          class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        Like</a>
+                      <a *ngIf="comment.IsLiked" class="like-button liked" (click)="likeUnlikeComment(comment,false,post.Id)"><i class="fa fa-thumbs-up"
+                          aria-hidden="true"></i>
+                        Liked</a>
+                      </span>
+                      <span class="comment-likes">{{comment.Likes}} | Likes</span>
+                  <br>
+                  <!-- <span class="comment-reply"><a class="reply-button">Reply</a></span>
+                  |
+                  <span class="comment-likes"><a data-toggle="modal" data-target="#likes">{{comment.Likes}} likes</a></span>
+                  <span class="comment-replies"><a class="show-replies">1 reply</a></span>
+                  <div class="comments-section comment-reply">
+                    <img class="user-photo" src="http://via.placeholder.com/25x25">
+                    <input type="text" placeholder="Add your reply" class="comment-box">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="post-box">
+            <img class="post-author-photo pull-left" src="http://via.placeholder.com/30x30">
+            <span class="post-author"><a href="#">Arthur H Hoggett</a></span>
+            <span class="post-timestamp">2 hr</span>
+            <span class="post-author-farm"><a href="#">The Farm from Babe</a></span>
+            <div class="post-content">
+              <span class="post-status">
+                That'll do, pig.
+              </span>
+              <span class="post-likes"><a data-toggle="modal" data-target="#likes">101 likes</a></span>
+              <span class="post-comments"><a class="show-comments">2 comments</a></span>
+              <hr>
+              <span class="like">
+                <a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                  Like</a>
+              </span>
+              <span class="comment">
+                <a class="comment-button"><i class="fa fa-comment" aria-hidden="true"></i>
+                  Comment</a>
+              </span>
+              <span class="share">
+                <a class="share-button" data-toggle="modal" data-target="#share-post"><i class="fa fa-share" aria-hidden="true"></i>
+                  Share</a>
+              </span>
+              <span class="post-options"><i class="fa fa-flag"></i></span>
+  
+             
+              <div class="comments-section">
+                <img class="user-photo" src="http://via.placeholder.com/25x25">
+                <input type="text" placeholder="Add your comment" class="comment-box">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+  
+                <div class="user-comment"><img src="http://via.placeholder.com/25x25">
+                  <span class="comment-name"><a>Commenter Name</a></span>
+                  <span class="comment-timestamp pull-right">22 min</span>
+                  <span class="comment-body">This is a comment from another user! This is a comment from another user!
+                    This is a comment from another user! This is a comment from another user! </span>
+                  <br>
+                  <span class="comment-like"><a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      Like</a></span>
+                  <span class="comment-reply"><a class="reply-button">Reply</a></span>
+                  |
+                  <span class="comment-likes"><a data-toggle="modal" data-target="#likes">2 likes</a></span>
+                  <span class="comment-replies"><a class="show-replies">1 reply</a></span>
+                  <div class="comments-section comment-reply">
+                    <img class="user-photo" src="http://via.placeholder.com/25x25">
+                    <input type="text" placeholder="Add your reply" class="comment-box">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="replies">
+                  <div class="user-reply">
+                    <img class="user-photo" src="http://via.placeholder.com/25x25">
+                    <span class="comment-name"><a>Commenter Name</a></span>
+                    <span class="comment-timestamp pull-right">22 min</span>
+                    <span class="comment-body">This is a reply to a comment from another user! This is a reply to a
+                      comment from another user! This is a reply from a comment from another user! This is a reply to a
+                      comment from another user! </span>
+                    <br>
+                    <span class="comment-like"><a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        Like</a></span>
+                    <span class="comment-reply"><a class="reply-button">Reply</a></span>
+                    |
+                    <span class="comment-likes"><a data-toggle="modal" data-target="#likes">2 likes</a></span>
+                    <div class="comments-section comment-reply">
+                      <img class="user-photo" src="http://via.placeholder.com/25x25">
+                      <input type="text" placeholder="Add your reply" class="comment-box">
+                      <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+          <div class="shared-post">
+            <a href="isak.html">Isak Hamsun</a> shared a post.
+  
+          </div>
+          <div class="post-box">
+            <img class="post-author-photo pull-left" src="http://via.placeholder.com/30x30">
+            <span class="post-author"><a href="#">Guðbjartur Jónsson</a></span>
+            <span class="post-timestamp">24 mins</span>
+            <span class="post-author-farm"><a href="#">Summerhouses Farm</a></span>
+            <div class="post-content">
+              <span class="post-status">Presently the small of coffee began to fill the room. This was morning’s hallowed
+                moment. In such a fragrance the perversity of the world is forgotten, and the soul is inspired with faith
+                in the future…</span>
+              <a href="http://via.placeholder.com/1200x800" data-lightbox="shared-photo" data-title="The view from Summerhouses Farm this fine morning.">
+                <img class="post-photo" src="http://via.placeholder.com/400x200"></a>
+              <span class="post-likes"><a data-toggle="modal" data-target="#likes">12 likes</a></span>
+              <hr>
+              <span class="like">
+                <a class="like-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                  Like</a>
+              </span>
+              <span class="comment">
+                <a class="comment-button"><i class="fa fa-comment" aria-hidden="true"></i>
+                  Comment</a>
+              </span>
+              <span class="share">
+                <a class="share-button" data-toggle="modal" data-target="#share-post"><i class="fa fa-share" aria-hidden="true"></i>
+                  Share</a>
+              </span>
+              <a class="post-options">
+                <i class="fa fa-flag">
+  
+                </i>
+              </a>
+  
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container -->
+
+<!--Share this post modal-->
+<div id="share-post" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Share post</h4>
+        Share this post by publishing it on your activity feed?<br><br>
+        <button class="btn" (click)="SharePost()">Share this</button><br><br>
+        <!--Shared post content in following div-->
+        <div class="text-left">
+          <div class="post-box">
+              <img class="user-photo" *ngIf="userDet.UserImageUrl" [src]="userDet.UserImageUrl">
+            <!-- <img class="post-author-photo pull-left" src="http://via.placeholder.com/30x30" /> -->
+            <span class="post-author"><a href="#">{{sharepostmodel.AuthorName}}</a></span>
+            <span class="post-timestamp">{{sharepostmodel.Timespan | date:'MM/dd/yyyy HH:mm'}}</span>
+            <span class="post-author-farm"><a href="#">{{sharepostmodel.FarmName}}</a></span>
+            <div class="post-content">
+              <span class="post-status">
+                {{sharepostmodel.PostText}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

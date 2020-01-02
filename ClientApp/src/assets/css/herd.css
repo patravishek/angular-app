@@ -1,0 +1,168 @@
+/* Herd Styles */
+
+/* List and Grid View Toggles */
+
+
+  .list-group-item {
+    clear: both;
+    width: 100% !important;
+    padding: 20px;
+  }
+
+  .list-group-item .item-img {
+    display: none;
+  }
+
+  .grid-group-item {    
+    display: inline-block;
+    vertical-align: top !important;
+  }
+
+  .record-img {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .record-name {
+    display: inline;
+  }
+
+/* 
+  .record-edit {
+
+    margin-left: 10px;
+
+  } */
+
+  .item-img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    background-image: url("http://placehold.it/200x200");
+    position: relative;
+  }
+
+  .item-img:hover {
+    border: 3px solid rgb(245, 137, 31);
+    cursor: pointer;
+  }
+
+  .item-img-clicked {
+    border: 3px solid rgb(245, 137, 31);
+  }
+
+    .item-row-clicked {
+    border: 2px solid rgb(245, 137, 31) !important;
+  }
+
+  .listed-banner {
+    width: 50px;
+    background-color: white;
+    color: #f14b15; 
+    border: 1px solid #f14b15;
+    text-align: center;
+    float: left;
+  }
+
+  .private-banner {
+    width: 50px;
+    color: white;
+    background-color: lightgray;
+    text-align: center;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+    float: left;
+  }
+
+  .listed-banner, .private-banner {
+    font-size: .8em;
+    padding: 2px;
+  }
+
+  .sort {
+    background-color: rgba(0, 0, 0, 0.25);
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+
+  .sort:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .sort:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .livestock-description {
+    font-size: .75em;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .active a {
+    color: rgb(245, 137, 31);
+    text-decoration: none;
+  }
+
+  .inactive, .inactive a {
+    color: rgb(232, 232, 232);
+    text-decoration: none;
+  }
+
+  .shop-heading, .livestock-description {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+ .sorting-btns {
+  margin-bottom: 20px;
+
+ }
+
+ 
+
+  .animal-options-menu{
+  text-align: center;
+  padding-top: 10px;
+ }
+
+ .animal-options-btn, .select-all, .clear-all {
+    background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15;
+ }
+
+ .animal-options {
+  padding: 0;
+ }
+
+ .animal-options-btn {
+  float: right;
+ }
+
+ .optionsBtn-col {
+  margin-bottom: 20px;
+ }
+
+ .addRecBtn-col {
+  margin-right: 5px;
+ }
+
+.herd-btn {
+  background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15;
+}
+
+.herd-btn:hover {
+  background-color: #f14b15; 
+  color: white;
+}
+ 
+ #inactive {
+  display: none;
+ }
+
+ 

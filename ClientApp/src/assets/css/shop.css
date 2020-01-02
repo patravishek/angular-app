@@ -1,0 +1,141 @@
+/*Buy/Sell page*/
+.price {
+  font-size: 1.75em;
+  font-weight: bold;
+  color: #f14b15;
+}
+
+.shipping {
+  font-style: italic;
+  font-size: 1.1em;
+  padding-left: 10px;
+}
+
+.checkout-detail {
+  float: right;
+  padding-top: 10px;
+}
+
+.checkout-heading{
+  float:left;
+  clear: left;
+  padding-top: 10px;
+}
+
+.total {
+  color: #f14b15;
+  padding-bottom: 15px;
+}
+
+.checkout-box {
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.buy-now-btn, .place-bid-btn {
+  width: 100%;
+}
+
+.buy-now {
+  padding: 20px;
+}
+
+.contact-seller {
+  background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15 !important;
+  margin-bottom: 40px;
+}
+
+
+.seller-photo {
+  border-radius: 50%;
+  margin-right:5px;
+}
+
+.bid-amount {
+  text-align:right;
+  padding-top: 0px;
+  margin-top: 10px;
+}
+.ui-widget-header {
+  background: #f14b15;
+}
+
+#slider-range {
+  margin-bottom: 10px;
+}
+
+.auction-price {
+  font-size: 1.8em;
+  font-family: "Open Sans";
+  color: #f14b15;   
+  margin-left: 2px;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+.auction-info {
+  margin-bottom: 40px;
+}
+
+.product-name {
+  padding-left: 0px !important;
+}
+
+.product-options {
+  float: right;
+}
+
+.listed-banner {
+  margin-bottom: 10px;
+}
+
+  .product-options-menu{
+  padding-top: 10px;
+ }
+
+ .item-img {
+  margin-top: 5px;
+ }
+
+ /* Offers Styles */
+th {
+  color: #f14b15;   
+  font-family: "Open Sans";
+}
+
+td {
+  font-size: .8em;
+}
+
+#single-offer {
+  display: none;
+  margin-bottom: 20px;
+  padding-top: 50px;
+}
+
+.table {
+  margin-top: 10px;
+}
+
+
+.badge-important {
+  background: #f14b15  !important;;
+  color: white;
+}
+
+.shipping-details, .payment-details {
+  margin-bottom: 20px;
+}
+
+.shipping-details a:hover, .payment-details a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.shipping-address, .payment-method {
+  margin-bottom: 20px;
+}
+

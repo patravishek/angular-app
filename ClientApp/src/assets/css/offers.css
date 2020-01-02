@@ -1,0 +1,33 @@
+/* Offers Styles */
+th {
+  color: #f14b15;   
+  font-family: "Open Sans";
+}
+
+td {
+  font-size: .8em;
+}
+
+#single-offer {
+  display: none;
+  margin-bottom: 20px;
+  padding-top: 50px;
+}
+
+.table {
+  margin-top: 10px;
+}
+
+.badge {
+  background: rgba(0,0,0,0.1);
+  color: white;
+}
+
+.badge-important {
+  background: #f14b15  !important;;
+  color: white;
+}
+
+.card-img-top {
+  width: 100%;
+}

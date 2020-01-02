@@ -1,0 +1,381 @@
+<!-- <div id="wrapper" class="toggled"> -->
+
+<!-- Page Content -->
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top top-area">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb">
+            <a class="breadcrumb-item" href="#">Records</a>
+            <span class="breadcrumb-item active">Livestock</span>
+          </div>
+        </div>
+      </div>
+      <div class="row heading-row">
+        <div class="col-lg-6 header">
+          <h1 class="record-name active"><a>My Records</a> </h1>
+        </div>
+        <!-- end of row -->
+      </div>
+      <div class="row search-sort-row">
+        <div class="col-lg-2 addRecBtn-col">
+          <!--<div class = "col-xs-9 pull-right addRecBtn-col"> -->
+          <a class="btn pull-left txt-newRecord" id="add-records-btn" routerLink='/herd/AddEdit/0'>New Record</a>
+        </div>
+        <div class="col-lg-9 pull-right">
+          <form #HertManagementForm="ngForm" id="HertManagementForm" novalidate>
+            <div id="custom-search-input">
+              <div class="input-group">
+                <input type="text" class="search-input search-query form-control" id="search" name="search"
+                  placeholder="Search" [(ngModel)]="SearchModel.searchtxt" #search="ngModel" />
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="button" (click)="GetHerdRecordsList()">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-6 optionsBtn-col pull-left">
+          <!--<div class = "col-xs-3 addRecBtn-col">-->
+          <!-- Possible dropdown for options to apply to selected animals -->
+          <div id="bulkOptionsDiv">
+            <button class="btn btn-sm dropdown-toggle grey" type="button" id="dropdownMenuButton" data-toggle="collapse"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]="!isAnyHerdRecordSelected">
+              Bulk Options
+            </button>
+            <ul class="dropdown-menu scrollable-menu collapse cm-cursor" aria-labelledby="dropdownMenuButton">
+              <li class="cm-cursor"><a class="dropdown-item" data-toggle="modal" data-target="#healthIssues">Add Health
+                  Issue</a></li>
+              <li class="cm-cursor"><a class="dropdown-item" data-toggle="modal" data-target="#healthRecords">Add Health
+                  Record</a></li>
+              <li class="cm-cursor"><a class="dropdown-item" data-toggle="modal" data-target="#showRecords">Add Show
+                  Record</a></li>
+              <li class="cm-cursor"><a class="dropdown-item" data-toggle="modal" data-target="#breedRecords">Add Breed
+                  Record</a></li>
+              <li class="cm-cursor"><a class="dropdown-item delete-btn" href="#">Deceased</a></li>
+              <li class="cm-cursor"><a class="dropdown-item delete-btn" href="#">Delete</a></li>
+            </ul>
+          </div>
+
+          <button class="btn btn-sm select-all herd-btn" (click)="selectUnSelectAll(true)">All</button>
+          <button class="btn btn-sm clear-all herd=btn" (click)="selectUnSelectAll(false)">Clear</button>
+        </div>
+
+        <div class="col-lg-6 sorting-btns pull-right">
+          <!-- Toggle list and grid views-->
+          <div class="btn-group pull-right grid-or-list">
+              <a href="javascript:;" (click)="isListView = true" id="list" class="btn btn-default btn-sm"><i class="fa fa-list" aria-hidden="true"></i></a> 
+              <a href="javascript:;" (click)="isListView = false" id="grid" class="btn btn-default btn-sm"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+          </div>
+          <!-- Toggle to view of dead animals-->
+          <button class="btn btn-sm sort pull-right herd-btn" id="active">Living</button>
+          <button class="btn btn-sm sort pull-right herd-btn" id="inactive">Deceased</button>
+          <!-- Sort: List alphabetically by name-->
+          <button class="btn btn-sm sort pull-right" *ngIf="IsAsc" id="a-z_equipment"
+            (click)="Sorting('ASC')">A-Z</button>
+          <button class="btn btn-sm sort pull-right" *ngIf="!IsAsc" id="z-a_equipment"
+            (click)="Sorting('DESC')">Z-A</button>
+          <!-- Sort: List alphabetically by animal (Cow, horse, etc) and alphabetically by breed within animals-->
+          <button class="btn btn-sm sort pull-right" id="type">Type</button>
+
+          <!-- <p class="sort-validation">Please select a record.</p> -->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container item-img-container">
+        <div *ngFor="let item of HerdRecordList">
+            <div [ngClass]="{'list-group-item':isListView,'item-row-clicked': isListView && item.IsSelected}" class="item grid-group-item col-xs-6 col-sm-4 col-lg-3 item-img-col-xs" (click)="selectHerdRow(item)">
+                <div > 
+                  <!-- <img (click)="EditHertDetail(item)" class="item-img" [src]="rootImgPath + item.fileName"> -->
+                  <img [ngClass]="{'item-img-clicked': item.IsSelected}" (click)="selectHerdRecord(item)"  class="item-img"
+                    [src]="rootImgPath + item.fileName">
+                </div>
+                <div class="row">
+                  <div class="col-xs-8 col-sm-7 col-md-5 col-lg-6">
+                    <h6 class="record-name"><a>{{item.liveStockName}}</a></h6>
+                    <p class="livestock-description">{{item.liveStockDescription}}</p>
+                  </div>
+                  <div class="animal-options col-xs-2 col-sm-5 col-md-3 col-lg-3">
+        
+                    <button class="btn btn-sm dropdown-toggle animal-options-btn" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-double-down"></i></button>
+        
+                    <ul class="dropdown-menu dropdown-menu-right collapse animal-options-menu"
+                      aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item">Transfer</a></li>
+                      <li><a class="dropdown-item">Sell</a></li>
+                      <li><a class="dropdown-item" (click)="EditHertDetail(item)">Edit</a></li>
+        
+                      <li><a class="dropdown-item delete-btn" href="#">Deceased</a></li>
+                      <li><a class="dropdown-item delete-btn" href="#">Delete</a></li>
+                    </ul>
+        
+        
+                  </div>
+                </div>
+        
+                <div class="listed-banner" *ngIf="item.ispublic">Public</div>
+                <div class="private-banner" *ngIf="!item.ispublic">Private</div>
+              </div>
+
+        </div>
+     
+
+    </div>
+    <!-- Moved ending tags for #wrapper, #page-content-wrapper and .container-fluid here -->
+  </div>
+</div>
+<!-- </div> -->
+
+<!--Model Popup-->
+
+<!--Health Issue Popup-->
+<div id="healthIssues" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearHealthIssue()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health issue</h4>
+        <form name="healthIssuesForm" #healthIssuesForm="ngForm" id="healthIssuesForm" novalidate>
+          <div class="form-group">
+            <!-- <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled> -->
+
+            <br>
+            <textarea class="record-add profile-edit" placeholder="Description" id="healthDescription"
+              name="healthDescription" [(ngModel)]="heardHealthIssueModel.healthDescription"
+              #healthDescription="ngModel" required></textarea>
+            <label class="pull-left">Date:</label>
+            <br>
+            <input type="text" class="form-control record-edit livestock-info-select" name="healthDate"
+              #dp="bsDatepicker" readonly="readonly" bsDatepicker [bsConfig]="bsConfig" placeholder="MM/DD/YYYY"
+              [(ngModel)]="heardHealthIssueModel.healthDate" #healthDate="ngModel" required>
+            <span *ngIf="(healthDate.touched || isSubmitted) && healthDate.errors" class="text-danger">
+              Please select date</span>
+          </div>
+          <button type="submit" class="btn btn-default" (click)="saveHealthIssue(healthIssuesForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Health Issue Popup-->
+
+<div id="healthRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearHealtRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add health records</h4>
+        <form name="healthRecordForm" #healthRecordForm="ngForm" id="healthRecordForm" novalidate>
+          <div class="form-group">
+            <!-- <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled> -->
+            <br>
+
+            <!-- <label class="pull-left">Type:</label>
+            <select class="pull-left livestock-info-select" name="type" id="todo-type">
+              <option></option>
+              <option value="weight">Weight</option>
+              <option value="clipping">Toenail/hoof clipping</option>
+              <option value="shearing">Shearing</option>
+              <option value="injection" id="injection-selected">Injection</option>
+              <option value="other">Other</option>
+            </select> -->
+            <br>
+            <label class="pull-left">Date:</label>
+            <br>
+            <input type="text" class="record-edit livestock-info-select"
+            name="RecordDate" #recordDate="bsDatepicker" readonly="readonly" bsDatepicker
+            [bsConfig]="bsConfig" placeholder="MM/DD/YYYY" [(ngModel)]="heardHealthRecordModel.recordDate"
+            #recordDate="ngModel" required> <br>
+            <span *ngIf="(recordDate.touched || IsSubmitedHealthRecord) && recordDate.errors" class="text-danger">
+              Please select date</span>
+
+            <!-- <div id="medication">
+              <label class="pull-left">Medication Type:</label>
+              <select class="pull-left livestock-info-select" name="medication-type">
+                <option></option>
+                <option value="dectomax-injection">Dectomax injection</option>
+                <option value="dectomax-pouron">Dectomax pour on</option>
+                <option value="ivomec-injectable">Ivomec injectable</option>
+                <option value="ivomec-pouron">Ivomec pour on</option>
+                <option value="safeguard-paste">Safeguard paste</option>
+              </select>
+            </div>-->
+            <div class="spacer"></div> 
+
+            <textarea class="record-add profile-edit" name="healthRecordDescription" placeholder="Description"
+            [(ngModel)]="heardHealthRecordModel.healthRecordDescription"
+            #healthRecordDescription="ngModel" required></textarea>
+            <br>
+            <span *ngIf="(healthRecordDescription.touched || IsSubmitedHealthRecord) && healthRecordDescription.errors" class="text-danger">
+              Please enter description</span>
+            <br>
+            <label>Add reminder</label>
+            <label class="switch">
+              <input type="checkbox" id="reminder-checked" name="remainder"  [(ngModel)]="heardHealthRecordModel.remainder">
+              <span class="slider round"></span>
+            </label>
+            <!-- <div id="reminder">
+              <label>Due:</label>
+              <input type="radio" id="once-selected" name="repeat" value="once"> Once
+              <input type="radio" id="repeat-selected" name="repeat" value="repeat"> Repeated<br><br>
+
+              <div id="once">
+                <label>Due On:</label><input type="date" class="record-edit"><br>
+              </div>
+
+              <div id="repeated">
+                <label>Due every:</label>
+                <input type="number" id="todo-times" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select>
+                <label>for</label>
+                <input type="number" id="todo-frequency" class="record-edit">
+                <select class="livestock-info-select todo-select">
+                  <option>Days</option>
+                  <option>Months</option>
+                  <option>Years</option>
+                </select><br><br>
+                <label>Start date:</label>
+                <input type="date" class="record-edit">
+              </div>
+            </div> -->
+          </div>
+
+          <button type="submit" class="btn btn-default" (click)="saveHealthRecord(healthRecordForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="showRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearShowRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add show records</h4>
+        <form name="showrecordsForm" #showrecordsForm="ngForm" id="showrecordsForm" novalidate>
+          <div class="form-group">
+            <!-- <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled> -->
+            <br>
+            <label class="pull-left">Event:</label>
+            <input type="text" class="form-control" id="Event" name="event"
+            [(ngModel)]="heardHealthShowRecordModel.event" #event="ngModel" required>
+          <span *ngIf="(event.touched || isSubmittedShowRecord) && event.errors" class="text-danger">
+            Please enter Event</span>
+            <textarea class="record-add profile-edit" id="healthShowRecordachievement" name="healthShowRecordachievement"
+            [(ngModel)]="heardHealthShowRecordModel.healthShowRecordachievement" #healthShowRecordachievement="ngModel" required
+            placeholder="Achievement"></textarea>
+          <span *ngIf="(healthShowRecordachievement.touched || isSubmittedShowRecord) && healthShowRecordachievement.errors"
+            class="text-danger">
+            Please enter Achievement</span><br>
+            <label class="pull-left">Date</label>
+            <input type="text" class="form-control" name="showRecordDate" #showRecordDate="bsDatepicker" readonly="readonly" bsDatepicker
+              [bsConfig]="bsConfig" placeholder="MM/DD/YYYY" [(ngModel)]="heardHealthShowRecordModel.showRecordDate"
+              #showRecordDate="ngModel" required>
+
+              <span *ngIf="(showRecordDate.touched || isSubmittedShowRecord) && showRecordDate.errors"
+              class="text-danger">
+              Please select date</span>
+          </div>
+          <button type="submit" class="btn btn-default" (click)="saveShowRecord(showrecordsForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="breedRecords" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="ClearBreedRecord()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Add breeding records</h4>
+        <form #breedingrecordsForm="ngForm" id="breedingrecordsForm" novalidate>
+          <div class="form-group">
+            <!-- <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled> -->
+            <br>
+            <label class="pull-left">Date:</label>
+            <input type="text" class="form-control" name="breadDate" #breadDate="bsDatepicker"
+            readonly="readonly" bsDatepicker [bsConfig]="bsConfig" placeholder="MM/DD/YYYY"
+            [(ngModel)]="herdBreedRecordModel.breadDate" #breadDate="ngModel" required>
+          <span *ngIf="(breadDate.touched || isSubmittedbreedingrecords) && breadDate.errors"
+            class="text-danger">
+            Please select date</span>
+            <textarea class="record-add profile-edit"  placeholder="Description"
+              id="breadDescription" name="breadDescription"
+              [(ngModel)]="herdBreedRecordModel.breadDescription" #breadDescription="ngModel" required></textarea>
+
+            <span
+              *ngIf="(breadDescription.touched || isSubmittedbreedingrecords) && breadDescription.errors"
+              class="text-danger">
+              Please enter Description</span>
+          </div>
+          <button type="submit" class="btn btn-default" (click)="saveBreedingRecord(breedingrecordsForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div id="shareRecord" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Share Animal Record</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Animal Name" disabled>
+            <br>
+            <label class="pull-left">Share record with this email:</label>
+            <input type="email" class="record-edit">
+            <textarea class="record-add profile-edit" name="health-issue"
+              placeholder="Add an optional message"></textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!--End popup-->

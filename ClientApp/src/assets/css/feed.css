@@ -1,0 +1,754 @@
+@media (max-width:  690px) {
+  ul.status-box-user-info li{
+    display: block !important;
+    padding-left: 65px;
+    line-height: 1.5em;
+  }
+
+  .status-box > .user-photo {
+    margin-bottom: 0px;
+  }
+  
+}
+
+/* Activity Feed Styles*/
+
+#search-results {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+  z-index: 10;
+}
+
+a#all-search-results{
+  color: #f14b15 !important;
+  margin-top: 5px;
+}
+
+#result:hover{
+  background-color: rgba(0,0,0,0.1);
+}
+
+#search-results a{
+  color: black;
+}
+
+
+#search-results a:hover {
+  text-decoration: underline;
+}
+
+.search-result {
+  padding-top: 10px;
+}
+
+input.photoUpdate {
+display: none;
+
+}
+
+.facebook-share-box {
+  width: 100%;
+}
+.facebook-share-box .share {
+  -webkit-transition: 0.1s ease-out height;
+  -moz-transition: 0.1s ease-out height;
+  -ms-transition: 0.1s ease-out height;
+  -o-transition: 0.1s ease-out height;
+  transition: 0.1s ease-out height;
+  clear: both;
+  background: white;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+
+.facebook-share-box .post-types li a {
+  color: #085083;
+  text-decoration: none;
+}
+
+.facebook-share-box .post-types li a.active {
+  color: #404040;
+}
+
+.facebook-share-box .post-types {
+  padding-left: 5px;
+}
+
+.facebook-share-box ul {
+  list-style: none;
+  margin-bottom: 9px;
+}
+
+.facebook-share-box .post-types li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.message {
+  border-radius: 0;
+  border: none;
+}
+.panel {
+  border-radius: 0;
+  border: none;
+  margin-bottom: 0;
+}
+
+.privacy-dropdown {
+  width: 100px !important;
+  margin-right: 5px;
+}
+h1, h2, a{
+  color: #8f5441;
+}
+body {
+  font-family: "Lato", sans-serif !important;
+  position: relative;
+}
+.fw-normal{
+  font-weight: normal;
+}
+hr {
+  margin-bottom: 0 !important;
+  margin-top: .25rem !important;
+}
+.grey-background {
+  background-color: rgba(0,0,0,0.015) !important;
+}
+.suggestion-box-header {
+  background-color: rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+  clear: both;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.suggestion-box {
+  margin-bottom: 10px;
+
+}
+
+a.suggestion-name:hover {
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.mutedUser, .mutedUserDropdown {
+  color: white !important;
+  background-color: rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.blockedUser, .blockedUserDropdown {
+  background-color: darkred;
+  color: white;
+}
+
+.following-button, .followingUser, .followingUserDropdown {
+  background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15;
+  float: right;
+}
+
+.post-photo-update {
+  background-color: white;
+  color: #f14b15; 
+  border: 1px solid #f14b15;
+  margin-top: 0px;
+  margin-right: 5px;
+}
+
+.photo-album-modal {
+  width: 95%;
+}
+
+.photo-album-modal .modal-body {
+  height: 75vh;
+}
+
+.photo-album-modal .modal-footer {
+  border-top: none;
+}
+
+.album-uploads-container {
+  overflow-y: scroll;
+  height: 70vh;
+}
+
+.dropdown-toggle-split {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+}
+
+.fixed-box-right {
+  position: fixed;
+  right: 0px;
+  width: 33.333%;
+}
+
+.suggestion-box  button {
+  margin-right: 20px;
+}
+
+.user-photo {
+  border-radius: 25px;
+  margin-bottom: 10px;
+height: 50px;
+width:50px;
+}
+
+.user-name {
+  display: inline;
+  margin-left: 10px;
+}
+
+.album-thumbnail {
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position: center;
+  width: 400px;
+  height: 200px;
+  max-width: 100%;
+  display: inline-block;
+}
+
+.photo-post-thumbnail {
+  height: 100px;
+  width: 100px;
+  background-size:cover;
+  background-position:center;
+  display: inline-block;
+  margin: 5px;
+  vertical-align: top;
+}
+
+
+.photo-post-thumbnails{
+  display: block;
+}
+
+.delete-photo {
+  padding: 5px;
+  float:right;
+  color: rgba(0,0,0,0.2);
+}
+
+.delete-photo:hover {
+  cursor: pointer;
+}
+
+.thumbnail-add-photo {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(0,0,0,0.05);
+  display: inline-block;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.thumbnail-add-album-photo {
+  background-color: rgba(0,0,0,0.05);
+  display: inline-block;
+  margin: 5px;
+  vertical-align: top;
+  height: 175px;
+  width: 175px;
+}
+
+.thumbnail-add-album-photo i {
+  margin-top: 60px;
+  font-size: 4em;
+  color: rgba(0,0,0,0.3);
+}
+
+.thumbnail-add-photo i {
+  margin-top: 40px;
+  font-size: 2em;
+  color: rgba(0,0,0,0.3);
+}
+
+.photo-post-thumbnails {
+  display: none;
+}
+
+.thumbnail-add-photo:hover, .thumbnail-add-album-photo:hover{
+  cursor: pointer;
+}
+
+ul.status-box-user-info{
+  color:gray;
+  display: inline;
+
+}
+
+ul.status-box-user-info li {
+  list-style: none;
+  display: inline;
+  margin-right: 15px;
+}
+
+.status-heading, .status-footer {
+  background-color: #f2f3f4;
+}
+
+.update-status {
+  float: right !important;
+  padding-right: 5px;
+  margin-bottom: 0px;
+}
+
+#post-photo-update, #followingUser, #followingUserDropdown, .post-photo-dropdown, #mutedUserDropdown, #mutedUser {
+  margin-top: 0px;
+  background-color: white;
+  border: 1px solid #f14b15; 
+  color: #f14b15;  
+}
+
+#blockedUserDropdown, #blockedUser {
+  margin-top: 0px;
+  background-color: rgba(0,0,0,0.3);
+  color: white; 
+}
+
+
+
+#post-photo-update > i {
+  color:#f14b15;  
+}
+
+ul.suggestion {
+  list-style: none;
+  padding-left: 0;
+}
+
+.suggestion-photo {
+  margin-left: 20px;
+}
+
+.suggestion-location {
+  font-size: .8em;
+}
+
+
+
+@media (max-width:1199px){
+  .suggestion-name{
+    margin-left: 20px;
+  }
+  .suggestion-location {
+    margin-left: 20px;
+  }
+
+}
+
+.follow-button {
+  float: right;
+
+}
+
+.invite-friends {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.invite-form {
+  width: 75% !important ;
+  display: inline !important;
+  margin-top: 5px !important;
+}
+
+.invite-btn {
+  margin-top: 5px;
+  height: 36px;
+  float: right;
+
+}
+
+.post-like {
+  margin-bottom: 10px;
+}
+
+
+.liked, .shared {
+  color: #f14b15 !important;
+}
+
+.comment-button, .like-button, .share-button, .reply-button {
+  font-size: .9em;
+}
+
+.comments-section.comment-reply {
+  font-weight: normal;
+}
+
+.post-options {
+  float: right;
+  display:none;
+  color:#f14b15;
+
+}
+@media (hover: none) { 
+  .post-options {
+    display: inline-block;
+  }
+ }
+
+
+.post-photo, #comment-box {
+  max-width: 95%;
+}
+
+@media (max-width: 767px){
+  .post-content {
+    margin-right: 20px !important; 
+    margin-left: 20px !important;
+  }
+
+  .post-author-photo {
+    margin-left: 20px !important;
+  }
+}
+
+
+
+.post-photo-container {
+ width: 90%;
+ height: 90%;
+}
+.post-photo-container-horizontal {
+  height: 350px;
+  background-image: url('http://via.placeholder.com/1200x800');
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center; 
+}
+
+.post-photo-container-vertical {
+  height: 650px;
+  background-image: url('http://via.placeholder.com/800x1200');
+  background-repeat: no-repeat;
+  background-size: 90% 90%;
+  background-position: center; 
+}
+
+.photo-count {
+  display: block;
+}
+
+.post-photo-container-multiple {
+  width: 49%;
+  height: 300px;
+  background-image: url('http://via.placeholder.com/800x1200');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; 
+  display: inline-block;
+}
+
+@media (max-width: 600px){
+
+.post-photo-container-horizontal {
+  background-size: 100% 100%;
+  height: 200px;
+}
+
+.post-photo-container-vertical {
+  background-size: 100% 100%;
+  height: 350px;
+}
+.post-photo-container-multiple {
+  width: 100%;
+}
+}
+
+/* User and Farm Profile Page*/
+
+.refresh-suggestions {
+  margin-right: 20px;
+  color: #f14b15;
+}
+
+.profile-section {
+  display: inline;
+  margin-right: 10px;
+}
+
+h2.profile-section {
+  margin-bottom: 10px;
+}
+
+.inactive-btn {
+  background-color: rgba(0,0,0,0.2);
+}
+
+#user-location {
+  color: rgba(0,0,0,0.5);
+  margin-top: 5px;
+  font-size: 1.1em;
+}
+
+#user-location > i {
+  margin-right: 5px;
+}
+.spacer-sm {
+  margin-bottom: 10px;
+}
+
+#farm-logo {
+  margin-bottom: 10px;
+}
+
+#farm-profile, #farm-logo {
+  display: none;
+}
+
+.profile-item-title {
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.profile-item {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.arrow {
+  position: relative;
+  left: 300px;
+}
+
+.profile-box {
+  margin-top: 25px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  margin-right: 40px;
+}
+
+.profile-btn {
+  margin-right: 3px;
+}
+
+.album-photo {
+  margin: 5px;
+}
+
+.post-author-photo {
+  border-radius: 50%;
+  margin-left: 40px;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+}
+.own-profile {
+  width: 200px;
+  height: 200px;
+}
+.post-author {
+  font-weight: bold;
+}
+
+.post-author-farm {
+  display: block;
+  font-size: .9em;
+}
+
+.post-author-farm a {
+  color: gray;
+}
+
+.post-timestamp {
+  float: right;
+  color: lightgray;
+  margin-right: 40px;
+  font-size: .9em;
+}
+
+.post-content {
+  margin-top: 5px;
+  margin-left: 40px;
+  display: block;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin-right: 40px;
+
+}
+
+.post-photo {
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+.post-box {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post-likes, .post-comments {
+  font-size: .9em;
+  color: gray;
+  padding-right: 5px;
+
+}
+
+.comment-like a, .comment-reply a {
+  color: gray;
+}
+
+.comment-like a:hover, .comment-reply a:hover, .comment-likes a:hover, .comment-replies a:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.post-comments > a, .post-likes > a {
+  color: #f14b15 !important;
+}
+
+.post-comments > a:hover, .post-likes > a:hover, .like a:hover, .comment a:hover, .share a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+} 
+
+.delete-comment {
+  display: none;
+}
+
+.shared-post {
+  background-color: rgba(0,0,0,0.05);
+  border: 1px rgba(0,0,0,0.1);
+  padding: 10px;
+  padding-left: 15px;
+}
+
+.post-status {
+  display: block;
+}
+
+.like > a, .comment > a, .share > a{
+  color: gray !important;
+  margin-left: 15px;
+}
+
+a.like-button.liked{
+  color: #f14b15 !important;
+}
+a.share-button.shared{
+  color: #f14b15 !important;
+}
+
+.comments-section {
+  margin-top: 15px;
+  font-size: .9em;
+
+}
+
+.comment-box {
+  margin-left: 10px;
+  width: 90%;
+  padding: 0px !important;
+  max-width: 550px;
+}
+
+.user-comments {
+  display: block;
+  margin-bottom:15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.replies {
+  display: none;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.comment-timestamp {
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+.comment-name {
+  margin-left: 5px;
+}
+
+.comment-like, .comment-reply, .comment-name {
+  font-weight: bold !important;
+}
+
+.comment-like, .comment-reply {
+  margin-right: 5px;
+}
+
+.comment-body {
+  line-height: 12px;
+}
+
+#reply, #reply-box {
+  margin-left: 30px;
+}
+
+/* .comments-section, #reply, #reply-box {
+  display: none;
+} */
+
+.looking-for {
+    background-color: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 5px;
+    border-radius: 5%;
+}
+
+.looking-for-section {
+  margin-top: 15px;
+}
+
+.profile-album-thumbnail, .profile-photo-thumbnail {
+  width: 100%;
+  height: 150px;
+  background-image: url('http://via.placeholder.com/400x300');
+  background-size:cover;
+  background-position: center;
+  background-repeat:no-repeat;
+}
+
+
+.album-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-photo-grid .col {
+  padding: 2px;
+}
+
+#followers-link, #following-link {
+  font-size: 1.25em;
+  font-family: "Opens Sans", sans-serif;
+}
+
+#followers-link {
+  margin-right: 10px;
+}
+
+.delete-comment > a {
+  color: gray;
+}
+
+.dropdown-menu button {
+  background-color: #fbfbfb !important;
+}
+
+.m-l-15{
+  margin-left: 15px;
+}

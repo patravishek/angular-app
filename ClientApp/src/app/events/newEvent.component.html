@@ -1,0 +1,173 @@
+<!-- Page Content -->
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <div class="col-md-12">
+          <form [formGroup]="eventFormGroup">
+            <h1>New Event</h1>
+            <div class="col-md-12 text-center">
+
+              <h3>Event Photo</h3>
+              <!--Event Photo: please use the image uploaded by the user as the background image of the following div. If the user has not supplied a photo when they publish the event, use the square livestock city logo. background-image: url('../img/livestockcity-logo-square.png')-->
+              <div class="new-event" *ngIf="!previewPhoto"></div>
+              <div>
+                <input type="file" id="profile-photo-update" class="hidden" (change)="onSelectedFileName($event)" />
+                <image-cropper *ngIf="validImage" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                  [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                <button class="btn btn-sm" id="post-profile-photo-update mt-5" (click)="openFileDialogue($event)">Upload
+                  Photo</button>
+                <br>
+                <span>*Image is required for event</span>
+                <br>
+                <span>*Images that work with a square crop will look best!</span>
+              </div>
+              <div class="spacer"></div>
+            </div>
+            <div class="col-md-12">
+              <hr>
+              <span class="profile-item-section">Basic Info</span>
+            </div>
+            <div class="col-md-12">
+              <!--Event Name-->
+              <span class="profile-item-title">Event Name*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="ename" name="ename" [(ngModel)]="event.EventName">
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.ename.errors?.required && (eventFormGroup.controls.ename.touched || isSubmitted)">Event Name is required</p>
+            </div>
+            <div class="col-md-12">
+              <!--Event Headline-->
+              <span class="profile-item-title">Event Headline*
+                <i class="fa fa-question" data-toggle="tooltip" data-placement="top" title="Enter a brief description of your event here - this text will appear as a preview on the LivestockCity Events list"></i>
+              </span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="eventheadline" name="event-headline"
+                maxlength="140" name="eheadLine" [(ngModel)]="event.EventHeadline">
+                <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventheadline.errors?.required && (eventFormGroup.controls.eventheadline.touched || isSubmitted)">Event Headline is required</p>
+            </div>
+            <!--Event Date-->
+            <div class="col-md-12">
+              <span class="profile-item-title">Event Date*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="eventdate" name="bdate" #dp="bsDatepicker"
+                readonly="readonly" bsDatepicker [(ngModel)]="event.EventDate" [bsConfig]="bsConfig" placeholder="MM/DD/YYYY">
+                <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventdate.errors?.required && (eventFormGroup.controls.eventdate.touched || isSubmitted)">Event Date is required</p>
+              <!-- <input type="date" class="profile-edit profile-edit-privacy-toggle form-control" name="event-date"> -->
+            </div>
+            <!--Start Time-->
+            <div class="col-md-4">
+              <span class="profile-item-title">Start Time</span>
+              <input type="time" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="estart" name="estart" [(ngModel)]="event.EventStartTime">
+            </div>
+            <!--End Time-->
+            <div class="col-md-4">
+              <span class="profile-item-title">End Time</span>
+              <input type="time" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="eend" name="eend" [(ngModel)]="event.EventEndTime">
+            </div>
+            <!--Is this an all day event-->
+            <div class="col-md-4">
+              <span class="profile-item-title">All day event?</span>
+              <div class="checkbox">
+                <input type="checkbox" id="eallDay" name="eallDay" [(ngModel)]="event.AllDayEvent" formControlName="eallDay">
+                <label for="eallDay">All day event</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <hr>
+              <span class="profile-item-section">Location</span>
+            </div>
+            <!--Event Street Number-->
+            <div class="col-md-12">
+              <span class="profile-item-title">Street*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="street" formControlName="eventstreet" [(ngModel)]="event.EventStreet">
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventstreet.errors?.required && (eventFormGroup.controls.eventstreet.touched || isSubmitted)">Event Street is required</p>
+            </div>
+            <!--Event City-->
+            <div class="col-md-12">
+              <span class="profile-item-title">City*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="city" formControlName="eventcity"  [(ngModel)]="event.EventCity">
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventcity.errors?.required && (eventFormGroup.controls.eventcity.touched || isSubmitted)">Event City is required</p>
+            </div>
+            <!--Event State-->
+            <!-- <div class="col-md-12">
+              <span class="profile-item-title">State*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="eventstate" name="state" [(ngModel)]="event.EventState">
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventstate.errors?.required && (eventFormGroup.controls.eventstate.touched || isSubmitted)">Event City is required</p>
+            </div> -->
+            <div class="col-md-12" style="width:90%; margin-bottom:15px;">
+              <span class="profile-item-title">Country</span>
+              <select placeholder="Country" (change)="onChangeCountry()" formControlName="eventcountry" class="profile-edit profile-edit-privacy-toggle form-control"
+                name="country" id="Country" [(ngModel)]="eventDetails.EventCountry">
+                <option value="">Select Country</option>
+                <option *ngFor="let item of countryList" [value]="item.Name">
+                  {{item.Name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-12" style="width:90%; margin-bottom:15px;">
+              <span class="profile-item-title">State*</span>
+              <select placeholder="State" class="profile-edit profile-edit-privacy-toggle form-control"  formControlName="eventstate" name="state" [(ngModel)]="event.EventState">
+                <option value="">Select State</option>
+                <option *ngFor="let item of stateList" [value]="item.Name">
+                  {{item.Name}}
+                </option>
+              </select>
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventstate.errors?.required && (eventFormGroup.controls.eventstate.touched || isSubmitted)">Event State is required</p>
+            </div>
+            <!-- <div class="col-md-12">
+              <span class="profile-item-title">Country</span>
+              <select placeholder="Country" (change)="onChangeCountry()" class="profile-edit profile-edit-privacy-toggle form-control"
+                name="country" id="Country" [(ngModel)]="eventDetails.Country">
+                <option value="">Select Country</option>
+                <option *ngFor="let item of countryList" [value]="item.Name">
+                  {{item.Name}}
+                </option>
+              </select>
+            </div> -->
+            <!-- <div class="col-md-12">
+              <span class="profile-item-title">State*</span>
+              <select placeholder="State" class="profile-edit profile-edit-privacy-toggle form-control" name="state" [(ngModel)]="event.EventState">
+                <option value="">Select State</option>
+                <option *ngFor="let item of stateList" [value]="item.Name">
+                  {{item.Name}}
+                </option>
+              </select>
+            </div> -->
+            <!-- <div class="col-md-12">
+            <span class="profile-item-title">State</span>
+            <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" name="event-state">
+          </div> -->
+            <!--Event Zip-->
+            <div class="col-md-12">
+              <span class="profile-item-title">Zip*</span>
+              <input type="text" class="profile-edit profile-edit-privacy-toggle form-control" formControlName="eventzip" (keypress)="blockSpecialChar($event)"  name="zip" [(ngModel)]="event.EventZip">
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventzip.errors?.required && (eventFormGroup.controls.eventzip.touched || isSubmitted)">Event Zip is required</p>
+            </div>
+            <div class="col-md-12">
+              <hr>
+              <span class="profile-item-section">Details</span>
+            </div>
+            <!--Event Description-->
+            <div class="col-md-12">
+              <span class="profile-item-title">Event Description*</span>
+              <textarea class="profile-edit event-description"  name="description" formControlName="eventdescription" [(ngModel)]="event.EventDescription"></textarea>
+              <p class="invalid-feedback" *ngIf="eventFormGroup.controls.eventdescription.errors?.required && (eventFormGroup.controls.eventdescription.touched || isSubmitted)">Event Description is required</p>
+            </div>
+
+            <!--Post Event-->
+            <div class="col-md-12">
+              <div class="spacer"></div>
+              <button class="btn" (click)="saveEvent()">Post Event</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- /.container -->
+  </div>
+  <!-- /#page-content-wrapper -->
+</div>
+
+<!-- /#wrapper -->

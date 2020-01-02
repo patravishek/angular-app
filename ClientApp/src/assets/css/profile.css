@@ -1,0 +1,28 @@
+
+#farm-profile {
+  display: none;
+}
+
+.profile-item-title {
+  display: block;
+  font-family: "Open Sans";
+  margin-bottom: 5px;
+
+}
+
+.profile-note {
+  font-size: .75em;
+}
+
+.following-user-dropdown, .blocked-user-dropdown, .muted-user-dropdown {
+  display: none;
+}
+
+ .inactive, .inactive a {
+    color: rgb(0,0,0,0.4);
+    text-decoration: none;
+  }
+
+  .capitalize-word{
+    text-transform: capitalize;
+  }

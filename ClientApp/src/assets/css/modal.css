@@ -1,0 +1,36 @@
+  /*   Modal Styles   */
+  .modal-header > h4 {
+    display: inline;
+    margin: auto;
+  }
+
+  .modal-header {
+    background-color: transparent;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .modal-content {
+    text-align: center;
+
+  }
+
+  .item-photo {
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+
+  .cto {
+    color: #f14b15;   
+  }
+
+  button.close:hover {
+    background-color: white
+  }
+
+  /*Modal */
+#compose .modal-body {
+  padding-bottom: 40px;
+}

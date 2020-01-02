@@ -1,0 +1,143 @@
+<div id="page-content-wrapper">
+  <div class="container-fluid">
+      <div class="container top">
+          <div class="row">
+              <div class="col-md-8">
+
+                <div id="custom-search-input">
+                  <div class="input-group">
+                      <ng-template #rtC let-r="result" let-t="term">
+                          {{ r.fullName}}
+                        </ng-template>
+                      <input id="typeaheadUser" name="typeaheadUser" type="text" class="form-control input-height cm-input"
+                      placeholder="Seach user" [(ngModel)]="SelectedUser" [ngbTypeahead]="searchUser" (selectItem)="selectedUser($event)"
+                       (click)="clickSearchUser$.next($event.target.value)"
+                      #instance="ngbTypeahead" [resultTemplate]="rtC" [inputFormatter]="formatterUser" #typeaheadCountry="ngModel"
+                      ngControl="typeaheadUser" />
+                    <!-- <input type="text" class="search-query form-control" id="search-keywords" placeholder="Search"
+                    [(ngModel)]="searchText" #SearchText="ngModel"
+              placeholder="Search"/> -->
+              <span class="input-group-btn">
+                
+                <button class="btn btn-danger" type="button" (click)="viewUserProfile()">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
+                    <!-- <span class="input-group-btn">
+                      <button class="btn btn-danger" type="button" (click)="searchUser()">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                    <span class="input-group-btn" style="padding-left:5px">
+                        <button class="btn btn-danger" type="button" (click)="refreshList()">
+                          <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </button>
+                      </span> -->
+                  </div>
+                  
+                </div>
+
+                <ul class="nav nav-pills">
+                    <li class="active">
+                      <a href="#Followers" data-toggle="tab" (click)="GetFollowersList()">Followers</a>
+                    </li>
+                    <li>
+                      <a href="#Following" data-toggle="tab" (click)="GetFollowingList()">Following</a>
+                    </li>
+                  </ul>
+                  <hr class="pill-nav">
+                  <div class="tab-content clearfix">
+                      <!--Followers start-->
+                      <div class="tab-pane active" id="Followers">
+                          <div class="row search-result" *ngFor="let item of followrsList;">
+                              <div class="col-md-2 pull-left">
+                                <img class="user-photo cm-follower-profile-pic" [src]="item.userProfilePic" />
+                              </div>
+                              <div class="col-md-8">
+                                <ul class="suggestion">
+                                  <li>  <a class="suggestion-name" (click)="viewUserProfile(item.userId)">{{item.userFirstName}} {{item.userLastName}}</a> </li>
+                                  <li>  <span class="suggestion-name">{{item.farmerName}}</span> </li>
+                                  <li>  <span class="suggestion-location">{{item.city}} <span *ngIf="item.state">,{{item.state}}</span></span> </li> 
+                                </ul>
+                              </div>
+                              <div class="col-md-2">
+                                <!--FOLLOW USER SPLIT BUTTON-->
+                                <!-- <div class="btn-group pull-right follow-user-dropdown">
+                                  <a class="btn btn-sm followUser" type="button" style="color: #fff !important;">
+                                    Follow
+                                  </a>
+                                </div> -->
+                                <div class="btn-group pull-right follow-user-dropdown">
+                                    <!-- <button class="btn btn-sm followUser" (click)="folllowUnfollowUser(item)" style="color: #fff !important;">
+                                        Follow
+                                    </button> -->
+                                    <button style="color: #fff !important;" class="btn btn-sm followUser" (click)="folllowUnfollowUser(item,'Follow')" *ngIf="!item.isFollowed">
+                                      Follow
+                                    </button>
+                                    <button style="color: #fff !important;" class="btn btn-sm followUser" (click)="folllowUnfollowUser(item,'Unfollow')" *ngIf="item.isFollowed">
+                                        Unfollow
+                                      </button>
+
+                                    <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split followingUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid;" >
+                                      <i class="fa fa-chevron-down"></i>
+                                    </a>
+                                    <!-- <div class="dropdown-menu">
+                                      <a class="dropdown-item block-button" (click)="folllowUnfollowUser(item)">Block</a>
+                                    </div> -->
+                                  </div>
+                              </div>
+                              <hr>
+                            </div> 
+                            
+                      </div>
+                      <!--Followers End-->
+          
+                      <!--Following End-->
+                      <div class="tab-pane fade" id="Following">
+                          <div class="row search-result" *ngFor="let item of followingList;">
+                              <div class="col-md-2  pull-left">
+                                <img class="user-photo cm-follower-profile-pic" [src]="item.userProfilePic" />
+                              </div>
+                              <div class="col-md-8">
+                                <ul class="suggestion">
+                                    <li>  <a class="suggestion-name" (click)="viewUserProfile(item.userId)">{{item.userFirstName}} {{item.userLastName}}</a> </li>
+                                    <li>  <span class="suggestion-name">{{item.farmerName}}</span> </li>
+                                    <li>  <span class="suggestion-location">{{item.city}} <span *ngIf="item.state">,{{item.state}}</span></span> </li> 
+                                </ul>
+                              </div>
+                              <div class="col-md-2">
+                                <!--FOLLOW USER SPLIT BUTTON-->
+                                <!-- <div class="btn-group pull-right follow-user-dropdown">
+                                  <a class="btn btn-sm followUser" type="button" style="color: #fff !important;">
+                                    Following
+                                  </a>
+                                </div> -->
+                                <div class="btn-group pull-right follow-user-dropdown">
+                                    <a class="btn btn-sm followUser" type="button" (click)="folllowUnfollowUser(item,'Unfollow')" style="color: #fff !important;">
+                                      Following
+                                    </a>
+                                    <a type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split followingUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 1px solid;">
+                                      <i class="fa fa-chevron-down"></i>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item unfollow-button" (click)="folllowUnfollowUser(item,'Unfollow')">Unfollow</a>
+                                      <a class="dropdown-item mute-button" (click)="folllowUnfollowUser(item,'mute')">Mute</a>
+                                      <!-- <a class="dropdown-item block-button" (click)="folllowUnfollowUser(item)">Block</a> -->
+                                    </div>
+                                  </div>
+                              </div>
+                              <hr> 
+                            </div> 
+                           
+                      </div>
+                      <!--Following End-->
+          
+                  
+                    </div>
+
+              </div>
+              <app-suggested-farmers></app-suggested-farmers>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,284 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+      <div class="row">
+        <!--Product from a seller-->
+        <div class="col-lg-8 feed-panel-box">
+          <div class="profile-box">
+            <h3>Review Your Details</h3>
+            <div class="col-md-6 shipping-details">
+              <strong>SHIPPING</strong><br>
+              {{cartCheckoutModel.shippingDetails.firstName}} {{cartCheckoutModel.shippingDetails.lastName}}<br>
+              {{cartCheckoutModel.shippingDetails.address}}<br>
+              {{cartCheckoutModel.shippingDetails.state}}, {{cartCheckoutModel.shippingDetails.country}}
+              {{cartCheckoutModel.shippingDetails.zipCode}}<br>
+              <div>
+                <a data-toggle="modal" data-target="#newShipping">Change shipping</a>
+              </div>
+            </div>
+            <div class="col-md-6 payment-details">
+              <strong>PAYMENT</strong><br>
+              <div>
+                {{cartCheckoutModel.paymentDetails.paymentMethod}} {{cartCheckoutModel.paymentDetails.cardNumber}} <br>
+                <a data-toggle="modal" data-target="#newPayment">Change payment method</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Check out box-->
+        <div class="col-lg-4 hidden-md hidden-sm hidden-xs">
+          <div class="affix col-lg-3">
+            <!--Suggested farms box-->
+            <div class="col-lg-12 feed-panel-box">
+              <div class="suggestion-box">
+                <div class="suggestion-box-header">
+                  <h6>Check Out</h6>
+                </div>
+                <div class="checkout-box">
+                  <span class="checkout-heading">Subtotal</span>
+                  <span class="checkout-detail">${{cartCheckoutModel.checkoutDetails.subTotal}}</span>
+                  <span class="checkout-heading">Shipping:</span>
+                  <span class="checkout-detail">${{cartCheckoutModel.checkoutDetails.shippingCost}}</span>
+                  <span class="checkout-heading total"><strong>Total:</strong></span>
+                  <span
+                    class="checkout-detail total"><strong>${{cartCheckoutModel.checkoutDetails.total}}</strong></span>
+                </div>
+                <div class="buy-now">
+                  <button class="btn buy-now-btn">Place Order</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 feed-panel-box" *ngFor="let item of sellerInfoModel">
+          <div class="profile-box">
+            <h4>Seller Info</h4>
+            <div class="col-lg-6">
+              <img class="seller-photo pull-left" src="{{item.sellerImageUrl}}" />
+              <span class="post-author"><a href="javascript:;">{{item.sellerName}}</a></span>
+              <span class="post-author-farm"><a href="javascript:;">{{item.storeName}}</a></span>
+            </div>
+            <div class="col-lg-6">
+              <button class="btn btn-sm pull-right contact-seller" data-toggle="modal" data-target="#compose">Contact
+                Seller</button>
+              <span class="seller-location">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{item.location}}</span>
+            </div>
+            <div *ngFor="let product of item.productInfoModel;let i = index">
+              <h4 class="d-inline">{{product.productName}}</h4>
+              <i class="fa fa-print pull-right edit-records" aria-hidden="true"></i>
+              <i class="fa fa-envelope pull-right edit-records" data-toggle="modal" data-target="#shareRecord"
+                aria-hidden="true"></i>
+              <div class="row">
+                <div class="col-lg-4">
+                  <!-- Overview info - doesn't toggle -->
+                  <div class="record-profile-photo">
+                    <a href="{{product.bigImageUrl}}" data-lightbox="profile-photo">
+                      <img src="{{product.productImageUrl}}" id="record-photo" class="profile-photo" />
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <span class="price">${{product.price}}</span>
+                  <span class="shipping">{{product.shipping}}</span>
+                  <ul class="product-info">
+                    <li>
+                      <span>{{product.category}}</span></li>
+                    <div class="form-group">
+                      <label for="exampleSelect1">Select Quantity</label>
+                      <select class="form-control" id="exampleSelect1" name="prodQty_{{i}}" [(ngModel)]="product.qty">
+                        <option *ngFor="let qtyItem of qtyList" value="qtyItem">{{qtyItem}}</option>
+                      </select>
+                    </div>
+                  </ul>
+                  <a href="javascript:;">Remove</a>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+      <!--Display this checkout box on smaller screens-->
+      <div class="col-lg-8 feed-panel-box hidden-lg">
+        <div class="suggestion-box">
+          <div class="suggestion-box-header">
+            <h6>Check Out</h6>
+          </div>
+          <div class="profile-box">
+            <div class="checkout-box">
+              <span class="checkout-heading">How you're paying</span>
+              <span class="checkout-detail">{{cartCheckoutModel.paymentDetails.paymentMethod}}
+                {{cartCheckoutModel.paymentDetails.cardNumber}}</span>
+
+              <span class="checkout-heading">Subtotal</span>
+              <span class="checkout-detail">${{cartCheckoutModel.checkoutDetails.subTotal}}</span>
+              <span class="checkout-heading">Shipping:</span>
+              <span class="checkout-detail">${{cartCheckoutModel.checkoutDetails.shippingCost}}</span>
+              <span class="checkout-heading total"><strong>Total:</strong></span>
+              <span class="checkout-detail total"><strong>${{cartCheckoutModel.checkoutDetails.total}}</strong></span>
+            </div>
+            <div class="buy-now">
+              <a class="btn buy-now-btn">Place Order</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="newPayment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Update payment method</h4>
+        <!--Default shipping address-->
+        <div class="payment-method" *ngFor="let item of bankAccounts">
+          {{item.paymentMethod}} {{item.cardNumber}}<br>
+          {{item.account}}<br>
+          <button class="btn" (click)="pay(item)">Use this payment method</button>
+        </div>
+        <div class="form-group">
+          <label>Use a different payment method</label>
+        </div>
+        <!--Open Paypal window-->
+        <button type="submit" class="btn" (click)="payDifferent()"><i class="fa fa-paypal"></i>Connect via
+          Paypal</button>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="newShipping" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Update shipping address</h4>
+        <!--Default shipping address-->
+        <div class="shipping-address" *ngFor="let item of shippingAddresses">
+          {{item.firstname}} {{item.lastname}}<br>
+          {{item.address}}<br>
+          {{item.city}}, {{item.country}} {{item.zip}}<br>
+          <button class="btn" (click)="useAddress(item)">Use this address</button>
+        </div>
+        <form name="shippingAddressForm" #shippingAddressForm="ngForm" id="shippingAddressForm" novalidate>
+          <div class="form-group">
+            <label class="pull-left">Ship to new address: </label>
+            <input type="text" class="form-control w-100 profile-edit" placeholder="Street" id="street" name="street"
+              [(ngModel)]="shippingAddressModel.street" #street="ngModel" required>
+            <span *ngIf="(street.touched || isShippingAddressSubmitted) && street.errors" class="text-danger">
+              Please enter street</span>
+            <input type="text" class="form-control w-100 profile-edit" placeholder="City" id="city" name="city"
+              [(ngModel)]="shippingAddressModel.city" #city="ngModel" required>
+            <span *ngIf="(city.touched || isShippingAddressSubmitted) && city.errors" class="text-danger">
+              Please enter city</span>
+
+            <input type="text" class="form-control w-100 profile-edit" placeholder="State" id="state" name="state"
+              [(ngModel)]="shippingAddressModel.state" #state="ngModel" required>
+            <span *ngIf="(state.touched || isShippingAddressSubmitted) && state.errors" class="text-danger">
+              Please enter state</span>
+            <input type="text" class="form-control w-100 profile-edit" placeholder="Zip" id="zip" name="zip"
+              [(ngModel)]="shippingAddressModel.zip" #zip="ngModel" required>
+            <span *ngIf="(zip.touched || isShippingAddressSubmitted) && zip.errors" class="text-danger">
+              Please enter zip</span>
+          </div>
+          <br>
+          <button type="submit" class="btn" (click)="save(shippingAddressForm)">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="shareRecord" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4 class="cto">Share Product</h4>
+        <form>
+          <div class="form-group">
+            <input type="type" class="form-control record-edit" id="todo-animals" value="Product Name" disabled>
+            <br>
+            <label class="pull-left">Share product with this email:</label>
+            <input type="email" class="record-edit">
+            <textarea class="record-add profile-edit" placeholder="Add an optional message"></textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-default">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Compose message modal -->
+<div id="compose" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="cto">Compose Message</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form #composeMessageForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="pull-left">To:</label>
+            <input type="text" class="form-control" placeholder="Seller Name" disabled name="to"
+              [(ngModel)]="sellerModel.sellerName"><br><br>
+            <label class="pull-left">Message:</label>
+            <textarea id="sender-msg" name="senderMessage" [(ngModel)]="sellerModel.message" #senderMessage="ngModel"
+              required></textarea>
+            <p class="invalid-feedback"
+              *ngIf="senderMessage.errors?.required && (senderMessage.touched || isMessageSubmitted)">
+              Message is required</p>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="msg-btns">
+            <button class="btn btn-sm pull-right" id="send-btn" type="submit"
+              (click)="sendMessage(composeMessageForm)">Send</button>
+            <input type="file" class="photoUpdate" (change)="uploadFile($event)" />
+            <a class="btn btn-sm pull-right post-photo-update"><i class="fa fa-image"></i></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

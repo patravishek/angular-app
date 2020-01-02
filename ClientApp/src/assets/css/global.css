@@ -1,0 +1,503 @@
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+hr {
+  margin-bottom: 0;
+  margin-top: .25rem;
+}
+
+
+/* LivestockCity branding styles - sitewide*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", sans-serif !important;
+}
+
+h1, h2, a {
+  color: #f14b15;   
+}
+
+body {
+  font-family:"Lato", sans-serif;
+  position: relative;
+
+}
+
+
+
+.btn {
+  background-color: #f14b15 !important;   
+  color: white !important;
+
+}
+
+.btn-secondary {
+  border: none;
+}
+
+.btn-dark {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  border: none;
+}
+
+.d-inline {
+  display: inline;
+}
+
+.d-inline-block {
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.container::before, div.container::after  {
+  content: none;
+}
+
+.round-photo {
+  border-radius: 50%;
+}
+
+.gray {
+  background-color: rgba(0,0,0,.03);
+}
+
+#delete {
+  color: gray;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+
+}
+
+.disabled-input {
+  background-color: rgba(0,0,0,0.1);
+}
+
+hr.pill-nav {
+  margin-top: 0px;
+}
+
+.navbar-toggle {
+  border: 2px solid #f14b15; 
+}
+
+button.navbar-toggle {
+  margin-top: 40px;
+  background-color: transparent;
+}
+
+button.navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-toggle .icon-bar {
+  position: relative;
+  transition: all 500ms ease-in-out;
+  background-color: #f14b15;
+}
+
+#livestock-logo {
+  width: 150px;
+}
+
+.checkbox {
+  margin-left: 40px;
+}
+
+
+#page-content-wrapper {
+  padding-top: 125px;
+  padding-bottom: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.grey-background {
+  background-color: rgba(0,0,0,0.015);
+}
+
+
+
+.form-control {
+  display: inline;
+}
+
+.tooltip-inner {
+    min-width: 200px;
+}
+
+.breadcrumb {
+  width: 94.8%;
+}
+
+a:hover {
+ color: #f14b15 !important;
+ text-decoration: none !important;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+  padding: 10px;
+}
+
+/*Button Styles*/
+
+button {
+  background-color: #f14b15;   
+  color: white;
+  margin-top: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f14b15;
+  color: white;
+}
+
+.checkbox:hover {
+  cursor: pointer;
+}
+
+img#profile-photo {
+  width: 200px;
+  height: 200px;
+}
+.top {
+  margin-top: 10px;
+}
+
+.breadcrumb a, .list-group-item a{
+  color: gray;
+}
+.ml-5{
+  margin-left: 5px !important;
+}
+
+#custom-search-input {    
+  width: 100%;
+  margin-right: 0px;
+  margin-bottom: 20px;
+  min-width: 300px;
+}
+
+.search-sort-row{
+  white-space: nowrap;
+
+}
+
+#custom-search-input button {
+  padding:7px;
+  margin-top: 0;
+  background-color: #f14b15; 
+  border: none;
+}
+
+input#search-keywords:focus {
+  border: 1px solid #ea8937;
+  box-shadow: none;
+}
+
+
+
+.search-query:focus + button {
+  z-index: 3;   
+}
+
+.input-group-btn {
+  margin-bottom: 20px;
+  z-index: 4;
+}
+
+.spacer h1 {
+  color: #f14b15;   
+}
+
+.spacer {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+
+  .breadcrumb {
+    width: 100%;
+  }
+
+
+}
+
+
+@media (max-width: 486px) {
+
+
+  #custom-search-input {
+    width: 108%;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* feed-panel-box is now used throughout the site.*/
+.feed-panel-box {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 0px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+
+#photoUpdate, #upload-profile-photo {
+ width: 0px;
+ height: 0px;
+ overflow: hidden;
+}
+
+a#upload-profile-photo-btn:hover {
+  cursor: pointer;
+}
+
+#no-padding-bottom {
+  padding-bottom: 0px;
+}
+
+textarea, textarea.compose-msg {
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+  resize: none;
+}
+
+.textarea.compose-msg {
+  font-size: 16px;
+}
+
+th {
+  color: #f14b15;   
+  font-family: "Open Sans";
+}
+
+td {
+  font-size: .8em;
+}
+
+.nav>li>a {
+  padding: 5px 10px;
+}
+
+/*Dashboard page style changes*/
+
+
+@media (max-width:  690px) {
+  ul.status-box-user-info li{
+    display: block !important;
+    padding-left: 65px;
+    line-height: 1.5em;
+  }
+
+  .status-box > .user-photo {
+    margin-bottom: 0px;
+  }
+  
+}
+
+@media (max-width: 499px) {
+  .nav-pills > li{
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .to-do {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+
+
+  .breadcrumb {
+    width: 100%;
+  }
+
+  .desktop-nav-menu {
+    display: none;
+  }
+
+}
+
+@media (max-width: 484px){
+  .item-img-col-xs {
+    padding: 0px;
+  }
+
+  .grid-group-item {
+    text-align: center;
+  }
+
+  .item-img {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .listed-banner {
+    margin: 0 auto;
+  }
+
+  .private-banner {
+    margin: 0 auto;
+  } 
+
+}
+
+
+@media (min-width: 992px) {
+  .two-user-chat, .group-chat {
+    width: 49%;
+  }
+}
+
+@media (max-width: 990px) {
+  .main-nav {
+    display: none;
+  }
+  #homepage-nav {
+    display: inline;
+    float: right !important;
+    margin-right: 30px;
+  }
+
+  .homepage-nav-item {
+    display: inline;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+}
+
+@media (min-width: 991px) {
+  .hamburger-menu {
+    display: none;
+  }
+}
+
+
+@media (min-width: 0px) {
+  #sidebar-wrapper {
+    display: none;
+  }
+}
+
+@media (min-width: 1366px) {
+  #sidebar-wrapper {
+    display: block;
+  }
+
+  
+}
+
+@media (max-width: 838px) {
+  .navbar-brand {
+    margin-left: 1.5em;
+  }
+}
+
+@media (max-width: 486px) {
+  .heading-row {
+    text-align: center;
+  }
+
+  .search-sort-row {
+    text-align: center;
+  }
+
+  #custom-search-input {
+    width: 108%;
+  }
+}
+
+@media (max-width: 768px) {
+  .optionsBtn-col {
+    text-align: center;
+  }
+
+  .addRecBtn-col {
+    text-align: center;
+  }
+
+  #dropdownMenuButton {
+    width: 100%
+  }
+
+}
+
+@media (max-width: 1200px) {
+
+
+
+  #livestock-logo {
+    width: 100px;
+    margin-top: 20px;
+  }
+  
+
+}
+
+@media screen and (max-width: 991px) {
+  #add-records-btn {
+    margin: 4.5px 0px 0px 0px;
+  }
+
+
+}
+
+@media screen and (max-width: 484px) {
+.listed-banner, .private-banner {
+  float: none !important
+}
+
+}
+
+@media screen and (max-width: 1199px) {
+#add-records-btn{
+  margin-bottom: 10px;
+}
+}
+
+/*Loading spinner*/
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+  position: fixed;
+  left: 0px;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  vertical-align: center;
+  text-align: center;
+  color: #f14b15;
+}
+
+ngb-typeahead-window#ngb-typeahead-0 {
+width: 100%;
+}
+.mt-5{
+margin-top: 5px !important;
+}
+.dropdown-item {
+width: 100%;
+text-align: left;
+}

@@ -1,0 +1,165 @@
+<div id="page-content-wrapper" class="grey-background">
+  <div class="container-fluid">
+    <!-- Page Content -->
+    <div class="container top">
+
+
+      <!-- /.col-lg-3 
+            This is here to push the message column to the right to avoid the fixed position list group. I don't think this is the right way of doing it but couldn't figure out how to correctly use bootstrap's offset classes....help appreciated-->
+
+      <div class="col-md-10 col-md-offset-2">
+        <!--Search Box-->
+      </div>
+
+      <!--Select all-->
+
+      <div class="hidden-lg hidden-md">
+        <a id="mailboxes-button"> <i class="fa fa-chevron-left"></i>Mailboxes</a><br>
+        <button class="btn" id="new-msg-button" data-toggle="modal" data-target="#compose">New Message</button>
+      </div>
+
+      <!--One on one chat display-->
+      <div class="col-md-6 pull-right feed-panel-box" [hidden]="!openMessageDetails">
+        <!--Back to list view of inbox-->
+        <a (click)="closeMessageDetails(user)"><i class="fa fa-window-close pull-right collapse-chat"></i></a>
+        <!--Message-->
+        <div>
+          <div class="spacer"></div>
+          <div class="row">
+            <div class="col-sm-2">
+              <img class="sender-photo" src="http://via.placeholder.com/50x50" />
+            </div>
+            <div class="col-sm-10">
+
+              <span><a>{{selectedUserDetails.fullName}}</a></span>
+              <span class="online-status"><i class="fa fa-circle"></i></span><br>
+              <span>{{selectedUserDetails.farmerName}}</span>
+              <a class="pull-right dropdown-toggle message-settings-dropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cog"></i>
+              </a>
+              <div class="dropdown-menu pull-right">
+                <!--To mark as unread, add .unread-message to the list-group-item displaying the chat preview-->
+                <a class="dropdown-item" href="#">Mark as unread</a>
+                <a class="dropdown-item" href="#">Favorite</a>
+                <a class="dropdown-item" href="#">Archive</a>
+                <a class="dropdown-item delete-btn" href="#">Delete</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 msg-body">
+              <hr>
+              <div class="spacer"></div>
+              <div *ngFor="let messages of userMessageList; let i = index">
+                <div class="message-received" [hidden]="messages.fromUserID == Loginuserid">
+                  {{messages.message}}
+                </div>
+                <!-- <div class="message-received-timestamp" [hidden]="messages.fromUserID == Loginuserid">{{messages.createdOn | date:'MMM dd, yyyy'}}</div> -->
+                <div class="message-sent" [hidden]="messages.fromUserID != Loginuserid">
+                  {{messages.message}}
+                </div>
+              </div>
+              <!-- <div class="message-sent-timestamp" [hidden]="messages.fromUserID != Loginuserid">{{messages.createdOn | date:'MMM dd, yyyy'}}</div> -->
+
+              <!--Show read receipt if user sent last message in chat. Show fa-check-circle if message was read, fa-long-arrow-left if unread -->
+              <div class="read-receipt-chat pull-right"><i class="fa fa-check-circle" aria-hidden="true"></i></div>
+            </div>
+          </div>
+          <!-- Response-->
+          <form [formGroup]="MessageDetails">
+            <textarea class="compose-msg" formControlName="Message"></textarea>
+          </form>
+          <div>
+            <input type="file" class="photoUpdate" />
+            <button class="btn btn-sm pull-right" id="send-btn" (click)="sendMessageFromDetails()">Send</button>
+            <button class="btn btn-sm pull-right post-photo-update"><i class="fa fa-image"></i></button>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="col-md-offset-2 msg-inbox"
+        [ngClass]="{'col-lg-10': !openMessageDetails, 'col-md-4': openMessageDetails}">
+        <!--Search chats-->
+
+        <div id="custom-search-input">
+          <div class="input-group">
+            <input type="text" class="search-query form-control" placeholder="Search chats" />
+            <span class="input-group-btn">
+              <button class="btn btn-danger" type="button">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+
+        </div>
+
+        <!--Message-->
+        <div class="feed-panel-box inbox-collapsed">
+          <a id="inbox-list" class="list-group-item list-group-item-action two-user-chat-preview"
+            *ngFor="let user of userList; let i = index" (click)="selectUser(user)">
+            <span class="msg-sender">{{user.fullName}}</span>
+            <span class="online-status" *ngIf="user.isOnline"><i class="fa fa-circle"></i></span>
+            <span class="msg-date">{{user.lastUpdationTimeString}}</span>
+            <span class="msg-preview">{{user.farmerName}}</span>
+          </a>
+          <!--End of row-->
+
+        </div>
+      </div>
+      <!-- /message col -->
+
+      <div class="col-lg-2 col-md-2 inbox-page-menu page-menu hidden-sm hidden-xs affix">
+        <div id="hide-mobile">
+          <button class="btn" data-toggle="modal" data-target="#compose">New Message</button>
+          <h2 id="messages-header">Messages</h2>
+        </div>
+        <div class="list-group-sm mailbox-categories">
+          <a href="#" id="inbox-button" class="list-group-item">All</a>
+          <a href="#" class="list-group-item">Unread</a>
+          <a href="#" class="list-group-item">Favorited</a>
+          <a href="#" class="list-group-item">Archived</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div id="compose" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="cto">Compose Message</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="MessageDetails">
+          <div class="form-group">
+            <label class="pull-left">To:</label>
+            <ng-template #rtC let-r="result" let-t="term">
+              {{ r.fullName}}
+            </ng-template>
+            <input id="typeaheadUser" name="typeaheadUser" type="text" class="form-control input-height cm-input"
+              placeholder="Seach user" [ngbTypeahead]="searchUser" (selectItem)="selectedUser($event)"
+              (click)="clickSearchUser$.next($event.target.value)" #instance="ngbTypeahead" [resultTemplate]="rtC"
+              [inputFormatter]="formatterUser" ngControl="typeaheadUser" formControlName="selectedUser" />
+            <label class="pull-left">Message:</label>
+            <textarea id="sender-msg" formControlName="Message"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <div class="msg-btns">
+              <button class="btn btn-sm pull-right" id="send-btn" (click)="sendMessage()">Send</button>
+              <input type="file" class="photoUpdate" />
+              <a class="btn btn-sm pull-right post-photo-update"><i class="fa fa-image"></i></a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>

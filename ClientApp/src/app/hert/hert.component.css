@@ -1,0 +1,15 @@
+.search-input{
+    border-color: #f14b15;
+}
+
+.grid-or-list{
+    margin:0px !important;
+}
+
+.txt-newRecord{
+    color: #fff !important;
+}
+
+.cm-cursor{
+    cursor: pointer !important;
+}

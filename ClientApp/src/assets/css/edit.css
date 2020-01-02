@@ -1,0 +1,188 @@
+@media (max-width: 499px) {
+  .nav-pills > li{
+    width: 100%;
+  }
+}
+
+/* Edit Profile Styles */
+#profile-edit-success, #profile-edit-fail {
+  display: none;
+}
+
+button#save-profile-edits {
+  margin-bottom: 10px;
+}
+
+#animal-types-list > ul{
+  list-style: none;
+  padding-left: 10px;
+}
+
+input[type=checkbox] + label {
+  color: #ccc;
+  font-style: italic;
+} 
+input[type=checkbox]:checked + label {
+  color: black;
+  font-style: normal;
+} 
+
+.w-100{
+  width: 100% !important;
+}
+input.profile-edit {
+  width: 90%;
+}
+
+input.profile-edit, input.record-edit {
+  height: 30px;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.015);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.03);
+  margin-bottom: 25px;
+}
+textarea.profile-edit {
+   background: rgba(0,0,0,0.015);
+   box-shadow: inset 0 0 2px rgba(0,0,0,0.03);
+   width: 90%;
+   margin-bottom: 25px;
+}
+
+.profile-item-section {
+  font-size: .75em;
+  text-transform: uppercase;
+  color: gray;
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.social-link {
+  font-size: 24px;
+  color: gray;
+  margin-top: 5px;
+  margin-right: 5px;
+}  
+
+.social-link:hover {
+  cursor: pointer;
+}
+
+#connect-paypal {
+  margin-bottom: 10px;
+  background-color: #3b7bbf;
+  font-size: .9em;
+}  
+
+.fa-paypal {
+  color: white;
+  margin-right: 5px;
+}  
+
+.privacy {
+  color: gray
+}
+
+.privacy-private {
+  display: none;
+}
+
+.fa-eye-slash {
+  display: none;
+}
+
+
+input.profile-edit:focus, textarea#sender-msg:focus, textarea#contact-msg:focus, input#sender:focus, input#sender-email:focus  {
+  border: 1px solid #f14b15;   
+  box-shadow: none;
+}
+
+.profile-item-title {
+  text-transform: uppercase;
+  display: block;
+}
+
+.profile-item {
+  display: block;
+  margin-bottom: 30px;
+}
+
+textarea.record-add {
+  resize: vertical !important;
+}
+
+.livestock-info-select {
+  margin-bottom: 5px;
+  height: 20px;
+  background: rgba(0,0,0,0.015);
+  padding-left: 10px;
+  border: 1px solid rgba(0,0,0,0.05);
+  width: 100%;
+  height: 30px;
+}
+
+.livestock-info-select.todo-select {
+  width: auto !important;
+}
+
+#todo-frequency, #todo-times {
+  width: 25% !important;
+}
+
+.photo-post-thumbnail {
+  height: 75px;
+  width: 75px;
+  background-size:cover;
+  background-position:center;
+  display: inline-block;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.record-photo-placeholder {
+  height: 75px;
+  width: 75px;
+}
+
+.add-record-photo {
+  padding: 40%;
+  color: rgba(0,0,0,0.1);
+}
+
+.delete-record-photo, .delete-record-profile-photo {
+  padding: 5px;
+  float:right;
+  color: rgba(0,0,0,0.2);
+}
+
+.delete-record-photo:hover, .delete-record-profile-photo:hover {
+  cursor: pointer;
+}
+
+.record-profile-photo-placeholder {
+  width: 150px;
+  height: 150px;
+  font-size: 2em;
+}
+
+.record-profile-photo-placeholder, .record-photo-placeholder {
+  background: rgba(0,0,0,0.015);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+}
+
+input.photoUpdate {
+display: none;
+
+}
+
+.record-photo-placeholder:hover, .record-profile-photo-placeholder:hover {
+  cursor: pointer;
+}
+
+.record-profile-photo.photo-post-thumbnail{
+  width: 150px;
+  height: 150px;
+}
